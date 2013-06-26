@@ -35,7 +35,8 @@ HEADERS  += mainwindow.h \
     databaseeditdialog.h \
     timebar.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    timebar.ui
 
 RESOURCES += \
     recources.qrc

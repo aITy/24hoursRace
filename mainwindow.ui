@@ -6,23 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>684</width>
+    <height>551</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="TimeBar" name="widget" native="true">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>170</y>
-      <width>120</width>
-      <height>80</height>
+      <x>220</x>
+      <y>0</y>
+      <width>191</width>
+      <height>491</height>
      </rect>
     </property>
+    <layout class="QVBoxLayout" name="middleLayout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -30,7 +31,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>684</width>
      <height>21</height>
     </rect>
    </property>
@@ -43,17 +44,9 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="myStatusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>TimeBar</class>
-   <extends>QWidget</extends>
-   <header>timebar.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
