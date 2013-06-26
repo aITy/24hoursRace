@@ -1,1 +1,8 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>RadioSpace.ttf</file>
+        <file>RadioSpace-Bold.ttf</file>
+        <file>RadioSpace-BoldItalic.ttf</file>
+        <file>RadioSpace-Italic.ttf</file>
+    </qresource>
+</RCC>

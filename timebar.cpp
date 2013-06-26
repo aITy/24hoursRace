@@ -6,6 +6,9 @@ TimeBar::TimeBar(QWidget *parent) :
 {
 
     setupUi(this);
+    label_H->setFont(QFont("Radio Space", 20));
+    label_M->setFont(QFont("Radio Space", 20));
+    label_S->setFont(QFont("Radio Space", 20));
     countdown = new QTimer(this);
     countdown->setInterval(1000);
     countdown->setSingleShot(false);
