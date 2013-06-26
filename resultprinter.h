@@ -1,10 +1,18 @@
 #ifndef RESULTPRINTER_H
 #define RESULTPRINTER_H
 
-class ResultPrinter
+#include <QObject>
+
+class ResultPrinter : public QObject
 {
+    Q_OBJECT
 public:
-    ResultPrinter();
+    explicit ResultPrinter(QObject *parent = 0);
+
+signals:
+
+public slots:
+
 };
 
 #endif // RESULTPRINTER_H
