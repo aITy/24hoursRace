@@ -6,9 +6,7 @@ TimeBar::TimeBar(QWidget *parent) :
 {
 
     setupUi(this);
-    label_H->setFont(QFont("Radio Space", 20));
-    label_M->setFont(QFont("Radio Space", 20));
-    label_S->setFont(QFont("Radio Space", 20));
+    setFont(QFont("Radio Space", 20));
     countdown = new QTimer(this);
     countdown->setInterval(1000);
     countdown->setSingleShot(false);
@@ -41,6 +39,7 @@ void TimeBar::showTime()
             label_M->setText(QString("0%1").arg(minutes));
         else
             label_M->setText(QString::number(minutes));
+
         if (seconds < 10)
             label_S->setText(QString("0%1").arg(seconds));
         else
