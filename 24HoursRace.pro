@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,22 +17,25 @@ SOURCES += main.cpp\
     xmlhandler.cpp \
     resultprinter.cpp \
     bestroundbar.cpp \
-    timebar.cpp \
     cmdlinebar.cpp \
     barcodehandler.cpp \
     setttingsdialog.cpp \
     team.cpp \
-    databaseeditdialog.cpp
+    databaseeditdialog.cpp \
+    timebar.cpp
 
 HEADERS  += mainwindow.h \
     xmlhandler.h \
     resultprinter.h \
     bestroundbar.h \
-    timebar.h \
     cmdlinebar.h \
     barcodehandler.h \
     setttingsdialog.h \
     team.h \
-    databaseeditdialog.h
+    databaseeditdialog.h \
+    timebar.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    recources.qrc
