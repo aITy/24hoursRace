@@ -37,12 +37,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(684, 551);
+        MainWindow->resize(795, 650);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayoutWidget = new QWidget(centralWidget);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(220, 0, 191, 491));
+        verticalLayoutWidget->setGeometry(QRect(260, 0, 261, 611));
         middleLayout = new QVBoxLayout(verticalLayoutWidget);
         middleLayout->setSpacing(6);
         middleLayout->setContentsMargins(11, 11, 11, 11);
@@ -51,7 +51,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 684, 21));
+        menuBar->setGeometry(QRect(0, 0, 795, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

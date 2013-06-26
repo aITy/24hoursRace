@@ -6,7 +6,8 @@ TimeBar::TimeBar(QWidget *parent) :
 {
 
     setupUi(this);
-    setFont(QFont("Radio Space", 20));
+    //setFont(QFont("Radio Space", 22));
+    //label->setFont(QFont("Radio Space Bold", 12));
     countdown = new QTimer(this);
     countdown->setInterval(1000);
     countdown->setSingleShot(false);
@@ -45,7 +46,7 @@ void TimeBar::showTime()
         else
             label_S->setText(QString::number(seconds));
 
-        MainWindow::getInstance()->setStatusMsg(QString("%1:%2:%3").arg(hours).arg(minutes).arg(seconds).toStdString().c_str());
+        //MainWindow::getInstance()->setStatusMsg(QString("%1:%2:%3").arg(hours).arg(minutes).arg(seconds).toStdString().c_str());
         if (ms <=0) //If timeout
         {
             countdown->stop(); //Stop the timer

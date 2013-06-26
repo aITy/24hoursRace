@@ -27,35 +27,71 @@ public:
     QLabel *label_S;
     QLabel *label_4;
     QLabel *label_5;
+    QLabel *label;
 
     void setupUi(QWidget *TimeBarWidget)
     {
         if (TimeBarWidget->objectName().isEmpty())
             TimeBarWidget->setObjectName(QStringLiteral("TimeBarWidget"));
-        TimeBarWidget->resize(160, 216);
-        TimeBarWidget->setStyleSheet(QStringLiteral(""));
+        TimeBarWidget->resize(220, 130);
+        TimeBarWidget->setMinimumSize(QSize(220, 130));
+        TimeBarWidget->setMaximumSize(QSize(220, 130));
+        QFont font;
+        font.setFamily(QStringLiteral("Radio Space Bold"));
+        font.setBold(false);
+        font.setWeight(50);
+        TimeBarWidget->setFont(font);
+        TimeBarWidget->setAutoFillBackground(false);
+        TimeBarWidget->setStyleSheet(QStringLiteral("background-color: black"));
         label_H = new QLabel(TimeBarWidget);
         label_H->setObjectName(QStringLiteral("label_H"));
-        label_H->setGeometry(QRect(0, 70, 41, 61));
+        label_H->setGeometry(QRect(10, 10, 60, 80));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Radio Space Bold"));
+        font1.setPointSize(32);
+        font1.setBold(true);
+        font1.setWeight(75);
+        label_H->setFont(font1);
+        label_H->setStyleSheet(QStringLiteral("color: white;"));
         label_H->setAlignment(Qt::AlignCenter);
         label_M = new QLabel(TimeBarWidget);
         label_M->setObjectName(QStringLiteral("label_M"));
-        label_M->setGeometry(QRect(60, 70, 41, 61));
+        label_M->setGeometry(QRect(80, 10, 60, 80));
+        label_M->setFont(font1);
+        label_M->setAutoFillBackground(false);
+        label_M->setStyleSheet(QStringLiteral("color: white;"));
         label_M->setAlignment(Qt::AlignCenter);
         label_S = new QLabel(TimeBarWidget);
         label_S->setObjectName(QStringLiteral("label_S"));
-        label_S->setGeometry(QRect(120, 70, 41, 61));
+        label_S->setGeometry(QRect(150, 10, 60, 80));
+        label_S->setFont(font1);
+        label_S->setStyleSheet(QStringLiteral("color: white;"));
         label_S->setAlignment(Qt::AlignCenter);
         label_4 = new QLabel(TimeBarWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(40, 70, 16, 61));
+        label_4->setGeometry(QRect(70, 10, 10, 80));
+        label_4->setFont(font1);
+        label_4->setStyleSheet(QStringLiteral("color: white;"));
         label_4->setInputMethodHints(Qt::ImhNone);
         label_4->setAlignment(Qt::AlignCenter);
         label_5 = new QLabel(TimeBarWidget);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(100, 70, 16, 61));
+        label_5->setGeometry(QRect(140, 10, 10, 80));
+        label_5->setFont(font1);
+        label_5->setStyleSheet(QStringLiteral("color: white;"));
         label_5->setInputMethodHints(Qt::ImhNone);
         label_5->setAlignment(Qt::AlignCenter);
+        label = new QLabel(TimeBarWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(10, 80, 200, 30));
+        QFont font2;
+        font2.setFamily(QStringLiteral("Radio Space Bold"));
+        font2.setPointSize(13);
+        font2.setBold(true);
+        font2.setWeight(75);
+        label->setFont(font2);
+        label->setStyleSheet(QStringLiteral("color: white;"));
+        label->setAlignment(Qt::AlignCenter);
 
         retranslateUi(TimeBarWidget);
 
@@ -70,6 +106,7 @@ public:
         label_S->setText(QString());
         label_4->setText(QApplication::translate("TimeBarWidget", ":", 0));
         label_5->setText(QApplication::translate("TimeBarWidget", ":", 0));
+        label->setText(QApplication::translate("TimeBarWidget", "CAS DO KONCE ZAVODU", 0));
     } // retranslateUi
 
 };
