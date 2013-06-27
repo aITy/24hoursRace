@@ -11,6 +11,8 @@ class TeamManager : public QObject
     Q_OBJECT
 public:
     explicit TeamManager(QObject *parent = 0);
+    void addRound(QList<int>);
+    void addRound(const QString &);
     QPair< QString, QPair< int, int> > getBestRound();
     QPair< QString, QPair< int, int> > getLastRound();
     QList<Team *> getTeamOrder();
@@ -21,6 +23,7 @@ private:
     QList<Team*> teams;
     TimeBar * timebar;
     int last_round_team_ind;
+    QList<QPair< Team*, QPair<int, int> > > rounds;
 signals:
     
 public slots:

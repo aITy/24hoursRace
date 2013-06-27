@@ -9,6 +9,32 @@ TeamManager::TeamManager(QObject *parent) :
     timebar = MainWindow::getInstance()->getTimeBarPtr();
 }
 
+void TeamManager::addRound(QList<int> barcode)
+{
+
+    for(int i = 0; i < teams.size(); i++) {
+        if (teams.at(i)->getBarcode() == barcode) {
+
+
+
+            break;
+        }
+    }
+
+}
+
+void TeamManager::addRound(const QString & name)
+{
+
+    for(int i = 0; i < teams.size(); i++) {
+        if (teams.at(i)->getName() == name) {
+
+
+            break;
+        }
+    }
+}
+
 QPair<QString, QPair<int, int> > TeamManager::getBestRound()
 {
     if (teams.empty())
@@ -27,7 +53,10 @@ QPair<QString, QPair<int, int> > TeamManager::getBestRound()
 
 QPair<QString, QPair<int, int> > TeamManager::getLastRound()
 {
+    QString name = rounds.last().first->getName();
+    QPair<int, int> round = rounds.last().second;
 
+    return QPair<QString, QPair<int, int> >(name, round);
 }
 
 QList<Team *> TeamManager::getTeamOrder()

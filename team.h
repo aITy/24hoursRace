@@ -22,6 +22,9 @@ public:
     void changeBarcode(QList<int>);
     void changeName(const QString &);
     QString getName() { return name; }
+    QList<int> getBarcode() { return barcode; }
+    void setRoundStart() { /*settings->getRaceTime()*/ }
+    int getRoundStart() { return round_start; }
 
 private:
     QString name;
@@ -29,6 +32,7 @@ private:
     QList<QString> racers;
     // list of time in ms and current position at the moment
     QList< QPair<int, int> > rounds;
+    int round_start;
 
 signals:
     
