@@ -12,6 +12,7 @@ class TimeBar : public QWidget, Ui::TimeBarWidget
     Q_OBJECT
 public:
     explicit TimeBar(QWidget *parent = 0);
+    int getCurrentTime() { return ms; }
 
 private:
     QTimer * countdown;

@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     setttingsdialog.cpp \
     team.cpp \
     databaseeditdialog.cpp \
-    timebar.cpp
+    timebar.cpp \
+    teammanager.cpp
 
 HEADERS  += mainwindow.h \
     xmlhandler.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h \
     setttingsdialog.h \
     team.h \
     databaseeditdialog.h \
-    timebar.h
+    timebar.h \
+    teammanager.h
 
 FORMS    += mainwindow.ui \
     timebar.ui

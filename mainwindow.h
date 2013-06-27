@@ -5,6 +5,8 @@
 #include <QCoreApplication>
 #include "ui_mainwindow.h"
 
+class TimeBar;
+
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
     Q_OBJECT
@@ -18,9 +20,11 @@ public:
     }
 
     void setStatusMsg(const char *);
+    TimeBar* getTimeBarPtr() { return timebar; }
 
 private:
     static MainWindow * instance;
+    TimeBar * timebar;
 };
 
 #endif // MAINWINDOW_H

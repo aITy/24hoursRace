@@ -11,13 +11,14 @@ MainWindow::MainWindow(QWidget *parent) :
     setupUi(this);
     //middleLayout->setAlignment(Qt::AlignCenter);
 
-    TimeBar * time_bar = new TimeBar();
-    middleLayout->addWidget(time_bar);
+    timebar = new TimeBar();
+    middleLayout->addWidget(timebar);
 }
 
 MainWindow::~MainWindow()
 {
-
+    if (timebar)
+        delete timebar;
 }
 
 void MainWindow::setStatusMsg(const char * msg) {
