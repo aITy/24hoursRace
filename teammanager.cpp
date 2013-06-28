@@ -46,8 +46,8 @@ QPair<QString, QPair<int, int> > TeamManager::getBestRound()
             ind = i;
         }
     }
-    QPair<int, int> best_round = teams.at(i)->getBestRound();
-    QString best_round_team = teams.at(i)->getName();
+    QPair<int, int> best_round = teams.at(ind)->getBestRound();
+    QString best_round_team = teams.at(ind)->getName();
     return QPair< QString, QPair <int, int> >(best_round_team, best_round);
 }
 
