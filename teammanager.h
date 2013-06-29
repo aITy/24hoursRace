@@ -29,8 +29,31 @@ public:
     QList<Team *> getTeamOrderByBestTime();
     QList<Team *> getTeamOrderByRounds();
 
-    void printRounds();
-    void printRoundsByTeam();
+    // bool = true - DESC
+    void sortByRounds(bool);
+    void sortByTime(bool);
+
+    bool sortByRoundsDesc(Team * s1, Team * s2) {
+         return s1->getTotalRounds() < s2->getTotalRounds();
+    }
+
+    bool sortByRoundsAsc(Team * s1, Team * s2) {
+         return s1->getTotalRounds() > s2->getTotalRounds();
+    }
+
+    bool sortByTimeDesc(Team * s1, Team * s2) {
+         return s1->getBestRound() < s2->getBestRound();
+    }
+
+    bool sortByTimeAsc(Team * s1, Team * s2) {
+         return s1->getBestRound() > s2->getBestRound();
+    }
+
+
+    // DEBUGGING FUNCTIONS
+    void printRounds(); // TODO - DELETE
+    void printRoundsByTeam(); // TODO - DELETE
+
 
 private:
     QList<Team *> teams;

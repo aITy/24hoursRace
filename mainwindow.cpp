@@ -3,7 +3,9 @@
 #include "teammanager.h"
 #include "team.h"
 #include "cmdlinebar.h"
+#include "resultprinter.h"
 #include <QDebug>
+#include <QMessageBox>
 
 MainWindow * MainWindow::instance = NULL;
 
@@ -12,11 +14,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     instance = this;
     setupUi(this);
+    setWindowTitle(qApp->applicationName());
     connect(action_Start, SIGNAL(triggered()), this, SLOT(run()));
 
     timebar = new TimeBar();
     manager = new TeamManager(timebar);
     cmdline = new CmdLineBar();
+    printer = new ResultPrinter();
 
     middleLayout->addWidget(timebar);
     middleLayout->addWidget(cmdline);
@@ -41,6 +45,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::setStatusMsg(const char * msg) {
     myStatusBar->showMessage(QString(msg), 2500);
+}
+
+void MainWindow::closeEvent(QCloseEvent * event) {
+        QMessageBox::StandardButton choice;
+        choice = QMessageBox::question(this,
+                trUtf8("Opravdu ukoncit?"),
+                trUtf8("Opravdu chcete ukoncit aplikaci '%1'?<br><b>Neulozene zmeny budou ztraceny!</b>").arg(qApp->applicationName()),
+                QMessageBox::Yes | QMessageBox::No,
+                QMessageBox::No);
+
+        if (choice == QMessageBox::Yes)
+                event->accept();
+        else
+                event->ignore();
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)

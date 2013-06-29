@@ -2,6 +2,7 @@
 #include "timebar.h"
 #include "mainwindow.h"
 #include <QDebug>
+#include <algorithm>
 
 TeamManager::TeamManager(QWidget *parent)
     :QWidget(parent)
@@ -126,16 +127,29 @@ QList<Team *> TeamManager::getTeams()
     return teams;
 }
 
-QList<Team *> TeamManager::getTeamOrderByBestTime()
+
+void TeamManager::sortByRounds(bool order)
 {
-    // DESC sort by time
-    return teams;
+    if (order) {
+        // DESC
+        //qSort(teams.begin(), teams.end(), sortByRoundsDesc);
+    }
+    else {
+        // ASC
+        //qSort(teams.begin(), teams.end(), sortByRoundsAsc);
+    }
 }
 
-QList<Team *> TeamManager::getTeamOrderByRounds()
+void TeamManager::sortByTime(bool order)
 {
-    // DESC sort by rounds count
-    return teams;
+    if (order) {
+        // DESC
+        //qSort(teams.begin(), teams.end(), sortByTimeDesc);
+    }
+    else {
+        // ASC
+        //qSort(teams.begin(), teams.end(), sortByTimeAsc);
+    }
 }
 
 void TeamManager::printRounds()

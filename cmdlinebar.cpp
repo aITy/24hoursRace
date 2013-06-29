@@ -42,7 +42,7 @@ void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
 
     // CTRL + T - tisk or P - print
     if ((event->key() == Qt::Key_T || event->key() == Qt::Key_P) && (event->modifiers() == Qt::ControlModifier)) {
-        // print database
+        // print database - show dialog how to print - ASC/DESC and byTime/byRounds && call resultprinter
 
     }
     // CTRL + Z - zaloha or S - save to
