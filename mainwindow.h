@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QCoreApplication>
+#include <QKeyEvent>
 #include "ui_mainwindow.h"
 
 class TeamManager;
@@ -31,6 +32,10 @@ private:
     TimeBar * timebar;
     TeamManager * manager;
     CmdLineBar * cmdline;
+
+protected:
+    void mousePressEvent(QMouseEvent *event);
+    virtual void keyReleaseEvent(QKeyEvent *event);
 
 public slots:
 

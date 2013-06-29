@@ -13,7 +13,7 @@ CmdLineBar::CmdLineBar(QWidget *parent) :
 
 void CmdLineBar::keyPressEvent(QKeyEvent *event)
 {
-    qDebug() << "key pressed - " << event->key();
+    Q_UNUSED(event);
 }
 
 void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
@@ -23,6 +23,9 @@ void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
     }
     if (event->key() == 16777220) {
         QString str = lineEdit->text();
+        if (str == "")
+            return;
+
         lineEdit->setText("");
         QRegExp rx("\\D");
         if (str.contains(rx)) {
@@ -35,6 +38,21 @@ void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
                 MainWindow::getInstance()->getTeamManager()->addRound(barcode);
             }
         }
+    }
+
+    // CTRL + T - tisk or P - print
+    if ((event->key() == Qt::Key_T || event->key() == Qt::Key_P) && (event->modifiers() == Qt::ControlModifier)) {
+        // print database
+
+    }
+    // CTRL + Z - zaloha or S - save to
+    if ((event->key() == Qt::Key_Z || event->key() == Qt::Key_S) && (event->modifiers() == Qt::ControlModifier)) {
+        // save database to
+
+    }
+
+    if (event->key() == Qt::Key_Escape) {
+        MainWindow::getInstance()->setFocus();
     }
 }
 

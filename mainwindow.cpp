@@ -3,6 +3,7 @@
 #include "teammanager.h"
 #include "team.h"
 #include "cmdlinebar.h"
+#include <QDebug>
 
 MainWindow * MainWindow::instance = NULL;
 
@@ -29,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     manager->addTeam("jirin", barcode1);
     manager->addTeam("venca", barcode2);
+    setFocus();
 }
 
 MainWindow::~MainWindow()
@@ -39,6 +41,27 @@ MainWindow::~MainWindow()
 
 void MainWindow::setStatusMsg(const char * msg) {
     myStatusBar->showMessage(QString(msg), 2500);
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    setFocus();
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    // CTRL + T - tisk or P - print
+    if ((event->key() == Qt::Key_T || event->key() == Qt::Key_P) && (event->modifiers() == Qt::ControlModifier)) {
+        // print database
+        qDebug() << "CTRL + T || CTRL + P pressed";
+    }
+    // CTRL + Z - zaloha or S - save to
+    if ((event->key() == Qt::Key_Z || event->key() == Qt::Key_S) && (event->modifiers() == Qt::ControlModifier)) {
+        // save database to
+        qDebug() << "CTRL + Z || CTRL + S pressed";
+    }
+
 }
 
 void MainWindow::run()
