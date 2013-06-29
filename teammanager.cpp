@@ -132,11 +132,11 @@ void TeamManager::sortByRounds(bool order)
 {
     if (order) {
         // DESC
-        //qSort(teams.begin(), teams.end(), sortByRoundsDesc);
+        qSort(teams.begin(), teams.end(), sortByRoundsDesc);
     }
     else {
         // ASC
-        //qSort(teams.begin(), teams.end(), sortByRoundsAsc);
+        qSort(teams.begin(), teams.end(), sortByRoundsAsc);
     }
 }
 
@@ -144,13 +144,15 @@ void TeamManager::sortByTime(bool order)
 {
     if (order) {
         // DESC
-        //qSort(teams.begin(), teams.end(), sortByTimeDesc);
+        qSort(teams.begin(), teams.end(), sortByTimeDesc);
     }
     else {
         // ASC
-        //qSort(teams.begin(), teams.end(), sortByTimeAsc);
+        qSort(teams.begin(), teams.end(), sortByTimeAsc);
     }
 }
+
+
 
 void TeamManager::printRounds()
 {

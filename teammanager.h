@@ -33,19 +33,19 @@ public:
     void sortByRounds(bool);
     void sortByTime(bool);
 
-    bool sortByRoundsDesc(Team * s1, Team * s2) {
+    static bool sortByRoundsDesc(Team * s1, Team * s2) {
          return s1->getTotalRounds() < s2->getTotalRounds();
     }
 
-    bool sortByRoundsAsc(Team * s1, Team * s2) {
+    static bool sortByRoundsAsc(Team * s1, Team * s2) {
          return s1->getTotalRounds() > s2->getTotalRounds();
     }
 
-    bool sortByTimeDesc(Team * s1, Team * s2) {
+    static bool sortByTimeDesc(Team * s1, Team * s2) {
          return s1->getBestRound() < s2->getBestRound();
     }
 
-    bool sortByTimeAsc(Team * s1, Team * s2) {
+    static bool sortByTimeAsc(Team * s1, Team * s2) {
          return s1->getBestRound() > s2->getBestRound();
     }
 
