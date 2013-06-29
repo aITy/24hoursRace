@@ -1,8 +1,8 @@
 #include "timebar.h"
 #include "mainwindow.h"
 
-TimeBar::TimeBar(QWidget *parent) :
-    QWidget(parent)
+TimeBar::TimeBar(QWidget *parent)
+    :QWidget(parent)
 {
 
     setupUi(this);
@@ -12,8 +12,9 @@ TimeBar::TimeBar(QWidget *parent) :
     countdown->setInterval(1000);
     countdown->setSingleShot(false);
     connect(countdown, SIGNAL(timeout()), this, SLOT(showTime()));
-    ms = 24 * 3600 * 1000;
-    countdown->start();
+    // change to settable - implement method to settings
+    ms = total_time = 24 * 3600 * 1000;
+    running = false;
 }
 
 void TimeBar::showTime()
@@ -61,3 +62,9 @@ void TimeBar::showTime()
     }
 }
 
+
+void TimeBar::run()
+{
+    countdown->start();
+    running = true;
+}

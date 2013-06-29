@@ -13,10 +13,15 @@ class TimeBar : public QWidget, Ui::TimeBarWidget
 public:
     explicit TimeBar(QWidget *parent = 0);
     int getCurrentTime() { return ms; }
+    int getTotalTime() { return total_time; }
+    void run();
+    bool isRunning() { return running; }
 
 private:
     QTimer * countdown;
     int ms;
+    int total_time;
+    bool running;
 signals:
     
 public slots:

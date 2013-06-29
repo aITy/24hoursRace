@@ -1,27 +1,55 @@
 #include "team.h"
+#include "mainwindow.h"
+#include "timebar.h"
 
-Team::Team(QObject *parent) :
+Team::Team(QObject * parent) :
     QObject(parent)
 {
+    name = "";
+    round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
 }
 
-QPair<int, int> Team::getLastRound()
+Team::Team(const QString & new_name, QObject * parent)
+    :name(new_name), QObject(parent)
+{
+    round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
+}
+
+Team::Team(const QString & new_name, QList<int> new_barcode, QObject * parent)
+    :name(new_name), barcode(new_barcode), QObject(parent)
+{
+    round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
+}
+
+Team::Team(const QString & new_name, QList<QString> new_racers, QObject * parent)
+    :name(new_name), racers(new_racers), QObject(parent)
+{
+    round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
+}
+
+Team::Team(const QString & new_name, QList<int> new_barcode, QList<QString> new_racers, QObject * parent)
+    :name(new_name), barcode(new_barcode), racers(new_racers), QObject(parent)
+{
+    round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
+}
+
+int Team::getLastRound()
 {
     if (rounds.empty())
-        return QPair<int, int>(-1, -1);
+        return -1;
     return rounds.last();
 }
 
-QPair<int, int> Team::getBestRound()
+int Team::getBestRound()
 {
     if (rounds.empty())
-        return QPair<int, int>(-1, -1);
+        return -1;
 
     int ind = 0;
-    int best = rounds.first().first;
+    int best = rounds.first();
     for (int i = 1; i < rounds.size(); i++) {
-        if (rounds.at(i).first < best) {
-            best = rounds.at(i).first;
+        if (rounds.at(i) < best) {
+            best = rounds.at(i);
             ind = i;
         }
 
@@ -35,7 +63,7 @@ int Team::getTotalRounds()
 }
 
 
-void Team::addRound(QPair<int, int> round)
+void Team::addRound(int round)
 {
     rounds.append(round);
 }
@@ -59,4 +87,11 @@ void Team::addRacer(const QString & racer)
 void Team::addRacers(QList<QString> new_racers)
 {
     racers = new_racers;
+}
+
+bool Team::isFilled()
+{
+    if (barcode.empty() || name == "")
+        return false;
+    return true;
 }

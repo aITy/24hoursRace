@@ -5,7 +5,9 @@
 #include <QCoreApplication>
 #include "ui_mainwindow.h"
 
+class TeamManager;
 class TimeBar;
+class CmdLineBar;
 
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
@@ -20,11 +22,23 @@ public:
     }
 
     void setStatusMsg(const char *);
-    TimeBar* getTimeBarPtr() { return timebar; }
+    TimeBar * getTimeBar() { return timebar; }
+    TeamManager * getTeamManager() { return manager; }
+    CmdLineBar * getCmdline() { return cmdline; }
 
 private:
     static MainWindow * instance;
     TimeBar * timebar;
+    TeamManager * manager;
+    CmdLineBar * cmdline;
+
+public slots:
+
+private slots:
+    void run();
+
+signals:
+
 };
 
 #endif // MAINWINDOW_H

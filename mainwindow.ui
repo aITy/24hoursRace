@@ -35,6 +35,19 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="action_Start"/>
+   </widget>
+   <widget class="QMenu" name="menuData">
+    <property name="title">
+     <string>Data</string>
+    </property>
+   </widget>
+   <addaction name="menuMenu"/>
+   <addaction name="menuData"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -45,6 +58,11 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="myStatusBar"/>
+  <action name="action_Start">
+   <property name="text">
+    <string>Start</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

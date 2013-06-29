@@ -13,7 +13,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    teammanager.cpp \
+    mainwindow.cpp \
     xmlhandler.cpp \
     resultprinter.cpp \
     bestroundbar.cpp \
@@ -22,10 +23,10 @@ SOURCES += main.cpp\
     setttingsdialog.cpp \
     team.cpp \
     databaseeditdialog.cpp \
-    timebar.cpp \
-    teammanager.cpp
+    timebar.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += teammanager.h \
+    mainwindow.h \
     xmlhandler.h \
     resultprinter.h \
     bestroundbar.h \
@@ -34,11 +35,11 @@ HEADERS  += mainwindow.h \
     setttingsdialog.h \
     team.h \
     databaseeditdialog.h \
-    timebar.h \
-    teammanager.h
+    timebar.h
 
 FORMS    += mainwindow.ui \
-    timebar.ui
+    timebar.ui \
+    cmdlinebar.ui
 
 RESOURCES += \
     recources.qrc
