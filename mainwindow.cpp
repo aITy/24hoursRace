@@ -15,7 +15,20 @@ MainWindow::MainWindow(QWidget *parent) :
     instance = this;
     setupUi(this);
     setWindowTitle(qApp->applicationName());
+
+
     connect(action_Start, SIGNAL(triggered()), this, SLOT(run()));
+
+    connect(actionBestByRoundsDesc, SIGNAL(triggered()), this, SLOT(printBestByRoundsDesc()));
+    connect(actionBestByRoundsAsc, SIGNAL(triggered()), this, SLOT(printBestByRoundsAsc()));
+    connect(actionBestByTimeDesc, SIGNAL(triggered()), this, SLOT(printBestByTimeDesc()));
+    connect(actionBestByTimeAsc, SIGNAL(triggered()), this, SLOT(printBestByTimeAsc()));
+
+    connect(actionPrintByRoundsDesc, SIGNAL(triggered()), this, SLOT(printByRoundsDesc()));
+    connect(actionPrintByRoundsAsc, SIGNAL(triggered()), this, SLOT(printByRoundsAsc()));
+    connect(actionPrintByRoundsDesc, SIGNAL(triggered()), this, SLOT(printByTimeDesc()));
+    connect(actionPrintByRoundsAsc, SIGNAL(triggered()), this, SLOT(printByTimeAsc()));
+
 
     timebar = new TimeBar();
     manager = new TeamManager(timebar);
@@ -32,8 +45,10 @@ MainWindow::MainWindow(QWidget *parent) :
         barcode1.append(i);
         barcode2.append(13 - i);
     }
+
     manager->addTeam("jirin", barcode1);
     manager->addTeam("venca", barcode2);
+    manager->addTeam("Beatrice Technics Creato", barcode1);
     setFocus();
 }
 
@@ -88,4 +103,43 @@ void MainWindow::run()
         return;
 
     timebar->run();
+}
+
+void MainWindow::printBestByRoundsDesc()
+{
+    printer->printBestResultsByRoundCount(true);
+}
+
+void MainWindow::printBestByRoundsAsc()
+{
+    printer->printBestResultsByRoundCount(false);
+}
+
+void MainWindow::printBestByTimeDesc()
+{
+    printer->printBestResultsByTime(true);
+}
+
+void MainWindow::printBestByTimeAsc()
+{
+    printer->printBestResultsByTime(false);
+}
+
+void MainWindow::printByRoundsDesc()
+{
+
+}
+
+void MainWindow::printByRoundsAsc()
+{
+
+}
+
+void MainWindow::printByTimeDesc()
+{
+}
+
+void MainWindow::printByTimeAsc()
+{
+
 }

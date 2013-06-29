@@ -22,10 +22,11 @@ void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
         event->ignore();
     }
     if (event->key() == 16777220) {
-        QString str = lineEdit->text();
-        if (str == "")
+
+        if (lineEdit->text() == "")
             return;
 
+        QString str = lineEdit->text();
         lineEdit->setText("");
         QRegExp rx("\\D");
         if (str.contains(rx)) {

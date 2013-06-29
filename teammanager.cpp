@@ -1,6 +1,7 @@
 #include "teammanager.h"
 #include "timebar.h"
 #include "mainwindow.h"
+#include "resultprinter.h"
 #include <QDebug>
 #include <algorithm>
 
@@ -25,6 +26,7 @@ Team *TeamManager::addTeam()
 {
     Team * team = new Team();
     teams.append(team);
+    MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
 }
 
@@ -32,6 +34,7 @@ Team *TeamManager::addTeam(const QString & name)
 {
     Team * team = new Team(name);
     teams.append(team);
+    MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
 }
 
@@ -39,6 +42,7 @@ Team *TeamManager::addTeam(const QString & name, QList<int> barcode)
 {
     Team * team = new Team(name, barcode);
     teams.append(team);
+    MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
 }
 
@@ -46,6 +50,7 @@ Team *TeamManager::addTeam(const QString & name, QList<QString> racers)
 {
     Team * team = new Team(name, racers);
     teams.append(team);
+    MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
 }
 
@@ -53,6 +58,7 @@ Team *TeamManager::addTeam(const QString & name, QList<int> barcode, QList<QStri
 {
     Team * team = new Team(name, barcode, racers);
     teams.append(team);
+    MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
 }
 

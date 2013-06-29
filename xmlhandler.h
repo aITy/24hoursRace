@@ -8,6 +8,7 @@ class XmlHandler : public QObject
     Q_OBJECT
 public:
     explicit XmlHandler(QObject *parent = 0);
+
     
 signals:
     

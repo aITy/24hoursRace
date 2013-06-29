@@ -46,6 +46,16 @@ public slots:
 private slots:
     void run();
 
+    void printBestByRoundsDesc();
+    void printBestByRoundsAsc();
+    void printBestByTimeDesc();
+    void printBestByTimeAsc();
+
+    void printByRoundsDesc();
+    void printByRoundsAsc();
+    void printByTimeDesc();
+    void printByTimeAsc();
+
 signals:
 
 };
