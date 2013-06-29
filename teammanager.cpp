@@ -86,6 +86,9 @@ void TeamManager::addRound(const QString & name)
             for (int j = 0; j < team_rounds.size(); j++) {
                 passed_rounds_ms += team_rounds.at(j);
             }
+            qDebug() << "passed_rounds_ms" << passed_rounds_ms;
+            qDebug() << "total time" << timebar->getTotalTime();
+            qDebug() << "current time" << timebar->getCurrentTime();
             teams.at(i)->addRound(timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime());
             rounds.append(QPair<Team *, int>(teams.at(i), timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime()));
             break;
@@ -148,7 +151,7 @@ void TeamManager::printRoundsByTeam()
         qDebug() << teams.at(i)->getName();
         QList<int> print_rounds = teams.at(i)->getRounds();
         for (int j = 0; j < print_rounds.size(); j++) {
-            qDebug() << print_rounds.at(i);
+            qDebug() << print_rounds.at(j);
         }
     }
 }
