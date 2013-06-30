@@ -51,7 +51,7 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_Round5">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -65,14 +65,14 @@
      <item row="4" column="1">
       <widget class="QLabel" name="label_Name4">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="4" column="2">
       <widget class="QLabel" name="label_Round4">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -86,21 +86,21 @@
      <item row="6" column="2">
       <widget class="QLabel" name="label_Round6">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="6" column="1">
       <widget class="QLabel" name="label_Name6">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
       <widget class="QLabel" name="label_Name5">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -114,14 +114,14 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_Round2">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_Name2">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -142,28 +142,28 @@
      <item row="15" column="1">
       <widget class="QLabel" name="label_Name15">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_Name1">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="16" column="2">
       <widget class="QLabel" name="label_Round16">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="14" column="2">
       <widget class="QLabel" name="label_Round14">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -198,7 +198,7 @@
      <item row="14" column="1">
       <widget class="QLabel" name="label_Name14">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -219,7 +219,7 @@
      <item row="11" column="1">
       <widget class="QLabel" name="label_Name11">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -233,42 +233,42 @@
      <item row="13" column="2">
       <widget class="QLabel" name="label_Round13">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="13" column="1">
       <widget class="QLabel" name="label_Name13">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="12" column="2">
       <widget class="QLabel" name="label_Round12">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="12" column="1">
       <widget class="QLabel" name="label_Name12">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="10" column="1">
       <widget class="QLabel" name="label_Name10">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="11" column="2">
       <widget class="QLabel" name="label_Round11">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -282,7 +282,7 @@
      <item row="10" column="2">
       <widget class="QLabel" name="label_Round10">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -296,28 +296,28 @@
      <item row="3" column="2">
       <widget class="QLabel" name="label_Round3">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
       <widget class="QLabel" name="label_Name3">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="9" column="1">
       <widget class="QLabel" name="label_Name9">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="9" column="2">
       <widget class="QLabel" name="label_Round9">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -331,14 +331,14 @@
      <item row="8" column="1">
       <widget class="QLabel" name="label_Name8">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="8" column="2">
       <widget class="QLabel" name="label_Round8">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -352,14 +352,14 @@
      <item row="7" column="1">
       <widget class="QLabel" name="label_Name7">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="7" column="2">
       <widget class="QLabel" name="label_Round7">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -373,7 +373,7 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_Round1">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -394,7 +394,7 @@
      <item row="16" column="1">
       <widget class="QLabel" name="label_Name16">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -408,35 +408,35 @@
      <item row="15" column="2">
       <widget class="QLabel" name="label_Round15">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="17" column="1">
       <widget class="QLabel" name="label_Name17">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="17" column="2">
       <widget class="QLabel" name="label_Round17">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="18" column="2">
       <widget class="QLabel" name="label_Round18">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="18" column="1">
       <widget class="QLabel" name="label_Name18">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -464,28 +464,28 @@
      <item row="19" column="1">
       <widget class="QLabel" name="label_Name19">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="20" column="1">
       <widget class="QLabel" name="label_Name20">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="19" column="2">
       <widget class="QLabel" name="label_Round19">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="20" column="2">
       <widget class="QLabel" name="label_Round20">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -510,7 +510,7 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_Round25">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -524,14 +524,14 @@
      <item row="4" column="1">
       <widget class="QLabel" name="label_Name24">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="4" column="2">
       <widget class="QLabel" name="label_Round24">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -545,21 +545,21 @@
      <item row="6" column="2">
       <widget class="QLabel" name="label_Round26">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="6" column="1">
       <widget class="QLabel" name="label_Name26">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
       <widget class="QLabel" name="label_Name25">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -573,14 +573,14 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_Round22">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_Name22">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -601,28 +601,28 @@
      <item row="15" column="1">
       <widget class="QLabel" name="label_Name35">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_Name21">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="16" column="2">
       <widget class="QLabel" name="label_Round36">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="14" column="2">
       <widget class="QLabel" name="label_Round34">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -657,7 +657,7 @@
      <item row="14" column="1">
       <widget class="QLabel" name="label_Name34">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -678,7 +678,7 @@
      <item row="11" column="1">
       <widget class="QLabel" name="label_Name31">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -692,42 +692,42 @@
      <item row="13" column="2">
       <widget class="QLabel" name="label_Round33">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="13" column="1">
       <widget class="QLabel" name="label_Name33">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="12" column="2">
       <widget class="QLabel" name="label_Round32">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="12" column="1">
       <widget class="QLabel" name="label_Name32">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="10" column="1">
       <widget class="QLabel" name="label_Name30">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="11" column="2">
       <widget class="QLabel" name="label_Round31">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -741,7 +741,7 @@
      <item row="10" column="2">
       <widget class="QLabel" name="label_Round30">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -755,21 +755,21 @@
      <item row="3" column="2">
       <widget class="QLabel" name="label_Round23">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="9" column="1">
       <widget class="QLabel" name="label_Name29">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="9" column="2">
       <widget class="QLabel" name="label_Round29">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -783,14 +783,14 @@
      <item row="8" column="1">
       <widget class="QLabel" name="label_Name28">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="8" column="2">
       <widget class="QLabel" name="label_Round28">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -804,14 +804,14 @@
      <item row="7" column="1">
       <widget class="QLabel" name="label_Name27">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="7" column="2">
       <widget class="QLabel" name="label_Round27">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -825,7 +825,7 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_Round21">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -846,7 +846,7 @@
      <item row="16" column="1">
       <widget class="QLabel" name="label_Name36">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -860,35 +860,35 @@
      <item row="15" column="2">
       <widget class="QLabel" name="label_Round35">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="17" column="1">
       <widget class="QLabel" name="label_Name37">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="17" column="2">
       <widget class="QLabel" name="label_Round37">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="18" column="2">
       <widget class="QLabel" name="label_Round38">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="18" column="1">
       <widget class="QLabel" name="label_Name38">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -916,35 +916,35 @@
      <item row="19" column="1">
       <widget class="QLabel" name="label_Name39">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="20" column="1">
       <widget class="QLabel" name="label_Name40">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="19" column="2">
       <widget class="QLabel" name="label_Round39">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="20" column="2">
       <widget class="QLabel" name="label_Round40">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
       <widget class="QLabel" name="label_Name23">
        <property name="text">
-        <string>TextLabel</string>
+        <string/>
        </property>
       </widget>
      </item>
