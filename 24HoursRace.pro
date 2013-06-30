@@ -39,7 +39,8 @@ HEADERS  += teammanager.h \
 
 FORMS    += mainwindow.ui \
     timebar.ui \
-    cmdlinebar.ui
+    cmdlinebar.ui \
+    bestroundbar.ui
 
 RESOURCES += \
     recources.qrc

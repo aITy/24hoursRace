@@ -23,9 +23,6 @@ bool XmlHandler::xmlImport(const QString & filename)
     QDomNodeList nodes;
     QDomNode node;
 
-    node = elem.firstChild();
-
-
     nodes = xml.elementsByTagName(trUtf8("Týmy"));
     node = nodes.at(0);
     elem = node.toElement();

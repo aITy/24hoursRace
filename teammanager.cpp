@@ -2,6 +2,7 @@
 #include "timebar.h"
 #include "mainwindow.h"
 #include "resultprinter.h"
+#include "bestroundbar.h"
 #include <QDebug>
 #include <algorithm>
 
@@ -97,7 +98,9 @@ void TeamManager::addRound(QList<int> barcode)
             break;
         }
     }
-    printRoundsByTeam();
+    QPair<QString,int> best_round = getBestRound();
+    MainWindow::getInstance()->getBestroundBar()->updateBar(best_round.first, best_round.second);
+    //printRoundsByTeam();
 }
 
 void TeamManager::addRound(const QString & name)
@@ -119,7 +122,9 @@ void TeamManager::addRound(const QString & name)
             break;
         }
     }
-    printRoundsByTeam();
+    QPair<QString,int> best_round = getBestRound();
+    MainWindow::getInstance()->getBestroundBar()->updateBar(best_round.first, best_round.second);
+    //printRoundsByTeam();
 }
 
 QPair<QString, int> TeamManager::getBestRound()

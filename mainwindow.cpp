@@ -5,6 +5,7 @@
 #include "cmdlinebar.h"
 #include "resultprinter.h"
 #include "xmlhandler.h"
+#include "bestroundbar.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -39,8 +40,10 @@ MainWindow::MainWindow(QWidget *parent) :
     cmdline = new CmdLineBar();
     printer = new ResultPrinter();
     xml_handler = new XmlHandler();
+    bestround_bar = new BestRoundBar();
 
     middleLayout->addWidget(timebar);
+    middleLayout->addWidget(bestround_bar);
     middleLayout->addWidget(cmdline);
 
     QList<int> barcode1;

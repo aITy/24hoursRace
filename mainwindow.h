@@ -11,6 +11,7 @@ class TimeBar;
 class CmdLineBar;
 class ResultPrinter;
 class XmlHandler;
+class BestRoundBar;
 
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
@@ -30,6 +31,7 @@ public:
     CmdLineBar * getCmdline() { return cmdline; }
     ResultPrinter * getPrinter() { return printer; }
     XmlHandler * getXmlHandler() { return xml_handler; }
+    BestRoundBar * getBestroundBar() { return bestround_bar; }
 
 private:
     static MainWindow * instance;
@@ -38,6 +40,7 @@ private:
     CmdLineBar * cmdline;
     ResultPrinter * printer;
     XmlHandler * xml_handler;
+    BestRoundBar * bestround_bar;
 
 protected:
     void closeEvent(QCloseEvent *);
