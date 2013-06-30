@@ -66,8 +66,6 @@ MainWindow::MainWindow(QWidget *parent) :
             ListRight->addWidget(label_names.at(i),i-19,1); // -19 == 2nd grid + title
             ListRight->addWidget(label_rounds.at(i),i-19,2);
         }
-
-
     }
 
     for (int i = 0; i < 5; i++) {
@@ -98,6 +96,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::setStatusMsg(const char * msg) {
     myStatusBar->showMessage(QString(msg), 2500);
+}
+
+void MainWindow::updateOrder()
+{
+    manager->sortByRounds(true);
+    QList<Team *> teams_ptr = manager->getTeams();
+
+    for(int i = 0; i < teams_ptr.count(); i++){
+        label_names.at(i)->setText(teams_ptr.at(i)->getName());
+        label_rounds.at(i)->setText(QString::number(teams_ptr.at(i)->getTotalRounds()));
+    }
+
 }
 
 void MainWindow::closeEvent(QCloseEvent * event) {

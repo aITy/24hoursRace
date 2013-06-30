@@ -107,6 +107,7 @@ void TeamManager::addRound(QList<int> barcode)
     int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByBarcode(barcode)->getTotalRounds();
     MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
     MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
+    MainWindow::getInstance()->updateOrder();
     printRoundsByTeam();
 }
 
@@ -137,6 +138,7 @@ void TeamManager::addRound(const QString & name)
     int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByName(name)->getTotalRounds();
     MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
     MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
+    MainWindow::getInstance()->updateOrder();
     printRoundsByTeam();
 }
 

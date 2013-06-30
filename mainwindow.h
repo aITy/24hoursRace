@@ -35,8 +35,8 @@ public:
     BestRoundBar * getBestRoundBar() { return bestround_bar; }
     LastRoundBar * getLastRoundBar() { return lastround_bar; }
 
-    QList<QLabel *> label_names;
-    QList<QLabel *> label_rounds;
+    void updateOrder();
+
 
 private:
     static MainWindow * instance;
@@ -47,6 +47,10 @@ private:
     XmlHandler * xml_handler;
     BestRoundBar * bestround_bar;
     LastRoundBar * lastround_bar;
+
+    QList<QLabel *> label_names;
+    QList<QLabel *> label_rounds;
+
 
 protected:
     void closeEvent(QCloseEvent *);
