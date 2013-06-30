@@ -87,6 +87,7 @@ void TeamManager::addRound(QList<int> barcode)
     if (! timebar->isRunning())
         return;
     int passed_rounds_ms = 0;
+    bool found = false;
     for(int i = 0; i < teams.size(); i++) {
         if (teams.at(i)->getBarcode() == barcode) {
             QList<int> team_rounds = teams.at(i)->getRounds();
@@ -95,10 +96,12 @@ void TeamManager::addRound(QList<int> barcode)
             }
             teams.at(i)->addRound(timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime());
             rounds.append(QPair<Team *, int>(teams.at(i), timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime()));
+            found = true;
             break;
         }
-        else return;
     }
+    if (!found)
+        return;
     QPair<QString, int> best_round = getBestRound();
     QPair<QString, int> last_round = getLastRound();
     int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByBarcode(barcode)->getTotalRounds();
@@ -112,6 +115,7 @@ void TeamManager::addRound(const QString & name)
     if (! timebar->isRunning())
         return;
     int passed_rounds_ms = 0;
+    bool found = false;
     for(int i = 0; i < teams.count(); i++) {
         if (QString::compare(teams.at(i)->getName(),name, Qt::CaseInsensitive) == 0) {
             QList<int> team_rounds = teams.at(i)->getRounds();
@@ -121,10 +125,13 @@ void TeamManager::addRound(const QString & name)
 
             teams.at(i)->addRound(timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime());
             rounds.append(QPair<Team *, int>(teams.at(i), timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime()));
+            found = true;
             break;
         }
-        else return;
     }
+    if (!found)
+        return;
+
     QPair<QString, int> best_round = getBestRound();
     QPair<QString, int> last_round = getLastRound();
     int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByName(name)->getTotalRounds();
