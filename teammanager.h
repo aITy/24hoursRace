@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "team.h"
+#include <QDebug>
 
 class TimeBar;
 
@@ -37,19 +38,29 @@ public:
     void sortByTime(bool);
 
     static bool sortByRoundsDesc(Team * s1, Team * s2) {
-         return s1->getTotalRounds() > s2->getTotalRounds();
+        return s1->getTotalRounds() > s2->getTotalRounds();
     }
 
     static bool sortByRoundsAsc(Team * s1, Team * s2) {
-         return s1->getTotalRounds() < s2->getTotalRounds();
+        return s1->getTotalRounds() < s2->getTotalRounds();
     }
 
     static bool sortByTimeDesc(Team * s1, Team * s2) {
-         return s1->getBestRound() > s2->getBestRound();
+        if (s1->getBestRound() == -1) {
+            return true;
+        }
+        if (s2->getBestRound() == -1) {
+            return false;
+        }
+        return s1->getBestRound() > s2->getBestRound();
     }
 
     static bool sortByTimeAsc(Team * s1, Team * s2) {
-         return s1->getBestRound() < s2->getBestRound();
+        if (s1->getBestRound() == -1)
+            return false;
+        if (s2->getBestRound() == -1)
+            return true;
+        return s1->getBestRound() < s2->getBestRound();
     }
 
 

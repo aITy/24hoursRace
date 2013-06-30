@@ -707,8 +707,18 @@
     <addaction name="actionXmlExport"/>
     <addaction name="actionXmlImport"/>
    </widget>
+   <widget class="QMenu" name="menu_azen">
+    <property name="title">
+     <string>Řazení</string>
+    </property>
+    <addaction name="action_SortByTimeAsc"/>
+    <addaction name="action_SortByTimeDesc"/>
+    <addaction name="action_SortByRoundsAsc"/>
+    <addaction name="action_SortByRoundsDesc"/>
+   </widget>
    <addaction name="menuMenu"/>
    <addaction name="menuData"/>
+   <addaction name="menu_azen"/>
    <addaction name="menuTest"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -778,6 +788,26 @@
   <action name="actionPrintByTeam">
    <property name="text">
     <string>printByTeam</string>
+   </property>
+  </action>
+  <action name="action_SortByTimeDesc">
+   <property name="text">
+    <string>seřadit podle nejhoršího času</string>
+   </property>
+  </action>
+  <action name="action_SortByTimeAsc">
+   <property name="text">
+    <string>seřadit podle nejlepšího času</string>
+   </property>
+  </action>
+  <action name="action_SortByRoundsDesc">
+   <property name="text">
+    <string>seřadit podle počtu kol sestupně</string>
+   </property>
+  </action>
+  <action name="action_SortByRoundsAsc">
+   <property name="text">
+    <string>seřadit podle počtu kol vzestupně</string>
    </property>
   </action>
  </widget>

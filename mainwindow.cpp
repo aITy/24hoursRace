@@ -22,6 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(action_Start, SIGNAL(triggered()), this, SLOT(run()));
 
+    connect(action_SortByRoundsDesc, SIGNAL(triggered()), this, SLOT(sortByRoundsDesc()));
+    connect(action_SortByRoundsAsc, SIGNAL(triggered()), this, SLOT(sortByRoundsAsc()));
+    connect(action_SortByTimeDesc, SIGNAL(triggered()), this, SLOT(sortByTimeDesc()));
+    connect(action_SortByTimeAsc, SIGNAL(triggered()), this, SLOT(sortByTimeAsc()));
+
     connect(actionBestByRoundsDesc, SIGNAL(triggered()), this, SLOT(printBestByRoundsDesc()));
     connect(actionBestByRoundsAsc, SIGNAL(triggered()), this, SLOT(printBestByRoundsAsc()));
     connect(actionBestByTimeDesc, SIGNAL(triggered()), this, SLOT(printBestByTimeDesc()));
@@ -85,6 +90,8 @@ MainWindow::MainWindow(QWidget *parent) :
     Team * venca = manager->getTeamByName("venca");
     venca->addRacer("venca");
 
+    state = SORTBYROUNDSDESC;
+
     setFocus();
 }
 
@@ -100,12 +107,37 @@ void MainWindow::setStatusMsg(const char * msg) {
 
 void MainWindow::updateOrder()
 {
-    manager->sortByRounds(true);
     QList<Team *> teams_ptr = manager->getTeams();
+    qDebug() << (int)state;
+
+    if (state == SORTBYROUNDSDESC || state == SORTBYROUNDSASC) {
+        label_RoundLeft->setText(trUtf8("Počet kol"));
+        label_RoundRight->setText(trUtf8("Počet kol"));
+    }
+    else {
+        label_RoundLeft->setText(trUtf8("Čas"));
+        label_RoundRight->setText(trUtf8("Čas"));
+    }
 
     for(int i = 0; i < teams_ptr.count(); i++){
         label_names.at(i)->setText(teams_ptr.at(i)->getName());
-        label_rounds.at(i)->setText(QString::number(teams_ptr.at(i)->getTotalRounds()));
+
+        if (state == SORTBYROUNDSDESC || state == SORTBYROUNDSASC) {
+            label_rounds.at(i)->setText(QString::number(teams_ptr.at(i)->getTotalRounds()));
+        }
+        else {
+            int ms = teams_ptr.at(i)->getBestRound();
+            int hours = ms / (1000*60*60);
+            int minutes = (ms % (1000*60*60)) / (1000*60);
+            int seconds = ((ms % (1000*60*60)) % (1000*60)) / 1000;
+            QString str;
+            if (hours != 0) {
+                str.append(QString::number(hours));
+                str.append(":");
+            }
+            str.append(QString("%1:%2 min.").arg(minutes).arg(seconds));
+            label_rounds.at(i)->setText(str);
+        }
     }
 
 }
@@ -185,6 +217,7 @@ void MainWindow::printByRoundsAsc()
 
 void MainWindow::printByTimeDesc()
 {
+
 }
 
 void MainWindow::printByTimeAsc()
@@ -195,6 +228,34 @@ void MainWindow::printByTimeAsc()
 void MainWindow::printByTeam()
 {
     printer->printResultsByTeams();
+}
+
+void MainWindow::sortByRoundsDesc()
+{
+    manager->sortByRounds(true);
+    state = SORTBYROUNDSDESC;
+    updateOrder();
+}
+
+void MainWindow::sortByRoundsAsc()
+{
+    manager->sortByRounds(false);
+    state = SORTBYROUNDSASC;
+    updateOrder();
+}
+
+void MainWindow::sortByTimeDesc()
+{
+    manager->sortByTime(true);
+    state = SORTBYTIMEDESC;
+    updateOrder();
+}
+
+void MainWindow::sortByTimeAsc()
+{
+    manager->sortByTime(false);
+    state = SORTBYTIMEASC;
+    updateOrder();
 }
 
 void MainWindow::xmlexport()

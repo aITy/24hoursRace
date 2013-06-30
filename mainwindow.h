@@ -37,6 +37,12 @@ public:
 
     void updateOrder();
 
+    typedef enum {
+        SORTBYROUNDSDESC,
+        SORTBYROUNDSASC,
+        SORTBYTIMEDESC,
+        SORTBYTIMEASC
+    } board_state;
 
 private:
     static MainWindow * instance;
@@ -50,6 +56,8 @@ private:
 
     QList<QLabel *> label_names;
     QList<QLabel *> label_rounds;
+
+    board_state state;
 
 
 protected:
@@ -74,6 +82,11 @@ private slots:
 
     void printByTeam();
 
+    void sortByRoundsDesc();
+    void sortByRoundsAsc();
+
+    void sortByTimeDesc();
+    void sortByTimeAsc();
 
     void xmlexport();
     void xmlimport();
