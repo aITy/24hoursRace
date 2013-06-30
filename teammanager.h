@@ -19,6 +19,9 @@ public:
     Team * addTeam(const QString &, QList<QString>);
     Team * addTeam(const QString &, QList<int>, QList<QString>);
 
+    Team * getTeamByName(const QString &);
+    Team * getTeamByBarcode(QList<int>);
+
     void addRound(QList<int>);
     void addRound(const QString &);
 

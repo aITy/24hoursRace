@@ -79,6 +79,15 @@ void Team::changeName(const QString & new_name)
     name = new_name;
 }
 
+QString Team::getBarcodeStr()
+{
+    QString str;
+    for (int i = 0; i < barcode.size(); i++) {
+        str.append(QString::number(barcode.at(i)));
+    }
+    return str;
+}
+
 void Team::addRacer(const QString & racer)
 {
     racers.append(racer);

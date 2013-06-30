@@ -21,10 +21,12 @@ public:
     void addRound(int);
     void addRacer(const QString &);
     void addRacers(QList<QString>);
+    QList<QString> getRacers() { return racers; }
     void changeBarcode(QList<int>);
     void changeName(const QString &);
     QString getName() { return name; }
     QList<int> getBarcode() { return barcode; }
+    QString getBarcodeStr();
     void setRoundStart() { /*settings->getRaceTime()*/ }
     int getRoundStart() { return round_start; }
 

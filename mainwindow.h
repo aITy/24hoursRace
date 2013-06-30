@@ -10,6 +10,7 @@ class TeamManager;
 class TimeBar;
 class CmdLineBar;
 class ResultPrinter;
+class XmlHandler;
 
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
@@ -28,6 +29,7 @@ public:
     TeamManager * getTeamManager() { return manager; }
     CmdLineBar * getCmdline() { return cmdline; }
     ResultPrinter * getPrinter() { return printer; }
+    XmlHandler * getXmlHandler() { return xml_handler; }
 
 private:
     static MainWindow * instance;
@@ -35,6 +37,7 @@ private:
     TeamManager * manager;
     CmdLineBar * cmdline;
     ResultPrinter * printer;
+    XmlHandler * xml_handler;
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -55,6 +58,10 @@ private slots:
     void printByRoundsAsc();
     void printByTimeDesc();
     void printByTimeAsc();
+
+
+    void xmlexport();
+    void xmlimport();
 
 signals:
 

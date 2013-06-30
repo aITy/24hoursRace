@@ -4,8 +4,10 @@
 #include "team.h"
 #include "cmdlinebar.h"
 #include "resultprinter.h"
+#include "xmlhandler.h"
 #include <QDebug>
 #include <QMessageBox>
+#include <QFileDialog>
 
 MainWindow * MainWindow::instance = NULL;
 
@@ -29,26 +31,39 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(actionPrintByRoundsDesc, SIGNAL(triggered()), this, SLOT(printByTimeDesc()));
     connect(actionPrintByRoundsAsc, SIGNAL(triggered()), this, SLOT(printByTimeAsc()));
 
+    connect(actionXmlExport, SIGNAL(triggered()), this, SLOT(xmlexport()));
+    connect(actionXmlImport, SIGNAL(triggered()), this, SLOT(xmlimport()));
 
     timebar = new TimeBar();
     manager = new TeamManager(timebar);
     cmdline = new CmdLineBar();
     printer = new ResultPrinter();
+    xml_handler = new XmlHandler();
 
     middleLayout->addWidget(timebar);
     middleLayout->addWidget(cmdline);
 
     QList<int> barcode1;
     QList<int> barcode2;
+    QList<int> barcode3;
 
-    for (int i = 0; i < 13; i++) {
+    for (int i = 0; i < 5; i++) {
         barcode1.append(i);
-        barcode2.append(13 - i);
+        barcode2.append(5 - i);
+        barcode3.append(i + 5);
     }
 
     manager->addTeam("jirin", barcode1);
     manager->addTeam("venca", barcode2);
-    manager->addTeam("Beatrice Technics Creato", barcode1);
+    manager->addTeam("Beatrice Technics Creato", barcode3);
+
+    Team * jirin = manager->getTeamByName("jirin");
+    jirin->addRacer("JiRin");
+    jirin->addRacer("Roman");
+
+    Team * venca = manager->getTeamByName("venca");
+    venca->addRacer("venca");
+
     setFocus();
 }
 
@@ -142,4 +157,28 @@ void MainWindow::printByTimeDesc()
 void MainWindow::printByTimeAsc()
 {
 
+}
+
+void MainWindow::xmlexport()
+{
+    QString fn = QFileDialog::getSaveFileName(NULL,
+                                   trUtf8("Ulozit do souboru"),
+                                   "",
+                                   trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
+    if (fn.isEmpty())
+        return;
+
+    xml_handler->xmlExport(fn);
+}
+
+void MainWindow::xmlimport()
+{
+    QString fn = QFileDialog::getOpenFileName(NULL,
+                                   trUtf8("Nacist ze souboru"),
+                                   "",
+                                   trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
+    if (fn.isEmpty())
+        return;
+
+    xml_handler->xmlExport(fn);
 }

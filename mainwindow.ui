@@ -58,6 +58,8 @@
     <addaction name="actionBestByTimeAsc"/>
     <addaction name="actionPrintByTimeDesc"/>
     <addaction name="actionPrintByTimeAsc"/>
+    <addaction name="actionXmlExport"/>
+    <addaction name="actionXmlImport"/>
    </widget>
    <addaction name="menuMenu"/>
    <addaction name="menuData"/>
@@ -115,6 +117,16 @@
   <action name="actionPrintByTimeAsc">
    <property name="text">
     <string>printByTimeAsc</string>
+   </property>
+  </action>
+  <action name="actionXmlExport">
+   <property name="text">
+    <string>xmlExport</string>
+   </property>
+  </action>
+  <action name="actionXmlImport">
+   <property name="text">
+    <string>xmlImport</string>
    </property>
   </action>
  </widget>

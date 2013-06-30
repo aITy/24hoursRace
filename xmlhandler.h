@@ -9,7 +9,8 @@ class XmlHandler : public QObject
 public:
     explicit XmlHandler(QObject *parent = 0);
 
-    
+    bool xmlImport(const QString &);
+    bool xmlExport(const QString &);
 signals:
     
 public slots:

@@ -62,6 +62,24 @@ Team *TeamManager::addTeam(const QString & name, QList<int> barcode, QList<QStri
     return team;
 }
 
+Team *TeamManager::getTeamByName(const QString & str)
+{
+    for(int i = 0; i < teams.size(); i++) {
+        if (teams.at(i)->getName() == str)
+            return teams.at(i);
+    }
+    return NULL;
+}
+
+Team *TeamManager::getTeamByBarcode(QList<int> list)
+{
+    for(int i = 0; i < teams.size(); i++) {
+        if (teams.at(i)->getBarcode() == list)
+            return teams.at(i);
+    }
+    return NULL;
+}
+
 
 void TeamManager::addRound(QList<int> barcode)
 {
