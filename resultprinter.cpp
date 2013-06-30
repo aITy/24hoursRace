@@ -135,6 +135,100 @@ void ResultPrinter::printBestResultsByTime(bool order)
     }
 }
 
+void ResultPrinter::printResultsByTeams()
+{
+    QString fn = QFileDialog::getSaveFileName(NULL,
+                                   trUtf8("Ulozit aktualni vysledky do souboru"),
+                                   QDir::homePath(),
+                                   trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
+    if (!fn.isEmpty())
+    {
+        QFile f(fn);
+        /** overwrite file */
+        if (! f.open(QIODevice::WriteOnly | QIODevice::Truncate))
+            return;
+        QTextStream fs(&f);
+
+        QString content;
+        QString name = trUtf8("Název týmu:");
+        QString racers = trUtf8("Závodníci:");
+        QString rounds_str = trUtf8("Jednotlivá kola:");
+        int longest_name = rounds_str.length();
+
+        for (int i = 0; i < teams.size(); i++) {
+            content.append(QString("%1.\n").arg(i+1));
+
+            content.append(name);
+            for( int j = 0; j < longest_name + 4 - name.length(); j++) {
+                content.append(QString(" "));
+            }
+            content.append(teams.at(i)->getName());
+            content.append("\n");
+
+            if (! teams.at(i)->getRacers().empty()) {
+                content.append(racers);
+                for( int j = 0; j < longest_name + 4 - racers.length(); j++) {
+                    content.append(QString(" "));
+                }
+                for (int j = 0; j < teams.at(i)->getRacers().count(); j++) {
+                    content.append(teams.at(i)->getRacers().at(j));
+                    if (j + 1 < teams.at(i)->getRacers().count()) {
+                        content.append(", ");
+                    }
+                }
+                content.append("\n");
+            }
+
+            content.append(rounds_str);
+            QList<int>rounds = teams.at(i)->getRounds();
+            int time;
+            for(int j = 0; j < rounds.count(); j++) {
+                if (j == 0) {
+                    for( int j = 0; j < longest_name + 4 - rounds_str.length(); j++) {
+                        content.append(QString(" "));
+                    }
+                }
+                else {
+                    for( int j = 0; j < longest_name + 4; j++) {
+                        content.append(QString(" "));
+                    }
+                }
+                content.append(QString("%1.").arg(j + 1));
+                time = rounds.at(j);
+
+                int hours = time / (1000*60*60);
+                int minutes = (time % (1000*60*60)) / (1000*60);
+                int seconds = ((time % (1000*60*60)) % (1000*60)) / 1000;
+
+                if (hours < 10)
+                    content.append(QString("0%1").arg(hours));
+                else
+                    content.append(QString::number(hours));
+
+                content.append(QString(":"));
+
+                if (minutes < 10)
+                    content.append(QString("0%1").arg(minutes));
+                else
+                    content.append(QString::number(minutes));
+
+                content.append(QString(":"));
+
+                if (seconds < 10)
+                    content.append(QString("0%1").arg(seconds));
+                else
+                    content.append(QString::number(seconds));
+
+                content.append("\n");
+
+            }
+        }
+        fs.setCodec("UTF-8");
+        fs << content;
+        f.close();
+    }
+}
+
 void ResultPrinter::sortByRounds(bool order)
 {
     if (order) {

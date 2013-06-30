@@ -36,7 +36,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: black</string>
+   <string notr="true">background: rgb(44, 44, 44)</string>
   </property>
   <widget class="QLabel" name="label_H">
    <property name="geometry">
@@ -56,7 +56,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: white;</string>
+    <string notr="true">color: rgb(180, 180, 180);</string>
    </property>
    <property name="text">
     <string>00</string>
@@ -86,7 +86,7 @@
     <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: white;</string>
+    <string notr="true">color: rgb(180, 180, 180);</string>
    </property>
    <property name="text">
     <string>00</string>
@@ -113,7 +113,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: white;</string>
+    <string notr="true">color: rgb(180, 180, 180);</string>
    </property>
    <property name="text">
     <string>00</string>
@@ -140,7 +140,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: white;</string>
+    <string notr="true">color: rgb(180, 180, 180);</string>
    </property>
    <property name="inputMethodHints">
     <set>Qt::ImhNone</set>
@@ -170,7 +170,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: white;</string>
+    <string notr="true">color: rgb(180, 180, 180);</string>
    </property>
    <property name="inputMethodHints">
     <set>Qt::ImhNone</set>
@@ -200,7 +200,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: white;</string>
+    <string notr="true">color: rgb(180, 180, 180);</string>
    </property>
    <property name="text">
     <string>CAS DO KONCE ZAVODU</string>

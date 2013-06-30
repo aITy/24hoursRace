@@ -11,7 +11,6 @@ public:
     explicit CmdLineBar(QWidget *parent = 0);
     
 signals:
-    void keyCaught(QKeyEvent *e);
 
 protected:
     virtual void keyPressEvent(QKeyEvent *event);

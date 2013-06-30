@@ -23,7 +23,14 @@
       <height>591</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="middleLayout"/>
+    <layout class="QVBoxLayout" name="middleLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="sizeConstraint">
+      <enum>QLayout::SetNoConstraint</enum>
+     </property>
+    </layout>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
