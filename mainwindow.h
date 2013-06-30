@@ -35,6 +35,9 @@ public:
     BestRoundBar * getBestRoundBar() { return bestround_bar; }
     LastRoundBar * getLastRoundBar() { return lastround_bar; }
 
+    QList<QLabel *> label_names;
+    QList<QLabel *> label_rounds;
+
 private:
     static MainWindow * instance;
     TimeBar * timebar;

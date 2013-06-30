@@ -54,6 +54,22 @@ MainWindow::MainWindow(QWidget *parent) :
     QList<int> barcode2;
     QList<int> barcode3;
 
+
+    for(int i = 0; i < 40; i++){
+        label_names.append(new QLabel());
+        label_rounds.append(new QLabel());
+        if(i < 20){
+            ListLeft->addWidget(label_names.at(i),i+1,1); // +1 because of title
+            ListLeft->addWidget(label_rounds.at(i),i+1,2);
+        }
+        else{
+            ListRight->addWidget(label_names.at(i),i-19,1); // -19 == 2nd grid + title
+            ListRight->addWidget(label_rounds.at(i),i-19,2);
+        }
+
+
+    }
+
     for (int i = 0; i < 5; i++) {
         barcode1.append(i);
         barcode2.append(5 - i);
