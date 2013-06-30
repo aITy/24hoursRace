@@ -94,7 +94,7 @@
    <property name="font">
     <font>
      <family>Radio Space Bold</family>
-     <pointsize>16</pointsize>
+     <pointsize>20</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
