@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(actionXmlImport, SIGNAL(triggered()), this, SLOT(xmlimport()));
 
     timebar = new TimeBar();
-    manager = new TeamManager(timebar);
+    manager = new TeamManager();
     cmdline = new CmdLineBar();
     printer = new ResultPrinter();
     xml_handler = new XmlHandler();
@@ -58,7 +58,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     manager->addTeam("jirin", barcode1);
     manager->addTeam("venca", barcode2);
-    manager->addTeam("Beatrice Technics Creato", barcode3);
+    manager->addTeam("kratak", barcode3);
 
     Team * jirin = manager->getTeamByName("jirin");
     jirin->addRacer("JiRin");

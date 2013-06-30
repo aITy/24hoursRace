@@ -1,4 +1,5 @@
 #include "bestroundbar.h"
+#include <QDebug>
 
 BestRoundBar::BestRoundBar(QWidget *parent) :
     QWidget(parent)

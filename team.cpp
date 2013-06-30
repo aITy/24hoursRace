@@ -46,8 +46,8 @@ int Team::getBestRound()
         return -1;
 
     int ind = 0;
-    int best = rounds.first();
-    for (int i = 1; i < rounds.size(); i++) {
+    int best = MainWindow::getInstance()->getTimeBar()->getTotalTime();
+    for (int i = 0; i < rounds.size(); i++) {
         if (rounds.at(i) < best) {
             best = rounds.at(i);
             ind = i;
