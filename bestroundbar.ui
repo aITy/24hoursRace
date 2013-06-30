@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: grey;</string>
+   <string notr="true">background: rgb(180, 180, 180);</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -46,9 +46,9 @@
   <widget class="QLabel" name="label_M">
    <property name="geometry">
     <rect>
-     <x>9</x>
+     <x>10</x>
      <y>0</y>
-     <width>71</width>
+     <width>70</width>
      <height>80</height>
     </rect>
    </property>
@@ -104,9 +104,9 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>3</y>
+     <y>0</y>
      <width>60</width>
-     <height>80</height>
+     <height>85</height>
     </rect>
    </property>
    <property name="font">
@@ -169,13 +169,13 @@
    <property name="font">
     <font>
      <family>Radio Space Bold</family>
-     <pointsize>16</pointsize>
+     <pointsize>20</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: black</string>
+    <string notr="true">color: rgb(29, 29, 29)</string>
    </property>
    <property name="text">
     <string/>

@@ -6,6 +6,7 @@
 #include "resultprinter.h"
 #include "xmlhandler.h"
 #include "bestroundbar.h"
+#include "lastroundbar.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -19,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
     setupUi(this);
     setWindowTitle(qApp->applicationName());
 
-
     connect(action_Start, SIGNAL(triggered()), this, SLOT(run()));
 
     connect(actionBestByRoundsDesc, SIGNAL(triggered()), this, SLOT(printBestByRoundsDesc()));
@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(actionPrintByRoundsDesc, SIGNAL(triggered()), this, SLOT(printByTimeDesc()));
     connect(actionPrintByRoundsAsc, SIGNAL(triggered()), this, SLOT(printByTimeAsc()));
 
+    connect(actionPrintByTeam, SIGNAL(triggered()), this, SLOT(printByTeam()));
+
     connect(actionXmlExport, SIGNAL(triggered()), this, SLOT(xmlexport()));
     connect(actionXmlImport, SIGNAL(triggered()), this, SLOT(xmlimport()));
 
@@ -41,9 +43,11 @@ MainWindow::MainWindow(QWidget *parent) :
     printer = new ResultPrinter();
     xml_handler = new XmlHandler();
     bestround_bar = new BestRoundBar();
+    lastround_bar = new LastRoundBar();
 
     middleLayout->addWidget(timebar);
     middleLayout->addWidget(bestround_bar);
+    middleLayout->addWidget(lastround_bar);
     middleLayout->addWidget(cmdline);
 
     QList<int> barcode1;
@@ -58,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     manager->addTeam("jirin", barcode1);
     manager->addTeam("venca", barcode2);
-    manager->addTeam("kratak", barcode3);
+    manager->addTeam("dlouheee jmenooo", barcode3);
 
     Team * jirin = manager->getTeamByName("jirin");
     jirin->addRacer("JiRin");
@@ -160,6 +164,11 @@ void MainWindow::printByTimeDesc()
 void MainWindow::printByTimeAsc()
 {
 
+}
+
+void MainWindow::printByTeam()
+{
+    printer->printResultsByTeams();
 }
 
 void MainWindow::xmlexport()

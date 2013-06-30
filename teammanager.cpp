@@ -3,8 +3,8 @@
 #include "mainwindow.h"
 #include "resultprinter.h"
 #include "bestroundbar.h"
+#include "lastroundbar.h"
 #include <QDebug>
-#include <algorithm>
 
 TeamManager::TeamManager(QWidget *parent)
     :QWidget(parent)
@@ -97,9 +97,13 @@ void TeamManager::addRound(QList<int> barcode)
             rounds.append(QPair<Team *, int>(teams.at(i), timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime()));
             break;
         }
+        else return;
     }
-    QPair<QString,int> best_round = getBestRound();
-    MainWindow::getInstance()->getBestroundBar()->updateBar(best_round.first, best_round.second);
+    QPair<QString, int> best_round = getBestRound();
+    QPair<QString, int> last_round = getLastRound();
+    int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByBarcode(barcode)->getTotalRounds();
+    MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
+    MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
     printRoundsByTeam();
 }
 
@@ -119,9 +123,13 @@ void TeamManager::addRound(const QString & name)
             rounds.append(QPair<Team *, int>(teams.at(i), timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime()));
             break;
         }
+        else return;
     }
-    QPair<QString,int> best_round = getBestRound();
-    MainWindow::getInstance()->getBestroundBar()->updateBar(best_round.first, best_round.second);
+    QPair<QString, int> best_round = getBestRound();
+    QPair<QString, int> last_round = getLastRound();
+    int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByName(name)->getTotalRounds();
+    MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
+    MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
     printRoundsByTeam();
 }
 

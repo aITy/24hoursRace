@@ -12,6 +12,7 @@ class CmdLineBar;
 class ResultPrinter;
 class XmlHandler;
 class BestRoundBar;
+class LastRoundBar;
 
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
@@ -31,7 +32,8 @@ public:
     CmdLineBar * getCmdline() { return cmdline; }
     ResultPrinter * getPrinter() { return printer; }
     XmlHandler * getXmlHandler() { return xml_handler; }
-    BestRoundBar * getBestroundBar() { return bestround_bar; }
+    BestRoundBar * getBestRoundBar() { return bestround_bar; }
+    LastRoundBar * getLastRoundBar() { return lastround_bar; }
 
 private:
     static MainWindow * instance;
@@ -41,6 +43,7 @@ private:
     ResultPrinter * printer;
     XmlHandler * xml_handler;
     BestRoundBar * bestround_bar;
+    LastRoundBar * lastround_bar;
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -61,6 +64,8 @@ private slots:
     void printByRoundsAsc();
     void printByTimeDesc();
     void printByTimeAsc();
+
+    void printByTeam();
 
 
     void xmlexport();
