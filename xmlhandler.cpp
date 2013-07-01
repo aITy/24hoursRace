@@ -23,14 +23,16 @@ bool XmlHandler::xmlImport(const QString & filename)
     QString err_msg;
     if (!xml.setContent(file.readAll(),&err_msg)) {
         qDebug() << err_msg;
+        file.close();
         return false;
     }
+    file.close();
 
     QDomElement elem;
     QDomNodeList nodes;
     QDomNode node;
 
-    nodes = xml.elementsByTagName(trUtf8("Tymy"));
+    nodes = xml.elementsByTagName("Tymy");
     if (nodes.count() <= 0)
         return false;
     node = nodes.at(0).firstChild();
@@ -41,13 +43,13 @@ bool XmlHandler::xmlImport(const QString & filename)
     while(!node.isNull()) {
         elem = node.toElement();
 
-        if (!elem.hasAttribute(trUtf8("nazev")))
+        if (!elem.hasAttribute("nazev"))
             return false;
-        QString name = elem.attributeNode(trUtf8("nazev")).value();
+        QString name = elem.attributeNode("nazev").value();
 
-        if (!elem.hasAttribute(trUtf8("kod")))
+        if (!elem.hasAttribute("kod"))
             return false;
-        QString barcode_str = elem.attributeNode(trUtf8("kod")).value();
+        QString barcode_str = elem.attributeNode("kod").value();
         QList<int> barcode;
         for(int i = 0; i < barcode_str.count(); i++) {
             barcode.append(QString(barcode_str.at(i)).toInt());
@@ -60,10 +62,10 @@ bool XmlHandler::xmlImport(const QString & filename)
             node = nodes.at(0);
 
             while(!node.isNull()) {
-                if (!node.toElement().hasAttribute(trUtf8("jmeno")))
+                if (!node.toElement().hasAttribute("jmeno"))
                     break;
 
-                team->addRacer(node.toElement().attributeNode(trUtf8("jmeno")).value());
+                team->addRacer(node.toElement().attributeNode("jmeno").value());
                 node = node.nextSibling();
             }
 
@@ -72,7 +74,7 @@ bool XmlHandler::xmlImport(const QString & filename)
         node = node.nextSibling();
     }
     // TODO error - SOMEHOW this function returns NULL - file checked - everything all right
-    nodes = xml.elementsByTagName(trUtf8("Kola"));
+    nodes = xml.elementsByTagName("Kola");
     if (nodes.count() <= 0)
         return false;
     node = nodes.at(0).firstChild();
@@ -81,29 +83,28 @@ bool XmlHandler::xmlImport(const QString & filename)
     while (! node.isNull()) {
         elem = node.toElement();
 
-        if (!elem.hasAttribute(trUtf8("tym")) || !elem.hasAttribute(trUtf8("cas")))
+        if (!elem.hasAttribute("tym") || !elem.hasAttribute("cas"))
             return false;
-        QString round_team = elem.attributeNode(trUtf8("tym")).value();
-        int round_time = elem.attributeNode(trUtf8("cas")).value().toInt();
+        QString round_team = elem.attributeNode("tym").value();
+        int round_time = elem.attributeNode("cas").value().toInt();
 
         MainWindow::getInstance()->getTeamManager()->addRound(round_team, round_time);
 
         node = node.nextSibling();
     }
 
-    nodes = xml.elementsByTagName(trUtf8("casovac"));
+    nodes = xml.elementsByTagName("casovac");
     if (nodes.count() <= 0)
         return false;
     elem = nodes.at(0).toElement();
-    if (!elem.hasAttribute(trUtf8("celkovy_cas")) || !elem.hasAttribute(trUtf8("aktualni_cas")))
+    if (!elem.hasAttribute("celkovy_cas") || !elem.hasAttribute("aktualni_cas"))
         return false;
 
-    MainWindow::getInstance()->reconstructTimeBar(elem.attributeNode(trUtf8("celkovy_cas")).value().toInt(), elem.attributeNode(trUtf8("aktualni_cas")).value().toInt());
+    MainWindow::getInstance()->reconstructTimeBar(elem.attributeNode("celkovy_cas").value().toInt(), elem.attributeNode("aktualni_cas").value().toInt());
     MainWindow::getInstance()->getTimeBar()->showTime();
 
     MainWindow::getInstance()->updateOrder();
 
-    file.close();
     return true;
 
 }
@@ -112,19 +113,19 @@ bool XmlHandler::xmlExport(const QString & filename)
 {
     QDomDocument doc;
     doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"utf-8\"");
-    QDomElement team_db = doc.createElement(trUtf8("Tymy"));
+    QDomElement team_db = doc.createElement("Tymy");
 
     QList<Team *> teams = MainWindow::getInstance()->getTeamManager()->getTeams();
     QList<QPair< Team *, int > > rounds = MainWindow::getInstance()->getTeamManager()->getRounds();
     TimeBar * timebar = MainWindow::getInstance()->getTimeBar();
 
     for (int i = 0; i < teams.count(); i++) {
-        QDomElement team = doc.createElement(trUtf8("Tym"));
-        team.setAttribute(trUtf8("nazev"), teams.at(i)->getName());
-        team.setAttribute(trUtf8("kod"), teams.at(i)->getBarcodeStr());
+        QDomElement team = doc.createElement("Tym");
+        team.setAttribute("nazev", teams.at(i)->getName());
+        team.setAttribute("kod", teams.at(i)->getBarcodeStr());
         for (int j = 0; j < teams.at(i)->getRacers().count(); j++) {
-            QDomElement racer = doc.createElement(trUtf8("Zavodnik"));
-            racer.setAttribute(trUtf8("jmeno"), teams.at(i)->getRacers().at(j));
+            QDomElement racer = doc.createElement("Zavodnik");
+            racer.setAttribute("jmeno", teams.at(i)->getRacers().at(j));
             team.appendChild(racer);
         }
         team_db.appendChild(team);
@@ -132,18 +133,18 @@ bool XmlHandler::xmlExport(const QString & filename)
 
     doc.appendChild(team_db);
 
-    QDomElement rounds_db = doc.createElement(trUtf8("Kola"));
+    QDomElement rounds_db = doc.createElement("Kola");
     for (int i = 0; i < rounds.count(); i++) {
-        QDomElement round = doc.createElement(trUtf8("Kolo"));
-        round.setAttribute(trUtf8("tym"), rounds.at(i).first->getName());
-        round.setAttribute(trUtf8("cas"), rounds.at(i).second);
+        QDomElement round = doc.createElement("Kolo");
+        round.setAttribute("tym", rounds.at(i).first->getName());
+        round.setAttribute("cas", rounds.at(i).second);
         rounds_db.appendChild(round);
     }
     doc.appendChild(rounds_db);
 
-    QDomElement timer_db = doc.createElement(trUtf8("casovac"));
-    timer_db.setAttribute(trUtf8("celkovy_cas"), QString::number(timebar->getTotalTime()));
-    timer_db.setAttribute(trUtf8("aktualni_cas"), QString::number(timebar->getCurrentTime()));
+    QDomElement timer_db = doc.createElement("casovac");
+    timer_db.setAttribute("celkovy_cas", QString::number(timebar->getTotalTime()));
+    timer_db.setAttribute("aktualni_cas", QString::number(timebar->getCurrentTime()));
     doc.appendChild(timer_db);
 
     QFile file(filename);

@@ -64,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
         label_names.append(new QLabel());
         label_rounds.append(new QLabel());
         label_ranks.append(new QLabel());
-        label_rounds.last()->setMaximumWidth(50);
+        label_rounds.last()->setMaximumWidth(80);
         label_names.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
         label_names.last()->setFont(QFont("Radio Space", 14));
         label_names.last()->setAlignment(Qt::AlignCenter);
@@ -152,10 +152,20 @@ void MainWindow::updateOrder()
     if (state == SORTBYROUNDSDESC || state == SORTBYROUNDSASC) {
         label_RoundLeft->setText(trUtf8("Počet kol"));
         label_RoundRight->setText(trUtf8("Počet kol"));
+        for(int i = 0;i < label_rounds.count(); i++) {
+            label_RoundLeft->setMaximumWidth(60);
+            label_RoundRight->setMaximumWidth(60);
+            label_rounds.at(i)->setMaximumWidth(60);
+        }
     }
     else {
         label_RoundLeft->setText(trUtf8("Čas"));
         label_RoundRight->setText(trUtf8("Čas"));
+        for(int i = 0; i < label_rounds.count(); i++) {
+            label_RoundLeft->setMaximumWidth(130);
+            label_RoundRight->setMaximumWidth(130);
+            label_rounds.at(i)->setMaximumWidth(130);
+        }
     }
 
     for(int i = 0; i < teams_ptr.count(); i++){
@@ -305,6 +315,8 @@ void MainWindow::xmlexport()
                                    trUtf8("Ulozit do souboru"),
                                    "",
                                    trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
+    setFocus();
+
     if (fn.isEmpty())
         return;
 
@@ -318,6 +330,7 @@ void MainWindow::xmlimport()
                                    trUtf8("Nacist ze souboru"),
                                    "",
                                    trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
+    setFocus();
     if (fn.isEmpty())
         return;
 
