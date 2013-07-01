@@ -58,8 +58,13 @@ private:
 
     QList<QLabel *> label_names;
     QList<QLabel *> label_rounds;
+    QList<QLabel *> label_ranks;
+    // config poctu tymu
+    int team_count;
 
     board_state state;
+
+
 
 
 protected:

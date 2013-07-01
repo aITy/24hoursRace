@@ -59,17 +59,33 @@ MainWindow::MainWindow(QWidget *parent) :
     QList<int> barcode2;
     QList<int> barcode3;
 
-
-    for(int i = 0; i < 40; i++){
+    team_count = 40;
+    for(int i = 0; i < team_count; i++){
         label_names.append(new QLabel());
         label_rounds.append(new QLabel());
-        if(i < 20){
-            ListLeft->addWidget(label_names.at(i),i+1,1); // +1 because of title
-            ListLeft->addWidget(label_rounds.at(i),i+1,2);
+        label_ranks.append(new QLabel());
+        label_rounds.last()->setMaximumWidth(50);
+        label_names.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+        label_rounds.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+        if(i%2 == 0){
+            // set gray background
+            label_ranks.last()->setStyleSheet("background-color:gray;");
+            label_names.last()->setStyleSheet("background-color:gray;");
+            label_rounds.last()->setStyleSheet("background-color:gray;");
         }
         else{
-            ListRight->addWidget(label_names.at(i),i-19,1); // -19 == 2nd grid + title
-            ListRight->addWidget(label_rounds.at(i),i-19,2);
+            label_ranks.last()->setStyleSheet("background-color:white;");
+            label_names.last()->setStyleSheet("background-color:white;");
+            label_rounds.last()->setStyleSheet("background-color:white;");
+        }
+        if((team_count % 2 == 0) && (i < (team_count/2)) || (team_count % 2 == 1) && (i < (team_count/2 +1) )){
+            ListLeft->addWidget(label_names.at(i),i+1,1); // +1 because of title
+            ListLeft->addWidget(label_rounds.at(i),i+1,2);
+
+        }
+        else{
+            ListRight->addWidget(label_names.at(i),i-team_count/2+1,1); // -19 == 2nd grid + title
+            ListRight->addWidget(label_rounds.at(i),i-team_count/2+1,2);
         }
     }
 
