@@ -12,7 +12,7 @@ class TeamManager : public QWidget
     Q_OBJECT
 public:
     TeamManager(QWidget * parent = 0);
-    //~TeamManager();
+    ~TeamManager();
 
     Team * addTeam();
     Team * addTeam(const QString &);
@@ -34,6 +34,10 @@ public:
     QList<Team *> getTeams();
     QList<Team *> getTeamOrderByBestTime();
     QList<Team *> getTeamOrderByRounds();
+
+    void clearTeams();
+    void clearRounds();
+    void updateToolBar();
 
     // bool = true - DESC
     void sortByRounds(bool);

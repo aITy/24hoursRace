@@ -31,7 +31,7 @@ void ResultPrinter::printBestResultsByRoundCount(bool order)
     // order = true - descending, false - ascending
     QString fn = QFileDialog::getSaveFileName(NULL,
                                    trUtf8("Ulozit aktualni vysledky do souboru"),
-                                   QDir::homePath(),
+                                   "",
                                    trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
     if (!fn.isEmpty())
     {
@@ -74,7 +74,7 @@ void ResultPrinter::printBestResultsByTime(bool order)
 
     QString fn = QFileDialog::getSaveFileName(NULL,
                                    trUtf8("Ulozit aktualni vysledky do souboru"),
-                                   QDir::homePath(),
+                                   "",
                                    trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
     if (!fn.isEmpty())
     {
@@ -139,7 +139,7 @@ void ResultPrinter::printResultsByTeams()
 {
     QString fn = QFileDialog::getSaveFileName(NULL,
                                    trUtf8("Ulozit aktualni vysledky do souboru"),
-                                   QDir::homePath(),
+                                   "",
                                    trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
     if (!fn.isEmpty())
     {

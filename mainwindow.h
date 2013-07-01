@@ -38,6 +38,7 @@ public:
     LastRoundBar * getLastRoundBar() { return lastround_bar; }
 
     void updateOrder();
+    void save();
 
     typedef enum {
         SORTBYROUNDSDESC,
@@ -63,9 +64,7 @@ private:
     int team_count;
 
     board_state state;
-
-
-
+    QString file;
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -76,6 +75,17 @@ public slots:
 
 private slots:
     void run();
+
+    void sortByRoundsDesc();
+    void sortByRoundsAsc();
+
+    void sortByTimeDesc();
+    void sortByTimeAsc();
+
+    void saveAs();
+    void openFromFile();
+
+    // developing
 
     void printBestByRoundsDesc();
     void printBestByRoundsAsc();
@@ -88,12 +98,6 @@ private slots:
     void printByTimeAsc();
 
     void printByTeam();
-
-    void sortByRoundsDesc();
-    void sortByRoundsAsc();
-
-    void sortByTimeDesc();
-    void sortByTimeAsc();
 
     void xmlexport();
     void xmlimport();

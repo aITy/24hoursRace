@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(action_SortByTimeDesc, SIGNAL(triggered()), this, SLOT(sortByTimeDesc()));
     connect(action_SortByTimeAsc, SIGNAL(triggered()), this, SLOT(sortByTimeAsc()));
 
+    connect(action_Save, SIGNAL(triggered()), this, SLOT(saveAs()));
+    connect(action_Open, SIGNAL(triggered()), this, SLOT(openFromFile()));
+
     connect(actionBestByRoundsDesc, SIGNAL(triggered()), this, SLOT(printBestByRoundsDesc()));
     connect(actionBestByRoundsAsc, SIGNAL(triggered()), this, SLOT(printBestByRoundsAsc()));
     connect(actionBestByTimeDesc, SIGNAL(triggered()), this, SLOT(printBestByTimeDesc()));
@@ -64,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
         label_names.append(new QLabel());
         label_rounds.append(new QLabel());
         label_ranks.append(new QLabel());
-        label_rounds.last()->setMaximumWidth(80);
+        label_rounds.last()->setMaximumWidth(60);
         label_names.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
         label_names.last()->setFont(QFont("Radio Space", 14));
         label_names.last()->setAlignment(Qt::AlignCenter);
@@ -97,6 +100,12 @@ MainWindow::MainWindow(QWidget *parent) :
             ListRight->addWidget(label_ranks.at(i), i-team_count/2+1,0);
         }
     }
+
+    file = "db.temp";
+    QFile f(file);
+    if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
+        setStatusMsg("Error while opening db.temp file");
+    f.close();
 
     for (int i = 0; i < 5; i++) {
         barcode1.append(i);
@@ -135,6 +144,7 @@ void MainWindow::reconstructTimeBar()
     if (timebar)
         delete timebar;
     timebar = new TimeBar();
+    middleLayout->addWidget(timebar, Qt::AlignTop);
 }
 
 void MainWindow::reconstructTimeBar(int total_ms, int curr_ms)
@@ -142,6 +152,7 @@ void MainWindow::reconstructTimeBar(int total_ms, int curr_ms)
     if (timebar)
         delete timebar;
     timebar = new TimeBar(total_ms, curr_ms);
+    middleLayout->insertWidget(0,timebar);
 }
 
 void MainWindow::updateOrder()
@@ -228,11 +239,11 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 
 void MainWindow::run()
 {
-    if (manager->getTeams().size() == 0)
+    if (manager->getTeams().size() == 0 && !timebar->isRunning())
         return;
 
     updateOrder();
-
+    save();
     timebar->run();
 }
 
@@ -309,13 +320,49 @@ void MainWindow::sortByTimeAsc()
     updateOrder();
 }
 
+void MainWindow::save()
+{
+    if (!xml_handler->xmlExport(file))
+        setStatusMsg("error while saving temp file");
+}
+
+void MainWindow::saveAs()
+{
+    QString fn = QFileDialog::getSaveFileName(NULL,
+                                   trUtf8("Ulozit do souboru"),
+                                   "",
+                                   trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
+    if (fn.isEmpty())
+        return;
+
+    if (!xml_handler->xmlExport(fn))
+        setStatusMsg("error");
+}
+
+void MainWindow::openFromFile()
+{
+    QString fn = QFileDialog::getOpenFileName(NULL,
+                                   trUtf8("Nacist ze souboru"),
+                                   "",
+                                   trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
+    setFocus();
+    if (fn.isEmpty())
+        return;
+
+    if (!xml_handler->xmlImport(fn)) {
+        setStatusMsg("error");
+        return;
+    }
+    updateOrder();
+    save();
+}
+
 void MainWindow::xmlexport()
 {
     QString fn = QFileDialog::getSaveFileName(NULL,
                                    trUtf8("Ulozit do souboru"),
                                    "",
                                    trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
-    setFocus();
 
     if (fn.isEmpty())
         return;
@@ -334,6 +381,10 @@ void MainWindow::xmlimport()
     if (fn.isEmpty())
         return;
 
-    if (!xml_handler->xmlImport(fn))
+    if (!xml_handler->xmlImport(fn)) {
         setStatusMsg("error");
+        return;
+    }
+    updateOrder();
+
 }

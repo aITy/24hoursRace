@@ -9,6 +9,7 @@ class Team : public QObject
     Q_OBJECT
 public:
     explicit Team(QObject *parent = 0);
+    ~Team();
     explicit Team(const QString &, QObject * parent = 0);
     explicit Team(const QString &, QList<int> , QObject * parent = 0);
     explicit Team(const QString &, QList<QString> , QObject * parent = 0);

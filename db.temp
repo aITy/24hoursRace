@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<db>
+ <db_tymy>
+  <tym nazev="jirin" kod="01234">
+   <zavodnik jmeno="JiRin"/>
+   <zavodnik jmeno="Roman"/>
+  </tym>
+  <tym nazev="venca" kod="54321">
+   <zavodnik jmeno="venca"/>
+  </tym>
+  <tym nazev="dlouheee jmenooo" kod="56789"/>
+ </db_tymy>
+ <db_kol>
+  <kolo cas="2000" tym="jirin"/>
+  <kolo cas="4000" tym="venca"/>
+  <kolo cas="3000" tym="jirin"/>
+  <kolo cas="56000" tym="jirin"/>
+ </db_kol>
+ <db_casovac aktualni_cas="86339000" celkovy_cas="86400000"/>
+</db>

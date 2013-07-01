@@ -9,6 +9,10 @@ Team::Team(QObject * parent) :
     round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
 }
 
+Team::~Team()
+{
+}
+
 Team::Team(const QString & new_name, QObject * parent)
     :name(new_name), QObject(parent)
 {

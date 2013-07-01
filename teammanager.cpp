@@ -12,16 +12,13 @@ TeamManager::TeamManager(QWidget *parent)
     timebar = MainWindow::getInstance()->getTimeBar();
 }
 
-/*
+
 TeamManager::~TeamManager()
 {
-    if (teams.size() != 0) {
-        for (int i = 0; i < teams.size(); i++) {
-            delete teams.at(i);
-        }
-    }
+    clearTeams();
+    clearRounds();
 }
-*/
+
 
 Team *TeamManager::addTeam()
 {
@@ -102,12 +99,9 @@ void TeamManager::addRound(QList<int> barcode)
     }
     if (!found)
         return;
-    QPair<QString, int> best_round = getBestRound();
-    QPair<QString, int> last_round = getLastRound();
-    int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByBarcode(barcode)->getTotalRounds();
-    MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
-    MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
-    MainWindow::getInstance()->updateOrder();
+
+    MainWindow::getInstance()->save();
+    updateToolBar();
     printRoundsByTeam();
 }
 
@@ -139,6 +133,7 @@ void TeamManager::addRound(const QString & name)
     MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
     MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
     MainWindow::getInstance()->updateOrder();
+    MainWindow::getInstance()->save();
     printRoundsByTeam();
 }
 
@@ -227,4 +222,28 @@ void TeamManager::printRoundsByTeam()
             qDebug() << print_rounds.at(j);
         }
     }
+}
+
+
+void TeamManager::clearTeams()
+{
+    for (int i = teams.count() - 1; i >= 0; i--) {
+        Team * team = teams.takeAt(i);
+        delete team;
+    }
+}
+
+void TeamManager::clearRounds()
+{
+    rounds.clear();
+}
+
+void TeamManager::updateToolBar()
+{
+    QPair<QString, int> best_round = getBestRound();
+    QPair<QString, int> last_round = getLastRound();
+    int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByName(last_round.first)->getTotalRounds();
+    MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
+    MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
+    MainWindow::getInstance()->updateOrder();
 }
