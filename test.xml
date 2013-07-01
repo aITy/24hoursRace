@@ -1,0 +1,18 @@
+<Tymy>
+ <Tym nazev="jirin" kod="01234">
+  <Zavodnik jmeno="JiRin"/>
+  <Zavodnik jmeno="Roman"/>
+ </Tym>
+ <Tym nazev="venca" kod="54321">
+  <Zavodnik jmeno="venca"/>
+ </Tym>
+ <Tym nazev="dlouheee jmenooo" kod="56789"/>
+</Tymy>
+<Kola>
+ <Kolo cas="6000" tym="venca"/>
+ <Kolo cas="7000" tym="jirin"/>
+ <Kolo cas="4000" tym="jirin"/>
+ <Kolo cas="8000" tym="venca"/>
+ <Kolo cas="5000" tym="jirin"/>
+</Kola>
+<casovac celkovy_cas="86400000" aktualni_cas="86375000"/>

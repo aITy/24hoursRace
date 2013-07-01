@@ -6,8 +6,7 @@ TimeBar::TimeBar(QWidget *parent)
 {
 
     setupUi(this);
-    //setFont(QFont("Radio Space", 22));
-    //label->setFont(QFont("Radio Space Bold", 12));
+
     countdown = new QTimer(this);
     countdown->setInterval(1000);
     countdown->setSingleShot(false);
@@ -15,6 +14,24 @@ TimeBar::TimeBar(QWidget *parent)
     // change to settable - implement method to settings
     ms = total_time = 24 * 3600 * 1000;
     running = false;
+}
+
+TimeBar::TimeBar(int total_ms, int current_ms, QWidget *parent)
+    :QWidget(parent)
+{
+    setupUi(this);
+
+    countdown = new QTimer(this);
+    countdown->setInterval(1000);
+    countdown->setSingleShot(false);
+    connect(countdown, SIGNAL(timeout()), this, SLOT(showTime()));
+    total_time = total_ms;
+    ms = current_ms;
+    running = false;
+}
+
+TimeBar::~TimeBar()
+{
 }
 
 void TimeBar::showTime()

@@ -11,7 +11,9 @@ class TimeBar : public QWidget, Ui::TimeBarWidget
 {
     Q_OBJECT
 public:
-    explicit TimeBar(QWidget *parent = 0);
+    TimeBar(QWidget * parent = 0);
+    TimeBar(int, int, QWidget * parent = 0);
+    ~TimeBar();
     int getCurrentTime() { return ms; }
     int getTotalTime() { return total_time; }
     void run();

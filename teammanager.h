@@ -25,7 +25,9 @@ public:
 
     void addRound(QList<int>);
     void addRound(const QString &);
+    void addRound(const QString &, int);
 
+    QList<QPair< Team *, int > > getRounds() { return rounds; }
     QPair< QString, int> getBestRound();
     QPair< QString, int> getLastRound();
 

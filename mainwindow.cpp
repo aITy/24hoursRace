@@ -105,6 +105,20 @@ void MainWindow::setStatusMsg(const char * msg) {
     myStatusBar->showMessage(QString(msg), 2500);
 }
 
+void MainWindow::reconstructTimeBar()
+{
+    if (timebar)
+        delete timebar;
+    timebar = new TimeBar();
+}
+
+void MainWindow::reconstructTimeBar(int total_ms, int curr_ms)
+{
+    if (timebar)
+        delete timebar;
+    timebar = new TimeBar(total_ms, curr_ms);
+}
+
 void MainWindow::updateOrder()
 {
     QList<Team *> teams_ptr = manager->getTeams();
@@ -279,5 +293,5 @@ void MainWindow::xmlimport()
     if (fn.isEmpty())
         return;
 
-    xml_handler->xmlExport(fn);
+    xml_handler->xmlImport(fn);
 }

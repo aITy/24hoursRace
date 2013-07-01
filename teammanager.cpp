@@ -142,6 +142,18 @@ void TeamManager::addRound(const QString & name)
     printRoundsByTeam();
 }
 
+void TeamManager::addRound(const QString & name, int ms)
+{
+    for(int i = 0; i < teams.count(); i++) {
+        if (QString::compare(teams.at(i)->getName(), name, Qt::CaseInsensitive) == 0) {
+
+            teams.at(i)->addRound(ms);
+            rounds.append(QPair<Team *, int>(teams.at(i), ms));
+            break;
+        }
+    }
+}
+
 QPair<QString, int> TeamManager::getBestRound()
 {
     if (teams.empty())

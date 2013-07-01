@@ -27,6 +27,8 @@ public:
     }
 
     void setStatusMsg(const char *);
+    void reconstructTimeBar();
+    void reconstructTimeBar(int, int);
     TimeBar * getTimeBar() { return timebar; }
     TeamManager * getTeamManager() { return manager; }
     CmdLineBar * getCmdline() { return cmdline; }
