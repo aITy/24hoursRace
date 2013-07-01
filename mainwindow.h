@@ -38,7 +38,6 @@ public:
     LastRoundBar * getLastRoundBar() { return lastround_bar; }
 
     void updateOrder();
-    void save();
 
     typedef enum {
         SORTBYROUNDSDESC,
@@ -72,6 +71,9 @@ protected:
     virtual void keyReleaseEvent(QKeyEvent *event);
 
 public slots:
+    void save();
+    void saveAs();
+    void openFromFile();
 
 private slots:
     void run();
@@ -81,9 +83,6 @@ private slots:
 
     void sortByTimeDesc();
     void sortByTimeAsc();
-
-    void saveAs();
-    void openFromFile();
 
     // developing
 

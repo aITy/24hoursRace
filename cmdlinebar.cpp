@@ -49,6 +49,8 @@ void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
     // CTRL + Z - zaloha or S - save to
     if ((event->key() == Qt::Key_Z || event->key() == Qt::Key_S) && (event->modifiers() == Qt::ControlModifier)) {
         // save database to
+        MainWindow::getInstance()->save();
+        MainWindow::getInstance()->saveAs();
 
     }
 
