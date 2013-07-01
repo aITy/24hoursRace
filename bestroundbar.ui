@@ -14,7 +14,8 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: rgb(180, 180, 180);</string>
+   <string notr="true">background: rgb(180, 180, 180);
+border: none;</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">

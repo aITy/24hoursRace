@@ -66,7 +66,11 @@ MainWindow::MainWindow(QWidget *parent) :
         label_ranks.append(new QLabel());
         label_rounds.last()->setMaximumWidth(50);
         label_names.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+        label_names.last()->setFont(QFont("Radio Space", 14));
+        label_names.last()->setAlignment(Qt::AlignCenter);
         label_rounds.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+        label_rounds.last()->setFont(QFont("Radio Space Bold", 16));
+        label_rounds.last()->setAlignment(Qt::AlignCenter);
         if(i%2 == 0){
             // set gray background
             label_ranks.last()->setStyleSheet("background-color:gray;");
@@ -78,14 +82,19 @@ MainWindow::MainWindow(QWidget *parent) :
             label_names.last()->setStyleSheet("background-color:white;");
             label_rounds.last()->setStyleSheet("background-color:white;");
         }
+        label_ranks.last()->setFont(QFont("Radio Space", 12));
+        label_ranks.last()->setAlignment(Qt::AlignCenter);
+        label_ranks.last()->setText(QString("%1.").arg(i+1));
         if((team_count % 2 == 0) && (i < (team_count/2)) || (team_count % 2 == 1) && (i < (team_count/2 +1) )){
             ListLeft->addWidget(label_names.at(i),i+1,1); // +1 because of title
             ListLeft->addWidget(label_rounds.at(i),i+1,2);
+            ListLeft->addWidget(label_ranks.at(i), i+1,0);
 
         }
         else{
             ListRight->addWidget(label_names.at(i),i-team_count/2+1,1); // -19 == 2nd grid + title
             ListRight->addWidget(label_rounds.at(i),i-team_count/2+1,2);
+            ListRight->addWidget(label_ranks.at(i), i-team_count/2+1,0);
         }
     }
 
@@ -211,6 +220,8 @@ void MainWindow::run()
 {
     if (manager->getTeams().size() == 0)
         return;
+
+    updateOrder();
 
     timebar->run();
 }

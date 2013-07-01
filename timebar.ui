@@ -36,7 +36,8 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: rgb(44, 44, 44)</string>
+   <string notr="true">background: rgb(44, 44, 44);
+border: none;</string>
   </property>
   <widget class="QLabel" name="label_H">
    <property name="geometry">
