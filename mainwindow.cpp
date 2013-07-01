@@ -308,7 +308,8 @@ void MainWindow::xmlexport()
     if (fn.isEmpty())
         return;
 
-    xml_handler->xmlExport(fn);
+    if (!xml_handler->xmlExport(fn))
+        setStatusMsg("error");
 }
 
 void MainWindow::xmlimport()
@@ -320,5 +321,6 @@ void MainWindow::xmlimport()
     if (fn.isEmpty())
         return;
 
-    xml_handler->xmlImport(fn);
+    if (!xml_handler->xmlImport(fn))
+        setStatusMsg("error");
 }

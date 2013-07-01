@@ -15,9 +15,16 @@ XmlHandler::XmlHandler(QObject *parent) :
 bool XmlHandler::xmlImport(const QString & filename)
 {
     QFile file(filename);
-    file.open(QIODevice::ReadOnly);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return false;
+
     QDomDocument xml;
-    xml.setContent(file.readAll());
+
+    QString err_msg;
+    if (!xml.setContent(file.readAll(),&err_msg)) {
+        qDebug() << err_msg;
+        return false;
+    }
 
     QDomElement elem;
     QDomNodeList nodes;
@@ -65,7 +72,7 @@ bool XmlHandler::xmlImport(const QString & filename)
         node = node.nextSibling();
     }
     // TODO error - SOMEHOW this function returns NULL - file checked - everything all right
-    nodes = xml.elementsByTagName("Kola");
+    nodes = xml.elementsByTagName(trUtf8("Kola"));
     if (nodes.count() <= 0)
         return false;
     node = nodes.at(0).firstChild();
