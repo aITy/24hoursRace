@@ -132,16 +132,16 @@ bool XmlHandler::xmlExport(const QString & filename)
 
     doc.appendChild(team_db);
 
-    QDomElement rounds_db = doc.createElement("Kola");
+    QDomElement rounds_db = doc.createElement(trUtf8("Kola"));
     for (int i = 0; i < rounds.count(); i++) {
-        QDomElement round = doc.createElement("Kolo");
+        QDomElement round = doc.createElement(trUtf8("Kolo"));
         round.setAttribute(trUtf8("tym"), rounds.at(i).first->getName());
         round.setAttribute(trUtf8("cas"), rounds.at(i).second);
         rounds_db.appendChild(round);
     }
     doc.appendChild(rounds_db);
 
-    QDomElement timer_db = doc.createElement("casovac");
+    QDomElement timer_db = doc.createElement(trUtf8("casovac"));
     timer_db.setAttribute(trUtf8("celkovy_cas"), QString::number(timebar->getTotalTime()));
     timer_db.setAttribute(trUtf8("aktualni_cas"), QString::number(timebar->getCurrentTime()));
     doc.appendChild(timer_db);
