@@ -41,6 +41,18 @@ bool XmlHandler::xmlImport(const QString & filename)
     QDomNodeList nodes;
     QDomNode node;
 
+
+
+    nodes = xml.elementsByTagName("db_casovac");
+    if (nodes.count() <= 0)
+        return false;
+    elem = nodes.at(0).toElement();
+    if (!elem.hasAttribute("celkovy_cas") || !elem.hasAttribute("aktualni_cas"))
+        return false;
+
+    MainWindow::getInstance()->reconstructTimeBar(elem.attributeNode("celkovy_cas").value().toInt(), elem.attributeNode("aktualni_cas").value().toInt());
+
+
     nodes = xml.elementsByTagName("db_tymy");
     if (nodes.count() <= 0)
         return false;
@@ -102,16 +114,7 @@ bool XmlHandler::xmlImport(const QString & filename)
         node = node.nextSibling();
     }
 
-    nodes = xml.elementsByTagName("db_casovac");
-    if (nodes.count() <= 0)
-        return false;
-    elem = nodes.at(0).toElement();
-    if (!elem.hasAttribute("celkovy_cas") || !elem.hasAttribute("aktualni_cas"))
-        return false;
-
-    MainWindow::getInstance()->reconstructTimeBar(elem.attributeNode("celkovy_cas").value().toInt(), elem.attributeNode("aktualni_cas").value().toInt());
     MainWindow::getInstance()->getTimeBar()->showTime();
-
     MainWindow::getInstance()->getTeamManager()->updateToolBar();
     MainWindow::getInstance()->getPrinter()->updateTeams();
 

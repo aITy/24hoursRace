@@ -144,6 +144,7 @@ void TeamManager::addRound(const QString & name, int ms)
 
             teams.at(i)->addRound(ms);
             rounds.append(QPair<Team *, int>(teams.at(i), ms));
+            MainWindow::getInstance()->save();
             break;
         }
     }
@@ -246,4 +247,9 @@ void TeamManager::updateToolBar()
     MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
     MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
     MainWindow::getInstance()->updateOrder();
+}
+
+void TeamManager::updateTimeBarPtr()
+{
+    timebar = MainWindow::getInstance()->getTimeBar();
 }

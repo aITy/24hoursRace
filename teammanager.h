@@ -39,6 +39,8 @@ public:
     void clearRounds();
     void updateToolBar();
 
+    void updateTimeBarPtr();
+
     // bool = true - DESC
     void sortByRounds(bool);
     void sortByTime(bool);

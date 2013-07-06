@@ -18,7 +18,6 @@ SOURCES += main.cpp\
     bestroundbar.cpp \
     cmdlinebar.cpp \
     barcodehandler.cpp \
-    setttingsdialog.cpp \
     team.cpp \
     databaseeditdialog.cpp \
     timebar.cpp \
@@ -31,7 +30,6 @@ HEADERS  += teammanager.h \
     bestroundbar.h \
     cmdlinebar.h \
     barcodehandler.h \
-    setttingsdialog.h \
     team.h \
     databaseeditdialog.h \
     timebar.h \

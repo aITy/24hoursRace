@@ -101,11 +101,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
-    file = "db.temp";
-    QFile f(file);
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
-        setStatusMsg("Error while opening db.temp file");
-    f.close();
+    file = "db.xml";
 
     for (int i = 0; i < 5; i++) {
         barcode1.append(i);
@@ -153,6 +149,7 @@ void MainWindow::reconstructTimeBar(int total_ms, int curr_ms)
         delete timebar;
     timebar = new TimeBar(total_ms, curr_ms);
     middleLayout->insertWidget(0,timebar);
+    manager->updateTimeBarPtr();
 }
 
 void MainWindow::updateOrder()
@@ -345,7 +342,8 @@ void MainWindow::openFromFile()
                                    trUtf8("Nacist ze souboru"),
                                    "",
                                    trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
-    setFocus();
+
+
     if (fn.isEmpty())
         return;
 
@@ -377,7 +375,9 @@ void MainWindow::xmlimport()
                                    trUtf8("Nacist ze souboru"),
                                    "",
                                    trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
-    setFocus();
+
+
+
     if (fn.isEmpty())
         return;
 

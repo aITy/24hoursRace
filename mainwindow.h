@@ -29,6 +29,8 @@ public:
     void setStatusMsg(const char *);
     void reconstructTimeBar();
     void reconstructTimeBar(int, int);
+
+    // get methods
     TimeBar * getTimeBar() { return timebar; }
     TeamManager * getTeamManager() { return manager; }
     CmdLineBar * getCmdline() { return cmdline; }
@@ -36,6 +38,16 @@ public:
     XmlHandler * getXmlHandler() { return xml_handler; }
     BestRoundBar * getBestRoundBar() { return bestround_bar; }
     LastRoundBar * getLastRoundBar() { return lastround_bar; }
+
+    /* not used
+    void setTimeBar(TimeBar * ptr) { timebar = ptr; }
+    void setTeamManager(TeamManager * ptr) { manager = ptr; }
+    void setCmdline(CmdLineBar * ptr) { cmdline = ptr; }
+    void setPrinter(ResultPrinter * ptr) { printer = ptr; }
+    void setXmlHandler(XmlHandler * ptr) { xml_handler = ptr; }
+    void setBestRoundBar(BestRoundBar * ptr) { bestround_bar = ptr; }
+    void setLastRoundBar(LastRoundBar * ptr) { lastround_bar = ptr; }
+    */
 
     void updateOrder();
 
