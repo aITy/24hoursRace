@@ -13,6 +13,7 @@ class ResultPrinter;
 class XmlHandler;
 class BestRoundBar;
 class LastRoundBar;
+class Settings;
 
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
@@ -38,6 +39,7 @@ public:
     XmlHandler * getXmlHandler() { return xml_handler; }
     BestRoundBar * getBestRoundBar() { return bestround_bar; }
     LastRoundBar * getLastRoundBar() { return lastround_bar; }
+    Settings * getSettings() { return settings; }
 
     /* not used
     void setTimeBar(TimeBar * ptr) { timebar = ptr; }
@@ -50,6 +52,7 @@ public:
     */
 
     void updateOrder();
+    void layoutBoard(int);
 
     typedef enum {
         SORTBYROUNDSDESC,
@@ -58,6 +61,7 @@ public:
         SORTBYTIMEASC
     } board_state;
 
+    void clearLayout(QLayout *, bool deleteWidgets = true);
 private:
     static MainWindow * instance;
     TimeBar * timebar;
@@ -67,12 +71,11 @@ private:
     XmlHandler * xml_handler;
     BestRoundBar * bestround_bar;
     LastRoundBar * lastround_bar;
+    Settings * settings;
 
     QList<QLabel *> label_names;
     QList<QLabel *> label_rounds;
     QList<QLabel *> label_ranks;
-    // config poctu tymu
-    int team_count;
 
     board_state state;
     QString file;
@@ -95,6 +98,9 @@ private slots:
 
     void sortByTimeDesc();
     void sortByTimeAsc();
+
+    void changeSettings();
+    void boardSettingsChanged();
 
     // developing
 

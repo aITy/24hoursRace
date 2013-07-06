@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     team.cpp \
     databaseeditdialog.cpp \
     timebar.cpp \
-    lastroundbar.cpp
+    lastroundbar.cpp \
+    settings.cpp
 
 HEADERS  += teammanager.h \
     mainwindow.h \
@@ -33,13 +34,15 @@ HEADERS  += teammanager.h \
     team.h \
     databaseeditdialog.h \
     timebar.h \
-    lastroundbar.h
+    lastroundbar.h \
+    settings.h
 
 FORMS    += mainwindow.ui \
     timebar.ui \
     cmdlinebar.ui \
     bestroundbar.ui \
-    lastroundbar.ui
+    lastroundbar.ui \
+    settings.ui
 
 RESOURCES += \
     recources.qrc

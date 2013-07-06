@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>801</width>
-    <height>650</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,61 @@
     <string notr="true">border: 1px solid black;</string>
    </property>
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="2">
+     <layout class="QGridLayout" name="ListRight">
+      <property name="leftMargin">
+       <number>6</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_RankRight">
+        <property name="text">
+         <string>Pořadí</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_NameRight">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Jméno</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_RoundRight">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>60</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Kol</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="0" column="0">
      <layout class="QGridLayout" name="ListLeft">
       <property name="sizeConstraint">
@@ -109,61 +164,6 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="2">
-     <layout class="QGridLayout" name="ListRight">
-      <property name="leftMargin">
-       <number>6</number>
-      </property>
-      <property name="spacing">
-       <number>0</number>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_RankRight">
-        <property name="text">
-         <string>Pořadí</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_NameRight">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Jméno</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_RoundRight">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>60</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Kol</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item row="0" column="1">
      <layout class="QVBoxLayout" name="middleLayout">
       <property name="spacing">
@@ -181,7 +181,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>801</width>
+     <width>800</width>
      <height>21</height>
     </rect>
    </property>
@@ -190,6 +190,7 @@
      <string>Menu</string>
     </property>
     <addaction name="action_Start"/>
+    <addaction name="action_changeSettings"/>
     <addaction name="action_Open"/>
     <addaction name="action_Save"/>
    </widget>
@@ -325,6 +326,11 @@
   <action name="action_Open">
    <property name="text">
     <string>Načíst stav</string>
+   </property>
+  </action>
+  <action name="action_changeSettings">
+   <property name="text">
+    <string>Změnit nastavení</string>
    </property>
   </action>
  </widget>

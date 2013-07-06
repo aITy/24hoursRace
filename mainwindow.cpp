@@ -7,6 +7,7 @@
 #include "xmlhandler.h"
 #include "bestroundbar.h"
 #include "lastroundbar.h"
+#include "settings.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -30,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(action_Save, SIGNAL(triggered()), this, SLOT(saveAs()));
     connect(action_Open, SIGNAL(triggered()), this, SLOT(openFromFile()));
 
+    connect(action_changeSettings, SIGNAL(triggered()), this, SLOT(changeSettings()));
+
     connect(actionBestByRoundsDesc, SIGNAL(triggered()), this, SLOT(printBestByRoundsDesc()));
     connect(actionBestByRoundsAsc, SIGNAL(triggered()), this, SLOT(printBestByRoundsAsc()));
     connect(actionBestByTimeDesc, SIGNAL(triggered()), this, SLOT(printBestByTimeDesc()));
@@ -52,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
     xml_handler = new XmlHandler();
     bestround_bar = new BestRoundBar();
     lastround_bar = new LastRoundBar();
+    settings = new Settings();
+    connect(settings, SIGNAL(boardChanged()), this, SLOT(boardSettingsChanged()));
 
     middleLayout->addWidget(timebar);
     middleLayout->addWidget(bestround_bar);
@@ -62,44 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QList<int> barcode2;
     QList<int> barcode3;
 
-    team_count = 40;
-    for(int i = 0; i < team_count; i++){
-        label_names.append(new QLabel());
-        label_rounds.append(new QLabel());
-        label_ranks.append(new QLabel());
-        label_rounds.last()->setMaximumWidth(60);
-        label_names.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
-        label_names.last()->setFont(QFont("Radio Space", 14));
-        label_names.last()->setAlignment(Qt::AlignCenter);
-        label_rounds.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
-        label_rounds.last()->setFont(QFont("Radio Space Bold", 16));
-        label_rounds.last()->setAlignment(Qt::AlignCenter);
-        if(i%2 == 0){
-            // set gray background
-            label_ranks.last()->setStyleSheet("background-color:gray;");
-            label_names.last()->setStyleSheet("background-color:gray;");
-            label_rounds.last()->setStyleSheet("background-color:gray;");
-        }
-        else{
-            label_ranks.last()->setStyleSheet("background-color:white;");
-            label_names.last()->setStyleSheet("background-color:white;");
-            label_rounds.last()->setStyleSheet("background-color:white;");
-        }
-        label_ranks.last()->setFont(QFont("Radio Space", 12));
-        label_ranks.last()->setAlignment(Qt::AlignCenter);
-        label_ranks.last()->setText(QString("%1.").arg(i+1));
-        if((team_count % 2 == 0) && (i < (team_count/2)) || (team_count % 2 == 1) && (i < (team_count/2 +1) )){
-            ListLeft->addWidget(label_names.at(i),i+1,1); // +1 because of title
-            ListLeft->addWidget(label_rounds.at(i),i+1,2);
-            ListLeft->addWidget(label_ranks.at(i), i+1,0);
-
-        }
-        else{
-            ListRight->addWidget(label_names.at(i),i-team_count/2+1,1); // -19 == 2nd grid + title
-            ListRight->addWidget(label_rounds.at(i),i-team_count/2+1,2);
-            ListRight->addWidget(label_ranks.at(i), i-team_count/2+1,0);
-        }
-    }
+    layoutBoard(settings->getTeamsCount());
 
     file = "db.xml";
 
@@ -121,14 +89,12 @@ MainWindow::MainWindow(QWidget *parent) :
     venca->addRacer("venca");
 
     state = SORTBYROUNDSDESC;
-
     setFocus();
 }
 
 MainWindow::~MainWindow()
 {
-    if (timebar)
-        delete timebar;
+
 }
 
 void MainWindow::setStatusMsg(const char * msg) {
@@ -197,6 +163,73 @@ void MainWindow::updateOrder()
         }
     }
 
+}
+
+void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
+{
+
+    while (QLayoutItem* item = layout->takeAt(3))
+    {
+        if (deleteWidgets)
+        {
+            if (QWidget* widget = item->widget())
+                delete widget;
+        }
+        else if (QLayout* childLayout = item->layout())
+            clearLayout(childLayout, deleteWidgets);
+        delete item;
+    }
+}
+
+void MainWindow::layoutBoard(int team_count)
+{
+    if (label_names.count() != 0) {
+        clearLayout(ListLeft);
+        clearLayout(ListRight);
+        label_names.clear();
+        label_rounds.clear();
+        label_ranks.clear();
+    }
+
+    for(int i = 0; i < team_count; i++){
+        label_names.append(new QLabel());
+        label_rounds.append(new QLabel());
+        label_ranks.append(new QLabel());
+        label_rounds.last()->setMaximumWidth(60);
+        label_names.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+        label_names.last()->setFont(QFont("Radio Space", 14));
+        label_names.last()->setAlignment(Qt::AlignCenter);
+        label_rounds.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+        label_rounds.last()->setFont(QFont("Radio Space Bold", 16));
+        label_rounds.last()->setAlignment(Qt::AlignCenter);
+        if(i%2 == 0){
+            // set gray background
+            label_ranks.last()->setStyleSheet("background-color:gray;");
+            label_names.last()->setStyleSheet("background-color:gray;");
+            label_rounds.last()->setStyleSheet("background-color:gray;");
+        }
+        else{
+            label_ranks.last()->setStyleSheet("background-color:white;");
+            label_names.last()->setStyleSheet("background-color:white;");
+            label_rounds.last()->setStyleSheet("background-color:white;");
+        }
+        label_ranks.last()->setFont(QFont("Radio Space", 12));
+        label_ranks.last()->setAlignment(Qt::AlignCenter);
+        label_ranks.last()->setText(QString("%1.").arg(i+1));
+        if((team_count % 2 == 0) && (i < (team_count/2)) || (team_count % 2 == 1) && (i < (team_count/2 +1) )){
+            ListLeft->addWidget(label_ranks.at(i), i+1,0);
+            ListLeft->addWidget(label_names.at(i),i+1,1);
+            ListLeft->addWidget(label_rounds.at(i),i+1,2);
+
+        }
+        else{
+            ListRight->addWidget(label_ranks.at(i), i-team_count/2+1,0);
+            ListRight->addWidget(label_names.at(i),i-team_count/2+1,1);
+            ListRight->addWidget(label_rounds.at(i),i-team_count/2+1,2);
+
+        }
+    }
+    updateOrder();
 }
 
 void MainWindow::closeEvent(QCloseEvent * event) {
@@ -317,10 +350,25 @@ void MainWindow::sortByTimeAsc()
     updateOrder();
 }
 
+void MainWindow::changeSettings()
+{
+    settings->show();
+}
+
+void MainWindow::boardSettingsChanged()
+{
+    layoutBoard(settings->getTeamsCount());
+}
+
 void MainWindow::save()
 {
     if (!xml_handler->xmlExport(file))
         setStatusMsg("error while saving temp file");
+    if (!settings->getFilepath().isEmpty()) {
+        if (!xml_handler->xmlExport(settings->getFilepath()))
+            setStatusMsg("error while saving backup file");
+    }
+
 }
 
 void MainWindow::saveAs()

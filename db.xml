@@ -11,11 +11,10 @@
   <tym nazev="dlouheee jmenooo" kod="56789"/>
  </db_tymy>
  <db_kol>
-  <kolo tym="jirin" cas="2000"/>
-  <kolo tym="venca" cas="3000"/>
-  <kolo tym="jirin" cas="2000"/>
-  <kolo tym="jirin" cas="3000"/>
-  <kolo tym="venca" cas="10000"/>
+  <kolo cas="42000" tym="jirin"/>
+  <kolo cas="44000" tym="venca"/>
+  <kolo cas="5000" tym="jirin"/>
  </db_kol>
- <db_casovac aktualni_cas="86387000" celkovy_cas="86400000"/>
+ <db_casovac aktualni_cas="86352000" celkovy_cas="86400000"/>
+ <db_nastaveni pocet_tymu="30" nadpis="24 hodin nonstop CHOCEŇ 2013" delka_zavodu="86400000" cesta_zalohy="" limit_pripsani_kola="5000"/>
 </db>

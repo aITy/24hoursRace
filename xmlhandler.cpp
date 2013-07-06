@@ -7,6 +7,7 @@
 #include "resultprinter.h"
 #include "team.h"
 #include "timebar.h"
+#include "settings.h"
 
 XmlHandler::XmlHandler(QObject *parent) :
     QObject(parent)
@@ -25,8 +26,6 @@ bool XmlHandler::xmlImport(const QString & filename)
     QString err_msg;
     int err_line, err_column;
     QByteArray bytes = file.readAll();
-    qDebug() << "file size" << bytes.size();
-
 
 
     if (!xml.setContent(bytes, &err_msg, &err_line, &err_column)) {
@@ -40,7 +39,6 @@ bool XmlHandler::xmlImport(const QString & filename)
     QDomElement elem;
     QDomNodeList nodes;
     QDomNode node;
-
 
 
     nodes = xml.elementsByTagName("db_casovac");
@@ -114,6 +112,24 @@ bool XmlHandler::xmlImport(const QString & filename)
         node = node.nextSibling();
     }
 
+    nodes = xml.elementsByTagName("db_nastaveni");
+    if (nodes.count() <= 0)
+        return false;
+    elem = nodes.at(0).toElement();
+    if (!elem.hasAttribute("nadpis") || !elem.hasAttribute("pocet_tymu") || !elem.hasAttribute("delka_zavodu")
+            || !elem.hasAttribute("limit_pripsani_kola") || !elem.hasAttribute("cesta_zalohy"))
+        return false;
+
+    Settings * settings = MainWindow::getInstance()->getSettings();
+
+    settings->setHeadline(elem.attributeNode("nadpis").value());
+    settings->setTeamsCount(elem.attributeNode("pocet_tymu").value().toInt());
+    settings->setRaceLength(elem.attributeNode("delka_zavodu").value().toInt());
+    settings->setRoundAdditionLimit(elem.attributeNode("limit_pripsani_kola").value().toInt());
+    settings->setFilepath(elem.attributeNode("cesta_zalohy").value());
+    settings->save();
+
+    MainWindow::getInstance()->layoutBoard(settings->getTeamsCount());
     MainWindow::getInstance()->getTimeBar()->showTime();
     MainWindow::getInstance()->getTeamManager()->updateToolBar();
     MainWindow::getInstance()->getPrinter()->updateTeams();
@@ -134,6 +150,7 @@ bool XmlHandler::xmlExport(const QString & filename)
     QList<Team *> teams = MainWindow::getInstance()->getTeamManager()->getTeams();
     QList<QPair< Team *, int > > rounds = MainWindow::getInstance()->getTeamManager()->getRounds();
     TimeBar * timebar = MainWindow::getInstance()->getTimeBar();
+    Settings * settings = MainWindow::getInstance()->getSettings();
 
     for (int i = 0; i < teams.count(); i++) {
         QDomElement team = doc.createElement("tym");
@@ -163,6 +180,15 @@ bool XmlHandler::xmlExport(const QString & filename)
     timer_db.setAttribute("celkovy_cas", QString::number(timebar->getTotalTime()));
     timer_db.setAttribute("aktualni_cas", QString::number(timebar->getCurrentTime()));
     root.appendChild(timer_db);
+
+
+    QDomElement settings_db = doc.createElement("db_nastaveni");
+    settings_db.setAttribute("nadpis", settings->getHeadline());
+    settings_db.setAttribute("pocet_tymu", settings->getTeamsCount());
+    settings_db.setAttribute("delka_zavodu", settings->getRaceLength());
+    settings_db.setAttribute("limit_pripsani_kola", settings->getRoundAdditionLimit());
+    settings_db.setAttribute("cesta_zalohy", settings->getFilepath());
+    root.appendChild(settings_db);
 
     doc.appendChild(root);
 

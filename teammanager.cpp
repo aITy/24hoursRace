@@ -4,6 +4,7 @@
 #include "resultprinter.h"
 #include "bestroundbar.h"
 #include "lastroundbar.h"
+#include "settings.h"
 #include <QDebug>
 
 TeamManager::TeamManager(QWidget *parent)
@@ -83,6 +84,7 @@ void TeamManager::addRound(QList<int> barcode)
 {
     if (! timebar->isRunning())
         return;
+
     int passed_rounds_ms = 0;
     bool found = false;
     for(int i = 0; i < teams.size(); i++) {
@@ -91,6 +93,8 @@ void TeamManager::addRound(QList<int> barcode)
             for (int j = 0; j < team_rounds.count(); j++) {
                 passed_rounds_ms += team_rounds.at(j);
             }
+            if (timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime() < MainWindow::getInstance()->getSettings()->getRoundAdditionLimit())
+                return;
             teams.at(i)->addRound(timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime());
             rounds.append(QPair<Team *, int>(teams.at(i), timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime()));
             found = true;
@@ -113,10 +117,14 @@ void TeamManager::addRound(const QString & name)
     bool found = false;
     for(int i = 0; i < teams.count(); i++) {
         if (QString::compare(teams.at(i)->getName(),name, Qt::CaseInsensitive) == 0) {
+
             QList<int> team_rounds = teams.at(i)->getRounds();
             for (int j = 0; j < team_rounds.count(); j++) {
                 passed_rounds_ms += team_rounds.at(j);
             }
+
+            if (timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime() < MainWindow::getInstance()->getSettings()->getRoundAdditionLimit())
+                return;
 
             teams.at(i)->addRound(timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime());
             rounds.append(QPair<Team *, int>(teams.at(i), timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime()));
