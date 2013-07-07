@@ -19,10 +19,11 @@ SOURCES += main.cpp\
     cmdlinebar.cpp \
     barcodehandler.cpp \
     team.cpp \
-    databaseeditdialog.cpp \
     timebar.cpp \
     lastroundbar.cpp \
-    settings.cpp
+    settings.cpp \
+    teameditdialog.cpp \
+    printdialog.cpp
 
 HEADERS  += teammanager.h \
     mainwindow.h \
@@ -32,17 +33,20 @@ HEADERS  += teammanager.h \
     cmdlinebar.h \
     barcodehandler.h \
     team.h \
-    databaseeditdialog.h \
     timebar.h \
     lastroundbar.h \
-    settings.h
+    settings.h \
+    teameditdialog.h \
+    printdialog.h
 
 FORMS    += mainwindow.ui \
     timebar.ui \
     cmdlinebar.ui \
     bestroundbar.ui \
     lastroundbar.ui \
-    settings.ui
+    settings.ui \
+    teameditdialog.ui \
+    printdialog.ui
 
 RESOURCES += \
     recources.qrc

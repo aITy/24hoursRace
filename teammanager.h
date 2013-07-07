@@ -31,6 +31,8 @@ public:
     QPair< QString, int> getBestRound();
     QPair< QString, int> getLastRound();
 
+    void updateTeam(Team *);
+
     QList<Team *> getTeams();
     QList<Team *> getTeamOrderByBestTime();
     QList<Team *> getTeamOrderByRounds();

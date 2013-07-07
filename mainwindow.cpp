@@ -8,6 +8,8 @@
 #include "bestroundbar.h"
 #include "lastroundbar.h"
 #include "settings.h"
+#include "teameditdialog.h"
+#include "printdialog.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -32,18 +34,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(action_Open, SIGNAL(triggered()), this, SLOT(openFromFile()));
 
     connect(action_changeSettings, SIGNAL(triggered()), this, SLOT(changeSettings()));
+    connect(action_TeamEdit, SIGNAL(triggered()), this, SLOT(teamEdit()));
 
     connect(actionBestByRoundsDesc, SIGNAL(triggered()), this, SLOT(printBestByRoundsDesc()));
     connect(actionBestByRoundsAsc, SIGNAL(triggered()), this, SLOT(printBestByRoundsAsc()));
     connect(actionBestByTimeDesc, SIGNAL(triggered()), this, SLOT(printBestByTimeDesc()));
     connect(actionBestByTimeAsc, SIGNAL(triggered()), this, SLOT(printBestByTimeAsc()));
 
-    connect(actionPrintByRoundsDesc, SIGNAL(triggered()), this, SLOT(printByRoundsDesc()));
-    connect(actionPrintByRoundsAsc, SIGNAL(triggered()), this, SLOT(printByRoundsAsc()));
-    connect(actionPrintByRoundsDesc, SIGNAL(triggered()), this, SLOT(printByTimeDesc()));
-    connect(actionPrintByRoundsAsc, SIGNAL(triggered()), this, SLOT(printByTimeAsc()));
-
+    connect(actionPrintByRounds, SIGNAL(triggered()), this, SLOT(printByRounds()));
     connect(actionPrintByTeam, SIGNAL(triggered()), this, SLOT(printByTeam()));
+    connect(action_Print, SIGNAL(triggered()), this, SLOT(printDialogShow()));
 
     connect(actionXmlExport, SIGNAL(triggered()), this, SLOT(xmlexport()));
     connect(actionXmlImport, SIGNAL(triggered()), this, SLOT(xmlimport()));
@@ -56,37 +56,21 @@ MainWindow::MainWindow(QWidget *parent) :
     bestround_bar = new BestRoundBar();
     lastround_bar = new LastRoundBar();
     settings = new Settings();
+
+    timebar->showTime();
+
     connect(settings, SIGNAL(boardChanged()), this, SLOT(boardSettingsChanged()));
+    connect(settings, SIGNAL(raceLengthChanged()), this, SLOT(raceLengthChanged()));
+    connect(settings, SIGNAL(headlineChanged()), this, SLOT(headlineChanged()));
 
     middleLayout->addWidget(timebar);
     middleLayout->addWidget(bestround_bar);
     middleLayout->addWidget(lastround_bar);
     middleLayout->addWidget(cmdline);
 
-    QList<int> barcode1;
-    QList<int> barcode2;
-    QList<int> barcode3;
-
     layoutBoard(settings->getTeamsCount());
 
     file = "db.xml";
-
-    for (int i = 0; i < 5; i++) {
-        barcode1.append(i);
-        barcode2.append(5 - i);
-        barcode3.append(i + 5);
-    }
-
-    manager->addTeam("jirin", barcode1);
-    manager->addTeam("venca", barcode2);
-    manager->addTeam("dlouheee jmenooo", barcode3);
-
-    Team * jirin = manager->getTeamByName("jirin");
-    jirin->addRacer("JiRin");
-    jirin->addRacer("Roman");
-
-    Team * venca = manager->getTeamByName("venca");
-    venca->addRacer("venca");
 
     state = SORTBYROUNDSDESC;
     setFocus();
@@ -258,11 +242,14 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     if ((event->key() == Qt::Key_T || event->key() == Qt::Key_P) && (event->modifiers() == Qt::ControlModifier)) {
         // print database
         qDebug() << "CTRL + T || CTRL + P pressed";
+        printDialogShow();
     }
     // CTRL + Z - zaloha or S - save to
     if ((event->key() == Qt::Key_Z || event->key() == Qt::Key_S) && (event->modifiers() == Qt::ControlModifier)) {
         // save database to
         qDebug() << "CTRL + Z || CTRL + S pressed";
+        save();
+        saveAs();
     }
 
 }
@@ -297,29 +284,43 @@ void MainWindow::printBestByTimeAsc()
     printer->printBestResultsByTime(false);
 }
 
-void MainWindow::printByRoundsDesc()
-{
-
-}
-
-void MainWindow::printByRoundsAsc()
-{
-
-}
-
-void MainWindow::printByTimeDesc()
-{
-
-}
-
-void MainWindow::printByTimeAsc()
-{
-
+void MainWindow::printByRounds() {
+    printer->printByRounds();
 }
 
 void MainWindow::printByTeam()
 {
     printer->printResultsByTeams();
+}
+
+void MainWindow::printSelection(int index)
+{
+    switch(index) {
+        case 0:
+            MainWindow::getInstance()->getPrinter()->printResultsByTeams();
+            break;
+
+        case 1:
+            MainWindow::getInstance()->getPrinter()->printByRounds();
+            break;
+
+        case 2:
+            MainWindow::getInstance()->getPrinter()->printBestResultsByRoundCount(true);
+            break;
+
+        case 3:
+            MainWindow::getInstance()->getPrinter()->printBestResultsByRoundCount(false);
+            break;
+
+        case 4:
+            MainWindow::getInstance()->getPrinter()->printBestResultsByTime(true);
+            break;
+        case 5:
+            MainWindow::getInstance()->getPrinter()->printBestResultsByTime(false);
+            break;
+        case -1:
+            break;
+    }
 }
 
 void MainWindow::sortByRoundsDesc()
@@ -358,6 +359,23 @@ void MainWindow::changeSettings()
 void MainWindow::boardSettingsChanged()
 {
     layoutBoard(settings->getTeamsCount());
+}
+
+void MainWindow::raceLengthChanged()
+{
+    timebar->setTimer(settings->getRaceLength());
+    timebar->showTime();
+}
+
+void MainWindow::headlineChanged()
+{
+
+}
+
+void MainWindow::teamEdit()
+{
+    TeamEditDialog *dialog = new TeamEditDialog(manager);
+    dialog->show();
 }
 
 void MainWindow::save()
@@ -401,6 +419,13 @@ void MainWindow::openFromFile()
     }
     updateOrder();
     save();
+}
+
+void MainWindow::printDialogShow()
+{
+    PrintDialog * dialog = new PrintDialog();
+    connect(dialog, SIGNAL(selection(int)), this, SLOT(printSelection(int)));
+    dialog->show();
 }
 
 void MainWindow::xmlexport()

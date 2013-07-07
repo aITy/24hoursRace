@@ -19,6 +19,7 @@ public:
     void printBestResultsByRoundCount(bool);
     void printBestResultsByTime(bool);
     void printResultsByTeams();
+    void printByRounds();
 
 
     void sortByRounds(bool order);

@@ -14,6 +14,8 @@ TimeBar::TimeBar(QWidget *parent)
     // change to settable - implement method to settings
     ms = total_time = 24 * 3600 * 1000;
     running = false;
+
+
 }
 
 TimeBar::TimeBar(int total_ms, int current_ms, QWidget *parent)
@@ -28,6 +30,8 @@ TimeBar::TimeBar(int total_ms, int current_ms, QWidget *parent)
     total_time = total_ms;
     ms = current_ms;
     running = false;
+
+
 }
 
 TimeBar::~TimeBar()
@@ -41,7 +45,8 @@ void TimeBar::showTime()
     int seconds;
     if (ms - 1000 >= 0)
     {
-        ms = ms - 1000;
+        if (running)
+            ms = ms - 1000;
 
 
         hours = ms / (1000*60*60);
@@ -84,4 +89,13 @@ void TimeBar::run()
 {
     countdown->start();
     running = true;
+}
+
+void TimeBar::setTimer(int numb)
+{
+    if (!running) {
+        total_time = numb;
+        ms = numb;
+        showTime();
+    }
 }

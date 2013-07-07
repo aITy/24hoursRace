@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<db>
+ <db_tymy>
+  <tym kod="1221" nazev="jirin"/>
+  <tym kod="21" nazev="venca"/>
+  <tym kod="32154" nazev="dlouheee jmenooooooooo"/>
+ </db_tymy>
+ <db_kol/>
+ <db_casovac celkovy_cas="86400000" aktualni_cas="86400000"/>
+ <db_nastaveni cesta_zalohy="" pocet_tymu="40" limit_pripsani_kola="0" nadpis="24 hodin nonstop CHOCEŇ 2013" delka_zavodu="86400000"/>
+</db>

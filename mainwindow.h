@@ -62,6 +62,7 @@ public:
     } board_state;
 
     void clearLayout(QLayout *, bool deleteWidgets = true);
+
 private:
     static MainWindow * instance;
     TimeBar * timebar;
@@ -89,6 +90,7 @@ public slots:
     void save();
     void saveAs();
     void openFromFile();
+    void printDialogShow();
 
 private slots:
     void run();
@@ -101,6 +103,11 @@ private slots:
 
     void changeSettings();
     void boardSettingsChanged();
+    void raceLengthChanged();
+    void headlineChanged();
+
+    void teamEdit();
+    void printSelection(int);
 
     // developing
 
@@ -109,12 +116,10 @@ private slots:
     void printBestByTimeDesc();
     void printBestByTimeAsc();
 
-    void printByRoundsDesc();
-    void printByRoundsAsc();
-    void printByTimeDesc();
-    void printByTimeAsc();
-
+    void printByRounds();
     void printByTeam();
+
+
 
     void xmlexport();
     void xmlimport();

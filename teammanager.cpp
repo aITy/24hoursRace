@@ -183,6 +183,26 @@ QPair<QString, int> TeamManager::getLastRound()
     return QPair<QString, int>(name, round);
 }
 
+void TeamManager::updateTeam(Team * team)
+{
+    bool found = false;
+    for(int i = 0; i < teams.count(); i++) {
+        if (QString::compare(teams.at(i)->getName(), team->getName(), Qt::CaseInsensitive) == 0) {
+            teams.at(i)->changeBarcode(team->getBarcode());
+            teams.at(i)->addRacers(team->getRacers());
+            found = true;
+        }
+        if (teams.at(i)->getBarcodeStr() == team->getBarcodeStr()) {
+            teams.at(i)->changeName(team->getName());
+            teams.at(i)->addRacers(team->getRacers());
+            found = true;
+        }
+    }
+    if (!found) {
+        addTeam(team->getName(), team->getBarcode(), team->getRacers());
+    }
+}
+
 QList<Team *> TeamManager::getTeams()
 {
     return teams;
@@ -249,6 +269,8 @@ void TeamManager::clearRounds()
 
 void TeamManager::updateToolBar()
 {
+    if (rounds.count() <= 0)
+        return;
     QPair<QString, int> best_round = getBestRound();
     QPair<QString, int> last_round = getLastRound();
     int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByName(last_round.first)->getTotalRounds();

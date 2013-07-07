@@ -36,6 +36,8 @@ private:
     int round_addition_limit;
     QString filepath;
 
+    QString real_paswd;
+
     typedef struct backup {
         QString headline;
         int teams_count;
@@ -46,11 +48,16 @@ private:
 
     backup back_up;
 
+protected:
+    virtual void keyReleaseEvent(QKeyEvent *event);
+
 private slots:
     void accept();
     void reject();
     void update();
 signals:
+    void raceLengthChanged();
+    void headlineChanged();
     void boardChanged();
 
 };

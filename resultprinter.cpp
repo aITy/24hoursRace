@@ -1,6 +1,7 @@
 #include "resultprinter.h"
 #include "mainwindow.h"
 #include "teammanager.h"
+#include "team.h"
 #include <QFileDialog>
 #include <QTextStream>
 
@@ -223,6 +224,81 @@ void ResultPrinter::printResultsByTeams()
 
             }
         }
+        fs.setCodec("UTF-8");
+        fs << content;
+        f.close();
+    }
+}
+
+void ResultPrinter::printByRounds()
+{
+    QString fn = QFileDialog::getSaveFileName(NULL,
+                                   trUtf8("Ulozit aktualni vysledky do souboru"),
+                                   "",
+                                   trUtf8("Jakykoliv typ souboru %1").arg("*.*"));
+    if (!fn.isEmpty())
+    {
+        QFile f(fn);
+        /** overwrite file */
+        if (! f.open(QIODevice::WriteOnly | QIODevice::Truncate))
+            return;
+        QTextStream fs(&f);
+
+        QString content;
+        QString rounds_str = trUtf8("Čas kola");
+
+        int longest_name = 0;
+        for (int i = 0; i < teams.size(); i++) {
+            if (teams.at(i)->getName().count() > longest_name)
+                longest_name = teams.at(i)->getName().count();
+        }
+
+        content.append(trUtf8("Pořadí Název týmu"));
+        for(int i = 0; i < longest_name - content.count() + 1; i++) {
+            content.append(" ");
+        }
+        content.append(trUtf8("Čas kola\n"));
+        QList<QPair<Team *, int> > rounds = MainWindow::getInstance()->getTeamManager()->getRounds();
+
+        for (int i = 0; i < rounds.count(); i++) {
+            QString order_number = QString::number(i + 1);
+            for (int j = 0; j < 7 - 1 - 1 - order_number.count(); j++) {
+                content.append(" ");
+            }
+            content.append(QString("%1. ").arg(i + 1));
+            content.append(rounds.at(i).first->getName());
+            for(int j = 0; j < longest_name + 1 - rounds.at(i).first->getName().count(); j++) {
+                content.append(" ");
+            }
+
+            int time = rounds.at(i).second;
+
+            int hours = time / (1000*60*60);
+            int minutes = (time % (1000*60*60)) / (1000*60);
+            int seconds = ((time % (1000*60*60)) % (1000*60)) / 1000;
+
+            if (hours < 10)
+                content.append(QString("0%1").arg(hours));
+            else
+                content.append(QString::number(hours));
+
+            content.append(QString(":"));
+
+            if (minutes < 10)
+                content.append(QString("0%1").arg(minutes));
+            else
+                content.append(QString::number(minutes));
+
+            content.append(QString(":"));
+
+            if (seconds < 10)
+                content.append(QString("0%1").arg(seconds));
+            else
+                content.append(QString::number(seconds));
+
+            content.append("\n");
+        }
+
         fs.setCodec("UTF-8");
         fs << content;
         f.close();

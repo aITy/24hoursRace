@@ -25,6 +25,8 @@ Settings::Settings(QWidget *parent) :
     connect(raceLengthLineEdit, SIGNAL(textChanged(QString)), this, SLOT(update()));
     connect(roundAdditionLimitLineEdit, SIGNAL(textChanged(QString)), this, SLOT(update()));
     connect(filepathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(update()));
+
+    real_paswd = "navratil";
 }
 
 Settings::~Settings()
@@ -131,20 +133,45 @@ void Settings::save()
     back_up.filepath = filepath;
 }
 
+void Settings::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->isAutoRepeat()) {
+        event->ignore();
+    }
+    if (event->key() == 16777220) {
+        accept();
+    }
+    if (event->key() == Qt::Key_Escape) {
+        reject();
+    }
+}
+
 void Settings::accept()
 {
     // check validity + ? running - what can be changed and what can´t !
+    if (passwordLineEdit->text() != real_paswd) {
+        headline = back_up.headline;
+        teams_count = back_up.teams_count;
+        race_length = back_up.race_length;
+        round_addition_limit = back_up.round_addition_limit;
+        filepath = back_up.filepath;
+        this->close();
+    }
 
-    bool do_emit = false;
-    do_emit = (back_up.teams_count != teams_count) ? true : false;
+    if (back_up.teams_count != teams_count)
+        emit(boardChanged());
+    else if (back_up.race_length != race_length)
+        emit(raceLengthChanged());
+    else if (back_up.headline != headline)
+        emit(headlineChanged());
+
     back_up.headline = headline;
     back_up.teams_count = teams_count;
     back_up.race_length = race_length;
     back_up.round_addition_limit = round_addition_limit;
     back_up.filepath = filepath;
 
-    if (do_emit)
-        emit(boardChanged());
+    passwordLineEdit->clear();
 
     MainWindow::getInstance()->save();
 

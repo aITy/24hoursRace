@@ -18,6 +18,7 @@ public:
     int getTotalTime() { return total_time; }
     void run();
     bool isRunning() { return running; }
+    void setTimer(int);
 
 private:
     QTimer * countdown;
