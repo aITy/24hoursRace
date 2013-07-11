@@ -50,3 +50,5 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     recources.qrc
+
+LIBS    += -lsetupapi

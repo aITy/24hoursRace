@@ -1,9 +1,6 @@
-Pořadí Název týmu   Čas kola
-    1. jirin                  00:00:07
-    2. venca                  00:00:09
-    3. jirin                  00:00:02
-    4. venca                  00:00:02
-    5. jirin                  00:00:04
-    6. jirin                  00:00:03
-    7. jirin                  00:00:01
-    8. venca                  00:00:07
+1.
+Název týmu:         jirina
+Jednotlivá kola:    1.00:01:00
+2.
+Název týmu:         tatka
+Jednotlivá kola:

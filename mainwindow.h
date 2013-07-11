@@ -14,6 +14,7 @@ class XmlHandler;
 class BestRoundBar;
 class LastRoundBar;
 class Settings;
+class BarCodeHandler;
 
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
@@ -40,6 +41,7 @@ public:
     BestRoundBar * getBestRoundBar() { return bestround_bar; }
     LastRoundBar * getLastRoundBar() { return lastround_bar; }
     Settings * getSettings() { return settings; }
+    BarCodeHandler * getBarcodeHandler() { return barcode_handler; }
 
     /* not used
     void setTimeBar(TimeBar * ptr) { timebar = ptr; }
@@ -73,6 +75,7 @@ private:
     BestRoundBar * bestround_bar;
     LastRoundBar * lastround_bar;
     Settings * settings;
+    BarCodeHandler * barcode_handler;
 
     QList<QLabel *> label_names;
     QList<QLabel *> label_rounds;

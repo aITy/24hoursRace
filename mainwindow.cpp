@@ -10,6 +10,7 @@
 #include "settings.h"
 #include "teameditdialog.h"
 #include "printdialog.h"
+#include "barcodehandler.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -56,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
     bestround_bar = new BestRoundBar();
     lastround_bar = new LastRoundBar();
     settings = new Settings();
+    barcode_handler = new BarCodeHandler();
 
     timebar->showTime();
 
