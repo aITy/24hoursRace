@@ -71,12 +71,17 @@ bool XmlHandler::xmlImport(const QString & filename)
             return false;
         QString barcode_str = elem.attributeNode("kod").value();
 
+        if (!elem.hasAttribute("id"))
+            return false;
+
+        int id = elem.attributeNode("id").value().toInt();
+
         QList<int> barcode;
         for(int i = 0; i < barcode_str.count(); i++) {
             barcode.append(QString(barcode_str.at(i)).toInt());
-        }
+        }    
 
-        MainWindow::getInstance()->getTeamManager()->addTeam(name, barcode);
+        MainWindow::getInstance()->getTeamManager()->addTeam(id, name, barcode);
         Team * team =  MainWindow::getInstance()->getTeamManager()->getTeamByName(name);
         if (node.hasChildNodes()) {
             QDomNodeList racers_nodes = node.childNodes();
@@ -156,6 +161,7 @@ bool XmlHandler::xmlExport(const QString & filename)
         QDomElement team = doc.createElement("tym");
         team.setAttribute("nazev", teams.at(i)->getName());
         team.setAttribute("kod", teams.at(i)->getBarcodeStr());
+        team.setAttribute("id", teams.at(i)->getID());
         for (int j = 0; j < teams.at(i)->getRacers().count(); j++) {
             QDomElement racer = doc.createElement("zavodnik");
             racer.setAttribute("jmeno", teams.at(i)->getRacers().at(j));

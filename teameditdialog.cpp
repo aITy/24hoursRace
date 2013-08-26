@@ -67,20 +67,20 @@ void TeamEditDialog::updateTeam(Team * team)
     bool found = false;
     for(int i = 0; i < teams.count(); i++) {
         if (QString::compare(teams.at(i)->getName(), team->getName(), Qt::CaseInsensitive) == 0) {
-            labels.at(i)->setText(QString("%1 \t %2").arg(team->getName()).arg(team->getBarcodeStr()));
+            labels.at(i)->setText(QString("%1. \t %2 \t %3").arg(teams.size() + 1).arg(team->getName()).arg(team->getBarcodeStr()));
             teams.at(i)->changeBarcode(team->getBarcode());
             teams.at(i)->addRacers(team->getRacers());
             found = true;
         }
         else if (teams.at(i)->getBarcodeStr() == team->getBarcodeStr()) {
-            labels.at(i)->setText(QString("%1 \t %2").arg(team->getName()).arg(team->getBarcodeStr()));
+            labels.at(i)->setText(QString("%1. \t %2 \t %3").arg(teams.size() + 1).arg(team->getName()).arg(team->getBarcodeStr()));
             teams.at(i)->changeName(team->getName());
             teams.at(i)->addRacers(team->getRacers());
             found = true;
         }
     }
     if (!found) {
-        QLabel * label = new QLabel(QString("%1 \t %2").arg(team->getName()).arg(team->getBarcodeStr()));
+        QLabel * label = new QLabel(QString("%1. \t %2 \t %3").arg(teams.size() + 1).arg(team->getName()).arg(team->getBarcodeStr()));
         label->setFont(QFont("Radio Space Bold", 16));
         label->setAlignment(Qt::AlignCenter);
         labels.append(label);
@@ -115,7 +115,7 @@ void TeamEditDialog::addTeam()
     for (int i = 0; i < barcode.count(); i++) {
         real_barcode.append(QString(barcode.at(i)).toInt());
     }
-    Team * team = new Team(team_name, real_barcode);
+    Team * team = new Team(teams.size() + 1, team_name, real_barcode);
     QString str = racers_str;
     int state = 0;
     QString racer;

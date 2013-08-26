@@ -16,6 +16,7 @@ public:
 
     Team * addTeam();
     Team * addTeam(const QString &);
+    Team * addTeam(int, const QString &, QList<int>);
     Team * addTeam(const QString &, QList<int>);
     Team * addTeam(const QString &, QList<QString>);
     Team * addTeam(const QString &, QList<int>, QList<QString>);
@@ -23,8 +24,11 @@ public:
     Team * getTeamByName(const QString &);
     Team * getTeamByBarcode(QList<int>);
 
+    int getLastID();
+
+    void addRound(int);
     void addRound(QList<int>);
-    void addRound(const QString &);
+    bool addRound(const QString &);
     void addRound(const QString &, int);
 
     QList<QPair< Team *, int > > getRounds() { return rounds; }

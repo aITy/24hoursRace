@@ -21,21 +21,41 @@ void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
     if(event->isAutoRepeat()) {
         event->ignore();
     }
-    if (event->key() == 16777220) {
+
+    if (event->key() == 16777220 || event->key() == 16777221) {
+
 
         if (lineEdit->text() == "")
             return;
 
         QString str = lineEdit->text();
         lineEdit->setText("");
-        QRegExp rx("\\D");
-        if (str.contains(rx)) {
-            MainWindow::getInstance()->getTeamManager()->addRound(str);
-        }
-        else {
-            QList<int> barcode;
-            for (int i = 0; i < str.count(); i++) {
-                barcode.append(QString(str[i]).toInt());
+        QRegExp rx("\\d");
+        QList<int> barcode;
+        if (! MainWindow::getInstance()->getTeamManager()->addRound(str)) {
+            if (str.contains(rx)) {
+                if (str.count() <= 2) {
+                    qDebug() << "ID: " << (str.toInt());
+                    MainWindow::getInstance()->getTeamManager()->addRound(str.toInt());
+                }
+                else {
+                    for (int i = 0; i < str.count(); i++) {
+                        barcode.append(QString(str[i]).toInt());
+                    }
+                    MainWindow::getInstance()->getTeamManager()->addRound(barcode);
+                }
+            }
+            else {
+
+                for (int i = 0; i < str.count(); i++) {
+                    QString pattern = "é+ěščřžýáí";
+                    for (int j = 0; j < pattern.count(); j++) {
+                        if (pattern.at(j) == str.at(i)) {
+                            barcode.append(j);
+                            break;
+                        }
+                    }
+                }
                 MainWindow::getInstance()->getTeamManager()->addRound(barcode);
             }
         }
@@ -55,8 +75,9 @@ void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
 
     }
 
+    // TO DO handle command line focus
     if (event->key() == Qt::Key_Escape) {
-        MainWindow::getInstance()->setFocus();
+        //MainWindow::getInstance()->setFocus();
     }
 }
 

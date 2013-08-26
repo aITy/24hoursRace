@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <db>
  <db_tymy>
-  <tym nazev="jirin" kod="5900497019019"/>
-  <tym nazev="venca" kod="000000000"/>
+  <tym kod="123456" nazev="Jirin" id="1"/>
+  <tym kod="123654" nazev="venca" id="2"/>
  </db_tymy>
- <db_kol/>
- <db_casovac celkovy_cas="86400000" aktualni_cas="86400000"/>
- <db_nastaveni limit_pripsani_kola="0" delka_zavodu="86400000" cesta_zalohy="" nadpis="24 hodin nonstop CHOCEŇ 2013" pocet_tymu="40"/>
+ <db_kol>
+  <kolo cas="18000" tym="venca"/>
+ </db_kol>
+ <db_casovac celkovy_cas="86400000" aktualni_cas="86382000"/>
+ <db_nastaveni pocet_tymu="40" limit_pripsani_kola="0" nadpis="24 hodin nonstop CHOCEŇ 2013" delka_zavodu="86400000" cesta_zalohy=""/>
 </db>

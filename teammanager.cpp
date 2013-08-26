@@ -23,7 +23,7 @@ TeamManager::~TeamManager()
 
 Team *TeamManager::addTeam()
 {
-    Team * team = new Team();
+    Team * team = new Team(getLastID() + 1);
     teams.append(team);
     MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
@@ -31,7 +31,15 @@ Team *TeamManager::addTeam()
 
 Team *TeamManager::addTeam(const QString & name)
 {
-    Team * team = new Team(name);
+    Team * team = new Team(getLastID() + 1, name);
+    teams.append(team);
+    MainWindow::getInstance()->getPrinter()->updateTeams();
+    return team;
+}
+
+Team *TeamManager::addTeam(int id, const QString & name, QList<int> barcode)
+{
+    Team * team = new Team(id, name, barcode);
     teams.append(team);
     MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
@@ -39,7 +47,7 @@ Team *TeamManager::addTeam(const QString & name)
 
 Team *TeamManager::addTeam(const QString & name, QList<int> barcode)
 {
-    Team * team = new Team(name, barcode);
+    Team * team = new Team(getLastID() + 1, name, barcode);
     teams.append(team);
     MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
@@ -47,7 +55,7 @@ Team *TeamManager::addTeam(const QString & name, QList<int> barcode)
 
 Team *TeamManager::addTeam(const QString & name, QList<QString> racers)
 {
-    Team * team = new Team(name, racers);
+    Team * team = new Team(getLastID() + 1, name, racers);
     teams.append(team);
     MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
@@ -55,7 +63,7 @@ Team *TeamManager::addTeam(const QString & name, QList<QString> racers)
 
 Team *TeamManager::addTeam(const QString & name, QList<int> barcode, QList<QString> racers)
 {
-    Team * team = new Team(name, barcode, racers);
+    Team * team = new Team(getLastID() + 1, name, barcode, racers);
     teams.append(team);
     MainWindow::getInstance()->getPrinter()->updateTeams();
     return team;
@@ -77,6 +85,40 @@ Team *TeamManager::getTeamByBarcode(QList<int> list)
             return teams.at(i);
     }
     return NULL;
+}
+
+int TeamManager::getLastID()
+{
+    return teams.size();
+}
+
+void TeamManager::addRound(int id)
+{
+    if (! timebar->isRunning())
+        return;
+
+    int passed_rounds_ms = 0;
+    bool found = false;
+    for(int i = 0; i < teams.size(); i++) {
+        if (teams.at(i)->getID() == id) {
+            QList<int> team_rounds = teams.at(i)->getRounds();
+            for (int j = 0; j < team_rounds.count(); j++) {
+                passed_rounds_ms += team_rounds.at(j);
+            }
+            if (timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime() < MainWindow::getInstance()->getSettings()->getRoundAdditionLimit())
+                return;
+            teams.at(i)->addRound(timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime());
+            rounds.append(QPair<Team *, int>(teams.at(i), timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime()));
+            found = true;
+            break;
+        }
+    }
+    if (!found)
+        return;
+
+    MainWindow::getInstance()->save();
+    updateToolBar();
+    printRoundsByTeam();
 }
 
 
@@ -109,10 +151,10 @@ void TeamManager::addRound(QList<int> barcode)
     printRoundsByTeam();
 }
 
-void TeamManager::addRound(const QString & name)
+bool TeamManager::addRound(const QString & name)
 {
     if (! timebar->isRunning())
-        return;
+        return false;
     int passed_rounds_ms = 0;
     bool found = false;
     for(int i = 0; i < teams.count(); i++) {
@@ -124,7 +166,7 @@ void TeamManager::addRound(const QString & name)
             }
 
             if (timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime() < MainWindow::getInstance()->getSettings()->getRoundAdditionLimit())
-                return;
+                return false;
 
             teams.at(i)->addRound(timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime());
             rounds.append(QPair<Team *, int>(teams.at(i), timebar->getTotalTime() - passed_rounds_ms - timebar->getCurrentTime()));
@@ -133,16 +175,19 @@ void TeamManager::addRound(const QString & name)
         }
     }
     if (!found)
-        return;
+        return false;
 
-    QPair<QString, int> best_round = getBestRound();
+    /*QPair<QString, int> best_round = getBestRound();
     QPair<QString, int> last_round = getLastRound();
     int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByName(name)->getTotalRounds();
     MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
     MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
-    MainWindow::getInstance()->updateOrder();
+    MainWindow::getInstance()->updateOrder();*/
     MainWindow::getInstance()->save();
+    updateToolBar();
     printRoundsByTeam();
+
+    return true;
 }
 
 void TeamManager::addRound(const QString & name, int ms)
@@ -276,7 +321,21 @@ void TeamManager::updateToolBar()
     int rounds_count = MainWindow::getInstance()->getTeamManager()->getTeamByName(last_round.first)->getTotalRounds();
     MainWindow::getInstance()->getBestRoundBar()->updateBar(best_round.first, best_round.second);
     MainWindow::getInstance()->getLastRoundBar()->updateBar(last_round.first, last_round.second, rounds_count);
-    MainWindow::getInstance()->updateOrder();
+
+    MainWindow::board_state state = MainWindow::getInstance()->getState();
+    if (state == MainWindow::SORTBYROUNDSDESC) {
+        MainWindow::getInstance()->sortByRoundsDesc();
+    }
+    else if (state == MainWindow::SORTBYROUNDSASC) {
+        MainWindow::getInstance()->sortByRoundsAsc();
+    }
+    else if (state == MainWindow::SORTBYTIMEDESC) {
+        MainWindow::getInstance()->sortByTimeDesc();
+    }
+    else {
+        MainWindow::getInstance()->sortByTimeAsc();
+    }
+    //MainWindow::getInstance()->updateOrder();
 }
 
 void TeamManager::updateTimeBarPtr()

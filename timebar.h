@@ -16,9 +16,11 @@ public:
     ~TimeBar();
     int getCurrentTime() { return ms; }
     int getTotalTime() { return total_time; }
+    QTime getTime();
     void run();
     bool isRunning() { return running; }
     void setTimer(int);
+    void shiftTimer(int);
 
 private:
     QTimer * countdown;

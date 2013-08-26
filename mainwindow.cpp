@@ -14,6 +14,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QTime>
 
 MainWindow * MainWindow::instance = NULL;
 
@@ -76,6 +77,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     state = SORTBYROUNDSDESC;
     setFocus();
+
+    running = false;
+    loaded = false;
+
 }
 
 MainWindow::~MainWindow()
@@ -129,7 +134,8 @@ void MainWindow::updateOrder()
     }
 
     for(int i = 0; i < teams_ptr.count(); i++){
-        label_names.at(i)->setText(teams_ptr.at(i)->getName());
+
+        label_names.at(i)->setText(QString("%1 (%2)").arg(teams_ptr.at(i)->getName()).arg(teams_ptr.at(i)->getID()));
 
         if (state == SORTBYROUNDSDESC || state == SORTBYROUNDSASC) {
             label_rounds.at(i)->setText(QString::number(teams_ptr.at(i)->getTotalRounds()));
@@ -258,12 +264,26 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 
 void MainWindow::run()
 {
-    if (manager->getTeams().size() == 0 && !timebar->isRunning())
+    if (manager->getTeams().size() == 0 && !timebar->isRunning() && !running)
         return;
 
-    updateOrder();
-    save();
-    timebar->run();
+    time_to_start = new QTimer(this);
+    time_to_start->setSingleShot(true);
+    connect(time_to_start, SIGNAL(timeout()), this, SLOT(startTheRace()));
+
+    QTime time = QTime::currentTime();
+    QTime to_start = QTime();
+    to_start.setHMS(16, 00, 00);
+
+    if (!loaded) {
+        time_to_start->setInterval(time.secsTo(to_start) * 1000);
+    }
+    else {
+        QTime curr_time = timebar->getTime();
+
+    }
+    time_to_start->start();
+    running = true;
 }
 
 void MainWindow::printBestByRoundsDesc()
@@ -353,6 +373,13 @@ void MainWindow::sortByTimeAsc()
     updateOrder();
 }
 
+void MainWindow::startTheRace()
+{
+    updateOrder();
+    save();
+    timebar->run();
+}
+
 void MainWindow::changeSettings()
 {
     settings->show();
@@ -419,6 +446,7 @@ void MainWindow::openFromFile()
         setStatusMsg("error");
         return;
     }
+    loaded = true;
     updateOrder();
     save();
 }
@@ -461,5 +489,6 @@ void MainWindow::xmlimport()
         return;
     }
     updateOrder();
+    loaded = true;
 
 }

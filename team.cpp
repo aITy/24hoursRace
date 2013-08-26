@@ -1,9 +1,10 @@
 #include "team.h"
 #include "mainwindow.h"
 #include "timebar.h"
+#include "teammanager.h"
 
-Team::Team(QObject * parent) :
-    QObject(parent)
+Team::Team(int new_id, QObject * parent) :
+    id(new_id), QObject(parent)
 {
     name = "";
     round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
@@ -13,26 +14,26 @@ Team::~Team()
 {
 }
 
-Team::Team(const QString & new_name, QObject * parent)
-    :name(new_name), QObject(parent)
+Team::Team(int new_id, const QString & new_name, QObject * parent)
+    :id(new_id), name(new_name), QObject(parent)
 {
     round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
 }
 
-Team::Team(const QString & new_name, QList<int> new_barcode, QObject * parent)
-    :name(new_name), barcode(new_barcode), QObject(parent)
+Team::Team(int new_id, const QString & new_name, QList<int> new_barcode, QObject * parent)
+    :id(new_id), name(new_name), barcode(new_barcode), QObject(parent)
 {
     round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
 }
 
-Team::Team(const QString & new_name, QList<QString> new_racers, QObject * parent)
-    :name(new_name), racers(new_racers), QObject(parent)
+Team::Team(int new_id, const QString & new_name, QList<QString> new_racers, QObject * parent)
+    :id(new_id), name(new_name), racers(new_racers), QObject(parent)
 {
     round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
 }
 
-Team::Team(const QString & new_name, QList<int> new_barcode, QList<QString> new_racers, QObject * parent)
-    :name(new_name), barcode(new_barcode), racers(new_racers), QObject(parent)
+Team::Team(int new_id, const QString & new_name, QList<int> new_barcode, QList<QString> new_racers, QObject * parent)
+    :id(new_id), name(new_name), barcode(new_barcode), racers(new_racers), QObject(parent)
 {
     round_start = MainWindow::getInstance()->getTimeBar()->getTotalTime();
 }

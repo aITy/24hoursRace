@@ -8,12 +8,12 @@ class Team : public QObject
 {
     Q_OBJECT
 public:
-    explicit Team(QObject *parent = 0);
+    explicit Team(int, QObject *parent = 0);
     ~Team();
-    explicit Team(const QString &, QObject * parent = 0);
-    explicit Team(const QString &, QList<int> , QObject * parent = 0);
-    explicit Team(const QString &, QList<QString> , QObject * parent = 0);
-    explicit Team(const QString &, QList<int>, QList<QString>, QObject * parent = 0);
+    explicit Team(int, const QString &, QObject * parent = 0);
+    explicit Team(int, const QString &, QList<int> , QObject * parent = 0);
+    explicit Team(int, const QString &, QList<QString> , QObject * parent = 0);
+    explicit Team(int, const QString &, QList<int>, QList<QString>, QObject * parent = 0);
 
     int getLastRound();
     int getBestRound();
@@ -23,6 +23,7 @@ public:
     void addRacer(const QString &);
     void addRacers(QList<QString>);
     QList<QString> getRacers() { return racers; }
+    int getID() { return id; }
     void changeBarcode(QList<int>);
     void changeName(const QString &);
     QString getName() { return name; }
@@ -40,6 +41,7 @@ private:
     // list of time
     QList<int> rounds;
     int round_start;
+    int id;
 
 signals:
     

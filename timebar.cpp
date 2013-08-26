@@ -15,7 +15,6 @@ TimeBar::TimeBar(QWidget *parent)
     ms = total_time = 24 * 3600 * 1000;
     running = false;
 
-
 }
 
 TimeBar::TimeBar(int total_ms, int current_ms, QWidget *parent)
@@ -38,6 +37,13 @@ TimeBar::~TimeBar()
 {
 }
 
+QTime TimeBar::getTime()
+{
+    QTime time = QTime();
+    time.setHMS(ms / (1000*60*60), (ms % (1000*60*60)) / (1000*60), ((ms % (1000*60*60)) % (1000*60)) / 1000);
+    return time;
+}
+
 void TimeBar::showTime()
 {
     int hours;
@@ -47,7 +53,6 @@ void TimeBar::showTime()
     {
         if (running)
             ms = ms - 1000;
-
 
         hours = ms / (1000*60*60);
         minutes = (ms % (1000*60*60)) / (1000*60);
@@ -95,6 +100,14 @@ void TimeBar::setTimer(int numb)
 {
     if (!running) {
         total_time = numb;
+        ms = numb;
+        showTime();
+    }
+}
+
+void TimeBar::shiftTimer(int numb)
+{
+    if (!running) {
         ms = numb;
         showTime();
     }

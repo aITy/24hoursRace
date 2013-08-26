@@ -26,7 +26,7 @@ Settings::Settings(QWidget *parent) :
     connect(roundAdditionLimitLineEdit, SIGNAL(textChanged(QString)), this, SLOT(update()));
     connect(filepathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(update()));
 
-    real_paswd = "navratil";
+    real_paswd = "";
 }
 
 Settings::~Settings()

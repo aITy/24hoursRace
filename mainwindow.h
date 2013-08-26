@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QCoreApplication>
 #include <QKeyEvent>
+#include <QTimer>
 #include "ui_mainwindow.h"
 
 class TeamManager;
@@ -63,6 +64,8 @@ public:
         SORTBYTIMEASC
     } board_state;
 
+    board_state getState() { return state; }
+
     void clearLayout(QLayout *, bool deleteWidgets = true);
 
 private:
@@ -84,6 +87,10 @@ private:
     board_state state;
     QString file;
 
+    QTimer * time_to_start;
+    bool running;
+    bool loaded;
+
 protected:
     void closeEvent(QCloseEvent *);
     void mousePressEvent(QMouseEvent *event);
@@ -95,14 +102,16 @@ public slots:
     void openFromFile();
     void printDialogShow();
 
-private slots:
-    void run();
-
     void sortByRoundsDesc();
     void sortByRoundsAsc();
 
     void sortByTimeDesc();
     void sortByTimeAsc();
+
+
+private slots:
+    void startTheRace();
+    void run();
 
     void changeSettings();
     void boardSettingsChanged();

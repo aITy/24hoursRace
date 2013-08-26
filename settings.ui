@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>781</width>
-    <height>200</height>
+    <height>201</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>9</x>
      <y>9</y>
      <width>761</width>
-     <height>152</height>
+     <height>171</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="settingsLayout">
@@ -60,6 +60,23 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="raceLengthLabel">
+      <property name="text">
+       <string>Délka závodu (hh:mm:ss)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="raceLengthLineEdit">
+      <property name="text">
+       <string>24:00:00</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
     <item row="3" column="0">
      <widget class="QLabel" name="asovLimitMeziPIpsNMKolaLabel">
       <property name="text">
@@ -91,22 +108,8 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="raceLengthLabel">
-      <property name="text">
-       <string>Délka závodu (hh:mm:ss)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="raceLengthLineEdit">
-      <property name="text">
-       <string>24:00:00</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="passwordLineEdit"/>
     </item>
     <item row="5" column="0">
      <widget class="QLabel" name="passwordLabel">
@@ -114,9 +117,6 @@
        <string>Heslo</string>
       </property>
      </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLineEdit" name="passwordLineEdit"/>
     </item>
    </layout>
   </widget>
@@ -126,7 +126,7 @@
      <x>10</x>
      <y>170</y>
      <width>760</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="standardButtons">
