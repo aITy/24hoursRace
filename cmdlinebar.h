@@ -9,6 +9,7 @@ class CmdLineBar : public QWidget, Ui::Form_Cmdline
     Q_OBJECT
 public:
     explicit CmdLineBar(QWidget *parent = 0);
+    void focus();
     
 signals:
 

@@ -2,16 +2,15 @@
 #include "teammanager.h"
 #include "mainwindow.h"
 #include "team.h"
-#include <QAbstractButton>
 
 TeamEditDialog::TeamEditDialog(QWidget *parent) :
     QDialog(parent)
 {
     setupUi(this);
 
-    QList<QAbstractButton *> buttons = buttonBox->buttons();
-    QAbstractButton * button_ok = buttons.at(0);
-    QAbstractButton * button_cancel = buttons.at(1);
+    QList<QAbstractButton *> buttonbox = buttonBox->buttons();
+    button_ok = buttonbox.at(0);
+    button_cancel = buttonbox.at(1);
 
     verticalLayout_Teams->setAlignment(Qt::AlignTop);
 
@@ -23,7 +22,7 @@ TeamEditDialog::TeamEditDialog(QWidget *parent) :
     connect(lineEdit_Barcode, SIGNAL(textChanged(QString)), this, SLOT(update()));
 
     connect(pushButton_addTeam, SIGNAL(clicked()), this, SLOT(addTeam()));
-
+    pushButton_addTeam->setFocus();
 }
 
 TeamEditDialog::TeamEditDialog(TeamManager * manager_ptr, QWidget *parent):
@@ -34,9 +33,9 @@ TeamEditDialog::TeamEditDialog(TeamManager * manager_ptr, QWidget *parent):
 
     verticalLayout_Teams->setAlignment(Qt::AlignTop);
 
-    QList<QAbstractButton *> buttons = buttonBox->buttons();
-    QAbstractButton * button_ok = buttons.at(0);
-    QAbstractButton * button_cancel = buttons.at(1);
+    QList<QAbstractButton *> buttonbox = buttonBox->buttons();
+    button_ok = buttonbox.at(0);
+    button_cancel = buttonbox.at(1);
 
     connect(button_ok, SIGNAL(clicked()), this, SLOT(acceptRequest()));
     connect(button_cancel, SIGNAL(clicked()), this, SLOT(reject()));
@@ -46,6 +45,7 @@ TeamEditDialog::TeamEditDialog(TeamManager * manager_ptr, QWidget *parent):
     connect(lineEdit_Barcode, SIGNAL(textChanged(QString)), this, SLOT(update()));
 
     connect(pushButton_addTeam, SIGNAL(clicked()), this, SLOT(addTeam()));
+    pushButton_addTeam->setFocus();
 
     for(int i = 0; i < manager->getTeams().count(); i++) {
         updateTeam(manager->getTeams().at(i));
@@ -81,11 +81,40 @@ void TeamEditDialog::updateTeam(Team * team)
     }
     if (!found) {
         QLabel * label = new QLabel(QString("%1. \t %2 \t %3").arg(teams.size() + 1).arg(team->getName()).arg(team->getBarcodeStr()));
+        label->setFrameStyle(QFrame::Panel | QFrame::Sunken);
         label->setFont(QFont("Radio Space Bold", 16));
-        label->setAlignment(Qt::AlignCenter);
+        label->setAlignment(Qt::AlignLeft);
+        //label->setMaximumWidth(16777215);
+        //label->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
         labels.append(label);
-        verticalLayout_Teams->addWidget(label);
+
+        QAbstractButton * but = new QPushButton();
+        but->setText("odstranit");
+        //but->setMaximumWidth(100);
+        //but->setFont(QFont("Radio Space Bold", 10));
+        connect(but, SIGNAL(clicked()), this, SLOT(deleteTeam()));
+        buttons.append(but);
+        /*verticalLayout_Teams->addWidget(label);*/
+        formLayout->addRow(label, but);
         teams.append(team);
+    }
+
+    lineEdit_TeamName->clear();
+    lineEdit_Racers->clear();
+    lineEdit_Barcode->clear();
+}
+
+void TeamEditDialog::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->isAutoRepeat()) {
+        event->ignore();
+    }
+    if (event->key() == 16777220) {
+        acceptRequest();
+        event->ignore();
+    }
+    if (event->key() == Qt::Key_Escape) {
+        reject();
     }
 }
 
@@ -140,4 +169,30 @@ void TeamEditDialog::addTeam()
         team->addRacers(racers);
     }
     updateTeam(team);
+}
+
+void TeamEditDialog::deleteTeam()
+{
+    QAbstractButton * delete_but = qobject_cast<QAbstractButton *>(this->sender());
+    for (int i = 0; i < buttons.size(); i++) {
+        if (buttons.at(i) == delete_but) {
+
+            QLayoutItem * item_label = formLayout->itemAt(i, QFormLayout::LabelRole);
+            QLayoutItem * item_button = formLayout->itemAt(i, QFormLayout::FieldRole);
+            formLayout->removeItem(item_label);
+            formLayout->removeItem(item_button);
+            delete item_label;
+            delete item_button;
+
+            qDebug() << "pred smazanim" << buttons.count();
+            delete buttons.at(i);
+            qDebug() << "po smazani" << buttons.count();
+            buttons.removeAt(i);
+            delete labels.at(i);
+            labels.removeAt(i);
+
+            teams.removeAt(i);
+        }
+    }
+
 }

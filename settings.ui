@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>781</width>
-    <height>201</height>
+    <height>234</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>9</x>
      <y>9</y>
      <width>761</width>
-     <height>171</height>
+     <height>178</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="settingsLayout">
@@ -30,16 +30,6 @@
      <widget class="QLabel" name="headlineLabel">
       <property name="text">
        <string>Záhlaví</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="headlineLineEdit">
-      <property name="text">
-       <string>24 hodin nonstop CHOCEŇ 2013</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -77,14 +67,14 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="4" column="0">
      <widget class="QLabel" name="asovLimitMeziPIpsNMKolaLabel">
       <property name="text">
        <string>Časový limit mezi připsáním kola (hh:mm:ss)</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
+    <item row="4" column="1">
      <widget class="QLineEdit" name="roundAdditionLimitLineEdit">
       <property name="text">
        <string>00:00:00</string>
@@ -94,27 +84,57 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="5" column="0">
      <widget class="QLabel" name="cestaKSouboruProVlastnZLohuLabel">
       <property name="text">
        <string>Cesta k souboru pro vlastní zálohu</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
+    <item row="5" column="1">
      <widget class="QLineEdit" name="filepathLineEdit">
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
+    <item row="6" column="1">
      <widget class="QLineEdit" name="passwordLineEdit"/>
     </item>
-    <item row="5" column="0">
+    <item row="6" column="0">
      <widget class="QLabel" name="passwordLabel">
       <property name="text">
        <string>Heslo</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="headlineLineEdit">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>24 hodin nonstop Chocen 2013</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="raceStartLabel">
+      <property name="text">
+       <string>Start závodu (hh:mm:ss)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="raceStartLineEdit">
+      <property name="text">
+       <string>13:13:13</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -124,7 +144,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>170</y>
+     <y>200</y>
      <width>760</width>
      <height>21</height>
     </rect>

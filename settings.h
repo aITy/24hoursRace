@@ -2,7 +2,6 @@
 #define SETTINGS_H
 
 #include <QWidget>
-
 #include "ui_settings.h"
 
 class Settings : public QWidget, Ui::Settings
@@ -21,12 +20,14 @@ public:
     int getRaceLength() { return race_length; }
     int getRoundAdditionLimit() { return round_addition_limit; }
     QString getFilepath() { return filepath; }
+    int getStartTime() { return start_time; }
 
     void setHeadline(const QString &);
     void setTeamsCount(int);
     void setRaceLength(int);
     void setRoundAdditionLimit(int);
     void setFilepath(const QString &);
+    void setStartTime(int);
     void save();
     
 private:
@@ -35,6 +36,7 @@ private:
     int race_length;
     int round_addition_limit;
     QString filepath;
+    int start_time;
 
     QString real_paswd;
 
@@ -44,6 +46,7 @@ private:
         int race_length;
         int round_addition_limit;
         QString filepath;
+        int start_time;
     } backup;
 
     backup back_up;

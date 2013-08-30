@@ -10,6 +10,11 @@ CmdLineBar::CmdLineBar(QWidget *parent) :
     setupUi(this);
 }
 
+void CmdLineBar::focus()
+{
+    lineEdit->setFocus();
+}
+
 
 void CmdLineBar::keyPressEvent(QKeyEvent *event)
 {
@@ -45,7 +50,7 @@ void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
                     MainWindow::getInstance()->getTeamManager()->addRound(barcode);
                 }
             }
-            else {
+            /*else {
 
                 for (int i = 0; i < str.count(); i++) {
                     QString pattern = "é+ěščřžýáí";
@@ -57,7 +62,7 @@ void CmdLineBar::keyReleaseEvent(QKeyEvent *event)
                     }
                 }
                 MainWindow::getInstance()->getTeamManager()->addRound(barcode);
-            }
+            }*/
         }
     }
 

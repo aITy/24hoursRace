@@ -36,16 +36,16 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: rgb(44, 44, 44);
-border: none;</string>
+   <string notr="true">background-color:rgb(255, 0, 6);
+border: 1px solid black;</string>
   </property>
   <widget class="QLabel" name="label_H">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>60</width>
-     <height>80</height>
+     <x>0</x>
+     <y>0</y>
+     <width>71</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -57,7 +57,9 @@ border: none;</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(180, 180, 180);</string>
+    <string notr="true">color: #FFCC01;
+border: none;
+border-left: 1px solid black;</string>
    </property>
    <property name="text">
     <string>00</string>
@@ -70,9 +72,9 @@ border: none;</string>
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>10</y>
+     <y>0</y>
      <width>60</width>
-     <height>80</height>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -87,7 +89,8 @@ border: none;</string>
     <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(180, 180, 180);</string>
+    <string notr="true">color: #FFCC01;
+border: none;</string>
    </property>
    <property name="text">
     <string>00</string>
@@ -100,9 +103,9 @@ border: none;</string>
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>10</y>
-     <width>60</width>
-     <height>80</height>
+     <y>0</y>
+     <width>70</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -114,7 +117,9 @@ border: none;</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(180, 180, 180);</string>
+    <string notr="true">color: #FFCC01;
+border: none;
+border-right: 1px solid black;</string>
    </property>
    <property name="text">
     <string>00</string>
@@ -126,10 +131,10 @@ border: none;</string>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>10</y>
-     <width>10</width>
-     <height>80</height>
+     <x>65</x>
+     <y>0</y>
+     <width>16</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -141,7 +146,8 @@ border: none;</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(180, 180, 180);</string>
+    <string notr="true">color: #FFCC01;
+border: none;</string>
    </property>
    <property name="inputMethodHints">
     <set>Qt::ImhNone</set>
@@ -157,9 +163,9 @@ border: none;</string>
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>10</y>
-     <width>10</width>
-     <height>80</height>
+     <y>0</y>
+     <width>18</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -171,7 +177,8 @@ border: none;</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(180, 180, 180);</string>
+    <string notr="true">color: #FFCC01;
+border: none;</string>
    </property>
    <property name="inputMethodHints">
     <set>Qt::ImhNone</set>
@@ -186,10 +193,10 @@ border: none;</string>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>0</x>
      <y>80</y>
-     <width>200</width>
-     <height>30</height>
+     <width>220</width>
+     <height>50</height>
     </rect>
    </property>
    <property name="font">
@@ -201,7 +208,11 @@ border: none;</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(180, 180, 180);</string>
+    <string notr="true">color: #FFCC01;
+border: none;
+border-left: 1px solid black;
+border-bottom: 1px solid black;
+border-right: 1px solid black;</string>
    </property>
    <property name="text">
     <string>CAS DO KONCE ZAVODU</string>

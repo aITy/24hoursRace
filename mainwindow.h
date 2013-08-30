@@ -6,6 +6,9 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include "ui_mainwindow.h"
+#define NOMINMAX
+#include "windows.h"
+#include "teameditdialog.h"
 
 class TeamManager;
 class TimeBar;
@@ -67,6 +70,7 @@ public:
     board_state getState() { return state; }
 
     void clearLayout(QLayout *, bool deleteWidgets = true);
+    void InitRawInput(HWND hWnd);
 
 private:
     static MainWindow * instance;
@@ -79,6 +83,7 @@ private:
     LastRoundBar * lastround_bar;
     Settings * settings;
     BarCodeHandler * barcode_handler;
+    TeamEditDialog *team_dialog;
 
     QList<QLabel *> label_names;
     QList<QLabel *> label_rounds;
@@ -91,10 +96,15 @@ private:
     bool running;
     bool loaded;
 
+    QList<int>scanned_barcode;
+
+    QList<int> fixBarcode(QList<int>);
+
 protected:
     void closeEvent(QCloseEvent *);
     void mousePressEvent(QMouseEvent *event);
     virtual void keyReleaseEvent(QKeyEvent *event);
+    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result);
 
 public slots:
     void save();

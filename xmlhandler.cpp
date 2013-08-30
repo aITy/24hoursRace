@@ -122,7 +122,8 @@ bool XmlHandler::xmlImport(const QString & filename)
         return false;
     elem = nodes.at(0).toElement();
     if (!elem.hasAttribute("nadpis") || !elem.hasAttribute("pocet_tymu") || !elem.hasAttribute("delka_zavodu")
-            || !elem.hasAttribute("limit_pripsani_kola") || !elem.hasAttribute("cesta_zalohy"))
+            || !elem.hasAttribute("limit_pripsani_kola") || !elem.hasAttribute("cesta_zalohy")
+            || !elem.hasAttribute("start"))
         return false;
 
     Settings * settings = MainWindow::getInstance()->getSettings();
@@ -132,6 +133,7 @@ bool XmlHandler::xmlImport(const QString & filename)
     settings->setRaceLength(elem.attributeNode("delka_zavodu").value().toInt());
     settings->setRoundAdditionLimit(elem.attributeNode("limit_pripsani_kola").value().toInt());
     settings->setFilepath(elem.attributeNode("cesta_zalohy").value());
+    settings->setStartTime(elem.attributeNode("start").value().toInt());
     settings->save();
 
     MainWindow::getInstance()->layoutBoard(settings->getTeamsCount());
@@ -194,6 +196,7 @@ bool XmlHandler::xmlExport(const QString & filename)
     settings_db.setAttribute("delka_zavodu", settings->getRaceLength());
     settings_db.setAttribute("limit_pripsani_kola", settings->getRoundAdditionLimit());
     settings_db.setAttribute("cesta_zalohy", settings->getFilepath());
+    settings_db.setAttribute("start", settings->getStartTime());
     root.appendChild(settings_db);
 
     doc.appendChild(root);

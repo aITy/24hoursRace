@@ -14,6 +14,7 @@ Settings::Settings(QWidget *parent) :
     race_length = back_up.race_length = convertTimeToInt(raceLengthLineEdit->text());
     round_addition_limit = back_up.round_addition_limit = convertTimeToInt(roundAdditionLimitLineEdit->text());
     filepath = back_up.filepath = filepathLineEdit->text();
+    start_time = back_up.start_time = convertTimeToInt(raceStartLineEdit->text());
 
     QList<QAbstractButton *> buttons = buttonBox->buttons();
     QAbstractButton * button_ok = buttons.at(0);
@@ -25,6 +26,7 @@ Settings::Settings(QWidget *parent) :
     connect(raceLengthLineEdit, SIGNAL(textChanged(QString)), this, SLOT(update()));
     connect(roundAdditionLimitLineEdit, SIGNAL(textChanged(QString)), this, SLOT(update()));
     connect(filepathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(update()));
+    connect(raceStartLineEdit, SIGNAL(textChanged(QString)), this, SLOT(update()));
 
     real_paswd = "";
 }
@@ -124,6 +126,12 @@ void Settings::setFilepath(const QString & str)
     filepathLineEdit->setText(str);
 }
 
+void Settings::setStartTime(int secs)
+{
+    start_time = secs;
+    raceStartLineEdit->setText(convertTimeToStr(start_time));
+}
+
 void Settings::save()
 {
     back_up.headline = headline;
@@ -131,6 +139,7 @@ void Settings::save()
     back_up.race_length = race_length;
     back_up.round_addition_limit = round_addition_limit;
     back_up.filepath = filepath;
+    back_up.start_time = start_time;
 }
 
 void Settings::keyReleaseEvent(QKeyEvent *event)
@@ -149,12 +158,14 @@ void Settings::keyReleaseEvent(QKeyEvent *event)
 void Settings::accept()
 {
     // check validity + ? running - what can be changed and what can´t !
+
     if (passwordLineEdit->text() != real_paswd) {
         headline = back_up.headline;
         teams_count = back_up.teams_count;
         race_length = back_up.race_length;
         round_addition_limit = back_up.round_addition_limit;
         filepath = back_up.filepath;
+        start_time = back_up.start_time;
         this->close();
     }
 
@@ -170,6 +181,7 @@ void Settings::accept()
     back_up.race_length = race_length;
     back_up.round_addition_limit = round_addition_limit;
     back_up.filepath = filepath;
+    back_up.start_time = start_time;
 
     passwordLineEdit->clear();
 
@@ -185,6 +197,7 @@ void Settings::reject()
     race_length = back_up.race_length;
     round_addition_limit = back_up.round_addition_limit;
     filepath = back_up.filepath;
+    start_time = back_up.start_time;
 
     this->close();
 }
@@ -196,4 +209,5 @@ void Settings::update()
     race_length = convertTimeToInt(raceLengthLineEdit->text());
     round_addition_limit = convertTimeToInt(roundAdditionLimitLineEdit->text());
     filepath = filepathLineEdit->text();
+    start_time = convertTimeToInt(raceStartLineEdit->text());
 }

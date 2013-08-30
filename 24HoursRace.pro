@@ -9,7 +9,7 @@ QT += core gui xml
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = 24HoursRace
 TEMPLATE = app
-
+DEFINES += NOMINMAX
 SOURCES += main.cpp\
     teammanager.cpp \
     mainwindow.cpp \
@@ -17,13 +17,13 @@ SOURCES += main.cpp\
     resultprinter.cpp \
     bestroundbar.cpp \
     cmdlinebar.cpp \
-    barcodehandler.cpp \
     team.cpp \
     timebar.cpp \
     lastroundbar.cpp \
     settings.cpp \
     teameditdialog.cpp \
-    printdialog.cpp
+    printdialog.cpp \
+    about.cpp
 
 HEADERS  += teammanager.h \
     mainwindow.h \
@@ -31,13 +31,13 @@ HEADERS  += teammanager.h \
     resultprinter.h \
     bestroundbar.h \
     cmdlinebar.h \
-    barcodehandler.h \
     team.h \
     timebar.h \
     lastroundbar.h \
     settings.h \
     teameditdialog.h \
-    printdialog.h
+    printdialog.h \
+    about.h
 
 FORMS    += mainwindow.ui \
     timebar.ui \
@@ -46,9 +46,8 @@ FORMS    += mainwindow.ui \
     lastroundbar.ui \
     settings.ui \
     teameditdialog.ui \
-    printdialog.ui
+    printdialog.ui \
+    about.ui
 
 RESOURCES += \
     recources.qrc
-
-LIBS    += -lsetupapi

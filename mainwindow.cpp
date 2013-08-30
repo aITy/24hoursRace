@@ -8,9 +8,7 @@
 #include "bestroundbar.h"
 #include "lastroundbar.h"
 #include "settings.h"
-#include "teameditdialog.h"
 #include "printdialog.h"
-#include "barcodehandler.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -43,8 +41,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(actionBestByTimeDesc, SIGNAL(triggered()), this, SLOT(printBestByTimeDesc()));
     connect(actionBestByTimeAsc, SIGNAL(triggered()), this, SLOT(printBestByTimeAsc()));
 
-    connect(actionPrintByRounds, SIGNAL(triggered()), this, SLOT(printByRounds()));
-    connect(actionPrintByTeam, SIGNAL(triggered()), this, SLOT(printByTeam()));
+    connect(action_PrintByRounds, SIGNAL(triggered()), this, SLOT(printByRounds()));
+    connect(action_PrintByTeam, SIGNAL(triggered()), this, SLOT(printByTeam()));
     connect(action_Print, SIGNAL(triggered()), this, SLOT(printDialogShow()));
 
     connect(actionXmlExport, SIGNAL(triggered()), this, SLOT(xmlexport()));
@@ -58,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     bestround_bar = new BestRoundBar();
     lastround_bar = new LastRoundBar();
     settings = new Settings();
-    barcode_handler = new BarCodeHandler();
+    //barcode_handler = new BarCodeHandler();
 
     timebar->showTime();
 
@@ -69,17 +67,19 @@ MainWindow::MainWindow(QWidget *parent) :
     middleLayout->addWidget(timebar);
     middleLayout->addWidget(bestround_bar);
     middleLayout->addWidget(lastround_bar);
+    middleLayout->addSpacerItem(new QSpacerItem(1,1, QSizePolicy::Fixed, QSizePolicy::Expanding));
     middleLayout->addWidget(cmdline);
 
+    state = SORTBYROUNDSDESC;
     layoutBoard(settings->getTeamsCount());
+    headline->setText(settings->getHeadline());
 
     file = "db.xml";
 
-    state = SORTBYROUNDSDESC;
-    setFocus();
-
     running = false;
     loaded = false;
+
+    InitRawInput((HWND)this->effectiveWinId());
 
 }
 
@@ -112,15 +112,15 @@ void MainWindow::reconstructTimeBar(int total_ms, int curr_ms)
 void MainWindow::updateOrder()
 {
     QList<Team *> teams_ptr = manager->getTeams();
-    qDebug() << (int)state;
+    //qDebug() << (int)state;
 
     if (state == SORTBYROUNDSDESC || state == SORTBYROUNDSASC) {
-        label_RoundLeft->setText(trUtf8("Počet kol"));
-        label_RoundRight->setText(trUtf8("Počet kol"));
+        label_RoundLeft->setText(trUtf8("Kol"));
+        label_RoundRight->setText(trUtf8("Kol"));
         for(int i = 0;i < label_rounds.count(); i++) {
-            label_RoundLeft->setMaximumWidth(60);
-            label_RoundRight->setMaximumWidth(60);
-            label_rounds.at(i)->setMaximumWidth(60);
+            label_RoundLeft->setMaximumWidth(80);
+            label_RoundRight->setMaximumWidth(80);
+            label_rounds.at(i)->setMaximumWidth(80);
         }
     }
     else {
@@ -173,6 +173,55 @@ void MainWindow::clearLayout(QLayout* layout, bool deleteWidgets)
     }
 }
 
+QList<int> MainWindow::fixBarcode(QList<int> barcode)
+{
+    QList<int>ret;
+/*
+    int size = barcode.count();
+
+    QList<bool> duplicated;
+    for(int i = 0; i < barcode.size(); i++) {
+        if (barcode.size() - 1 == i) {
+            duplicated.append(false);
+            break;
+        }
+        if (barcode.at(i) == barcode.at(i + 1)) {
+            if (i > 0 && barcode.at(i-1) == barcode.at(i+1)) {
+                duplicated.append(false);
+                duplicated.replace(i-1, true);
+            }
+            else {
+                duplicated.append(true);
+            }
+        }
+        else {
+            duplicated.append(false);
+        }
+    }
+    qDebug() << duplicated;
+
+    int is_it_duplicated = 0;
+    for (int i = 0; i < duplicated.size(); i++) {
+        if (duplicated.at(i) == true) {
+            is_it_duplicated += 1;
+        }
+    }
+    if (is_it_duplicated == barcode.size()/2) {
+    */
+        for(int i = 0; i < barcode.count(); i++) {
+            if (i%2 == 0) {
+                ret.append(barcode.at(i));
+            }
+        }
+        /*
+        return ret;
+    } else {
+        return barcode;
+    }*/
+    return ret;
+
+}
+
 void MainWindow::layoutBoard(int team_count)
 {
     if (label_names.count() != 0) {
@@ -187,7 +236,8 @@ void MainWindow::layoutBoard(int team_count)
         label_names.append(new QLabel());
         label_rounds.append(new QLabel());
         label_ranks.append(new QLabel());
-        label_rounds.last()->setMaximumWidth(60);
+        label_rounds.last()->setMaximumWidth(80);
+        //label_rounds.last()->setStyleSheet("background-color: rgb(255, 204, 1);");
         label_names.last()->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
         label_names.last()->setFont(QFont("Radio Space", 14));
         label_names.last()->setAlignment(Qt::AlignCenter);
@@ -196,12 +246,12 @@ void MainWindow::layoutBoard(int team_count)
         label_rounds.last()->setAlignment(Qt::AlignCenter);
         if(i%2 == 0){
             // set gray background
-            label_ranks.last()->setStyleSheet("background-color:gray;");
-            label_names.last()->setStyleSheet("background-color:gray;");
-            label_rounds.last()->setStyleSheet("background-color:gray;");
+            label_ranks.last()->setStyleSheet("background-color:rgb(255, 204, 1);");
+            label_names.last()->setStyleSheet("background-color:rgb(197, 195, 196);");
+            label_rounds.last()->setStyleSheet("background-color:rgb(197, 195, 196);");
         }
         else{
-            label_ranks.last()->setStyleSheet("background-color:white;");
+            label_ranks.last()->setStyleSheet("background-color: rgb(255, 204, 1);");
             label_names.last()->setStyleSheet("background-color:white;");
             label_rounds.last()->setStyleSheet("background-color:white;");
         }
@@ -262,10 +312,94 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 
 }
 
+void MainWindow::InitRawInput(HWND hWnd) {
+    //Q_UNUSED(hWnd);
+    RAWINPUTDEVICE Rid[1];
+    Rid[0].usUsagePage = 0x01;
+    //Rid[0].usUsage = 0x06;
+    Rid[0].usUsage = 0x00;
+    Rid[0].dwFlags = RIDEV_PAGEONLY;
+    Rid[0].hwndTarget = hWnd;
+    //Rid[0].hwndTarget = 0;
+    if (RegisterRawInputDevices(Rid, 1, sizeof(Rid[0])) == false) {
+        setStatusMsg("Device registration failed");
+        qDebug() << "Device registration failed";
+    }
+
+}
+
+bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+    Q_UNUSED(eventType);
+    MSG *msg = reinterpret_cast<MSG*>(message);
+    LPARAM lParam = msg->lParam;
+    LPBYTE lpb;
+    UINT dwSize;
+    RAWINPUT *raw;
+    if (msg->message == WM_INPUT) {
+        GetRawInputData((HRAWINPUT)lParam, RID_INPUT, NULL, &dwSize, sizeof(RAWINPUTHEADER));
+        lpb = new BYTE[dwSize];
+        if (lpb == NULL)
+            return 0;
+
+        if (GetRawInputData((HRAWINPUT)lParam, RID_INPUT, lpb, &dwSize, sizeof(RAWINPUTHEADER)) != dwSize) {
+            setStatusMsg("GetRawInputData doesn´t return correct size");
+        }
+
+        raw = (RAWINPUT*) lpb;
+        UINT size = 256;
+        TCHAR tBuffer[256] = {0};
+        if (GetRawInputDeviceInfo(raw->header.hDevice, RIDI_DEVICENAME, tBuffer, &size) < 0) {
+            setStatusMsg("GetRawInputDeviceInfo error - RIDI_DEVICENAME");
+        }
+        RID_DEVICE_INFO rdi;
+        rdi.cbSize = sizeof(RID_DEVICE_INFO);
+        UINT cbSize = rdi.cbSize;
+        if (GetRawInputDeviceInfo(raw->header.hDevice, RIDI_DEVICEINFO, &rdi, &cbSize) < 0) {
+            setStatusMsg("GetRawInputDeviceInfo error - RIDI_DEVICEINFO");
+        }
+
+        if (rdi.keyboard.dwNumberOfKeysTotal == 264) {
+            if (raw->header.dwType == RIM_TYPEKEYBOARD) {
+                if (raw->data.keyboard.Message = WM_KEYUP || raw->data.keyboard.Message == WM_SYSKEYUP) {
+                    USHORT usKey = raw->data.keyboard.VKey;
+                    //qDebug() << usKey;
+                    if (usKey >= 48 && usKey <= 57) {
+                        scanned_barcode.append((int)usKey - 48);
+                    }
+                    if (usKey == 13) {
+                        if (scanned_barcode.count() >= 0) {
+
+                            scanned_barcode = fixBarcode(scanned_barcode);
+                            if(timebar->isRunning()) {
+                                manager->addRound(scanned_barcode);
+                            }
+                            scanned_barcode.clear();
+                        }
+                    }
+                }
+            }
+            result = 0;
+            msg = 0;
+
+            // ?
+            //delete lpb;
+
+            return true;
+        }
+        delete lpb;
+
+    }
+    return QMainWindow::nativeEvent(eventType, msg, result);
+}
+
+
 void MainWindow::run()
 {
-    if (manager->getTeams().size() == 0 && !timebar->isRunning() && !running)
+    if (manager->getTeams().size() == 0 && !timebar->isRunning() && !running) {
+        this->setStatusMsg("Pro start zavodu nejdrive pridejte alespon jeden tým!");
         return;
+    }
 
     time_to_start = new QTimer(this);
     time_to_start->setSingleShot(true);
@@ -273,16 +407,23 @@ void MainWindow::run()
 
     QTime time = QTime::currentTime();
     QTime to_start = QTime();
-    to_start.setHMS(16, 00, 00);
+    int ms = settings->getStartTime();
+    int hours = ms / (1000*60*60);
+    int minutes = (ms % (1000*60*60)) / (1000*60);
+    int seconds = ((ms % (1000*60*60)) % (1000*60)) / 1000;
+    to_start.setHMS(hours, minutes, seconds);
+    qDebug() << to_start;
 
     if (!loaded) {
         time_to_start->setInterval(time.secsTo(to_start) * 1000);
+        time_to_start->start();
     }
     else {
-        QTime curr_time = timebar->getTime();
-
+        int ms = (24 * 3600 + time.secsTo(to_start)) * 1000;
+        timebar->shiftTimer(ms);
+        timebar->run();
     }
-    time_to_start->start();
+
     running = true;
 }
 
@@ -398,13 +539,14 @@ void MainWindow::raceLengthChanged()
 
 void MainWindow::headlineChanged()
 {
-
+    headline->setText(settings->getHeadline());
 }
 
 void MainWindow::teamEdit()
 {
-    TeamEditDialog *dialog = new TeamEditDialog(manager);
-    dialog->show();
+    team_dialog = new TeamEditDialog(manager);
+    //InitRawInput((HWND)team_dialog->effectiveWinId());
+    team_dialog->show();
 }
 
 void MainWindow::save()
@@ -446,7 +588,8 @@ void MainWindow::openFromFile()
         setStatusMsg("error");
         return;
     }
-    loaded = true;
+    if (timebar->getCurrentTime() != timebar->getTotalTime())
+        loaded = true;
     updateOrder();
     save();
 }
@@ -489,6 +632,7 @@ void MainWindow::xmlimport()
         return;
     }
     updateOrder();
-    loaded = true;
+    if (timebar->getCurrentTime() != timebar->getTotalTime())
+        loaded = true;
 
 }

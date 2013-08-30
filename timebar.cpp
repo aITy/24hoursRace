@@ -78,6 +78,7 @@ void TimeBar::showTime()
         if (ms <=0) //If timeout
         {
             countdown->stop(); //Stop the timer
+            running = false;
             MainWindow::getInstance()->setStatusMsg("konec timeoutu");
 
         }
@@ -85,6 +86,7 @@ void TimeBar::showTime()
     else
     {
         countdown->stop(); //Stop the timer
+        running = false;
         MainWindow::getInstance()->setStatusMsg("konec timeoutu");
     }
 }
